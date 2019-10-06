@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <aop:aspectj-autoproxy />
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="messages" />
+    </bean>
+
+    <!--batis-->  
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="mapperLocations" value="classpath:/mappers/*.xml" />
+    </bean>
+
+    <bean abstract="true" id="dao2" class="org.mybatis.spring.support.SqlSessionDaoSupport">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean> 
+
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" 
+            value="om.microsoft.sqlserver.jdbc.SQLServerDriver" />
+        <property name="url" 
+            value="jdbc:sqlserver://localhost;databaseName=pharmacy" />
+    </bean>
+    
+    <!-- MS_SERVER
+    <property name="driverClassName" value="net.sourceforge.jtds.jdbc.Driver" />
+        <property name="url" 
+            value="jdbc:jtds:sqlserver://MS_SERVER/pharmacy;integrated security=false" />
+    
+    jdbc:sqlserver://localhost;databaseName=springbootdb
+    spring.datasource.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
+    
+    DESKTOP-GLP89SN/SQLEXPRESS
+    
+    bean id="dataSource"
+        class="org.apache.commons.dbcp2.BasicDataSource"
+        destroy-method="close">
+        <property name="driverClassName"
+            value="org.apache.derby.jdbc.EmbeddedDriver" />
+        <property name="url" value="jdbc:derby:pharmacy;create=true" />
+    </bean-->
+
+    <!--  bean id="liquibase"
+        class="liquibase.integration.spring.SpringLiquibase">
+        <property name="dataSource" ref="dataSource" />
+        <property name="changeLog"
+            value="classpath:db-changelog.xml" />
+    </bean-->
+
+    <bean id="transactionManager"
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <tx:advice id="txAdvice"
+        transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="*" propagation="REQUIRED"
+                isolation="READ_COMMITTED"
+                rollback-for="java.lang.Throwable" />
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config proxy-target-class="true">
+        <aop:pointcut id="transactionOperation" expression="execution(* treasureChest.service..*ServiceImpl.*(..))" />
+        <aop:advisor pointcut-ref="transactionOperation" advice-ref="txAdvice" />
+    </aop:config>
+
+    <!--batis 
+    <bean id="authorDao" class="treasureChest.dao.mybatis.AuthorMapper" parent="dao2" />
+    
+    <bean id="authorService" class="treasureChest.service.AuthorServiceImpl">
+        <property name="authorDao" ref="authorDao" />
+    </bean>
+    
+    <bean id="filmDao" class="treasureChest.dao.mybatis.FilmMapper" parent="dao2" />
+    
+    <bean id="filmService" class="treasureChest.service.FilmServiceImpl">
+        <property name="filmDao" ref="filmDao" />
+    </bean>
+    
+    <bean id="bookDao" class="treasureChest.dao.mybatis.BookMapper" parent="dao2" />
+    
+    <bean id="bookService" class="treasureChest.service.BookServiceImpl">
+        <property name="bookDao" ref="bookDao" />
+    </bean>
+    
+    <bean id="mangaDao" class="treasureChest.dao.mybatis.MangaMapper" parent="dao2" />
+    
+    <bean id="mangaService" class="treasureChest.service.MangaServiceImpl">
+        <property name="mangaDao" ref="mangaDao" />
+    </bean>
+    
+    <bean id="ranobeDao" class="treasureChest.dao.mybatis.RanobeMapper" parent="dao2" />
+    
+    <bean id="ranobeService" class="treasureChest.service.RanobeServiceImpl">
+        <property name="ranobeDao" ref="ranobeDao" />
+    </bean>
+    
+    <bean id="serialDao" class="treasureChest.dao.mybatis.SerialMapper" parent="dao2" />
+    
+    <bean id="serialService" class="treasureChest.service.SerialServiceImpl">
+        <property name="serialDao" ref="serialDao" />
+    </bean>
+    
+    <bean id="searchService" class="treasureChest.service.SearchService" />
+    
+    <bean id="save" class="treasureChest.service.Save">
+        <property name="authorDao" ref="authorDao" />
+        <property name="serialDao" ref="serialDao" />
+        <property name="ranobeDao" ref="ranobeDao" />
+        <property name="mangaDao" ref="mangaDao" />
+        <property name="bookDao" ref="bookDao" />
+        <property name="filmDao" ref="filmDao" />
+    </bean>
+-->
+</beans>

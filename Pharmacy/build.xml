@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="pharmacy" default="all">
+
+    <path id="compile.classpath">
+        <fileset dir="web/WEB-INF/lib">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+
+    <!-- ==================== Recompile and war ==================== -->
+    <target name="all" depends="clean, war" />
+
+    <!-- ==================== Clean ==================== -->
+    <target name="clean">
+        <delete dir=".dist" />
+        <delete dir=".build" />
+        <delete dir=".reports" />
+    </target>
+
+    <!-- ==================== Init ==================== -->
+    <target name="init">
+        <mkdir dir=".build" />
+        <copy todir=".build">
+            <fileset dir="web" />
+        </copy>
+    </target>
+
+    <!-- ==================== Compile ==================== -->
+    <target name="compile" depends="init">
+        <javac srcdir="src"
+               classpathref="compile.classpath"
+               destdir=".build/WEB-INF/classes"
+               debug="true"
+               includeantruntime="false"/>
+    </target>
+
+    <!-- ==================== War ==================== -->
+    <target name="war" depends="compile">
+        <mkdir dir=".dist" />
+        <war destfile=".dist/${ant.project.name}.war" basedir=".build" />
+    </target>
+
+    <!--======================== PMD ============================ -->
+    <target name="pmd">
+        <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask">
+            <classpath>
+                <fileset dir="${basedir}/tools/pmd-bin-6.13.0/lib">
+                    <include name="*.jar" />
+                </fileset>
+            </classpath>
+        </taskdef>
+
+        <mkdir dir=".reports" />
+
+        <pmd shortFilenames="true">
+            <formatter type="html" toFile=".reports/pmd_report.html" toConsole="true" />
+            <ruleset>rulesets/java/design.xml</ruleset>
+            <ruleset>java-basic</ruleset>
+            <fileset dir="${basedir}">
+                <include name="**/*.java" />
+            </fileset>
+        </pmd>
+    </target>
+
+    <!-- ==================== Checkstyle Target =============================== -->
+    <target name="checkstyle"
+            description="Generates a report of code convention violations.">
+
+        <!--taskdef resource="checkstyletask.properties" classpath="tools/checkstyle-5.3-all.jar"/-->
+        <taskdef resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-ant-task.properties"
+                 classpath="tools/checkstyle-8.22-all.jar" />
+
+        <mkdir dir=".reports" />
+
+        <checkstyle config="config/sun_checks.xml"
+                    failureProperty="checkstyle.failure"
+                    failOnViolation="false">
+            <formatter type="xml" tofile=".reports/checkstyle_report.xml" />
+            <fileset dir="src" includes="**/*.java" />
+            <classpath refid="compile.classpath" />
+        </checkstyle>
+
+        <xslt style="config/checkstyle.xsl"
+              in=".reports/checkstyle_report.xml"
+              out=".reports/checkstyle_report.html" />
+    </target>
+
+</project>
