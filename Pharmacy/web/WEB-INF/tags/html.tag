@@ -1,9 +1,9 @@
-<%@ tag language="java"%>
+<%@ tag language="java" %>
 <%@ attribute name="thema" type="java.lang.String"%>
 <%@ attribute name="title" type="java.lang.String"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
-<html lang="ru">
+<html>
 <head>
 <link rel="stylesheet"
 	href="css/bootstrap${empty thema ? '' : '-'.concat(thema)}.min.css">
@@ -12,11 +12,10 @@
 <body>
 	<!-- LOGO -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-		<a class="navbar-brand" href="index.html" style="font-size: 250%;"><img
-			src="resources/mainSite/Logo.png" height="64" width="56">
-			Аптека </a>
-		<!--<button class="navbar-toggler" aria-expanded="false" aria-controls="navbarColor01" aria-label="Toggle navigation" 
-        type="button" data-target="#navbarColor01" data-toggle="collapse"></button>-->
+		<a class="navbar-brand" href="index.html" style="font-size: 250%; color: #1b8e99;"><img
+			src="resources/mainSite/LogoPharmacy.png" height="64" width="56">
+			Pharmacy </a>
+		<!-- Logo -->
 
 		<!-- Search -->
 		<c:url value="/find.html" var="href" />
@@ -24,7 +23,7 @@
 			<input class="form-control mr-sm-2" type="search" name="findName"
 				placeholder="Enter name" aria-label="product search">
 			<button class="btn btn-success my-2 my-sm-0" type="submit">
-				Поиск <img src="resources/mainSite/Srch.png" height="15" width="15">
+				Search <img src="resources/mainSite/Srch.png" height="15" width="15">
 			</button>
 			<!--  type="button" -->
 		</form>
