@@ -3,7 +3,7 @@
 <%@ attribute name="title" type="java.lang.String"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
 <link rel="stylesheet"
 	href="css/bootstrap${empty thema ? '' : '-'.concat(thema)}.min.css">
