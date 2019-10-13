@@ -82,6 +82,12 @@
     <bean id="positionService" class="pharmacy.service.PositionService">
         <property name="positionDao" ref="positionDao" />
     </bean>
+    
+    <bean id="clientDao" class="pharmacy.dao.mybatis.ClientMapper" parent="dao2" />
+    
+    <bean id="clientService" class="pharmacy.service.ClientService">
+        <property name="clientDao" ref="clientDao" />
+    </bean>
 
     <!--batis 
     <bean id="authorDao" class="treasureChest.dao.mybatis.AuthorMapper" parent="dao2" />

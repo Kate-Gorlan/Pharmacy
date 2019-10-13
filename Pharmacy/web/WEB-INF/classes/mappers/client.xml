@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pharmacy.dao.ClientDao">
+
+    <resultMap id="Client" type="pharmacy.entity.Client">
+        <id column="client_id" property="id" />
+        <result column="client_full_name" property="fullName" />
+        <result column="client_age" property="age" />
+        <result column="client_address" property="address" />
+        <result column="client_phone" property="phone" />
+    </resultMap>
+
+    <insert id="create">
+        INSERT INTO client (client_full_name, client_age, client_address, client_phone)
+            VALUES (#{fullName}, #{age}, #{address}, #{phone})
+    </insert>
+
+    <select id="read" parameterType="java.lang.Long" resultMap="Client">
+        SELECT *
+        FROM client a
+        WHERE a.client_id = #{id}
+    </select>
+
+    <update id="update" parameterType="pharmacy.entity.Client">
+        UPDATE client SET 
+        client_full_name = #{fullName},
+        client_age = #{age},
+        client_address = #{address},
+        client_phone = #{phone}
+        WHERE client_id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM client WHERE client_id = #{id}
+    </delete>
+
+    <select id="findById" parameterType="java.lang.Long" resultMap = "Client">
+        SELECT * FROM client WHERE client_id = #{id}
+    </select>
+    
+    <select id="findAll" resultMap = "Client" >
+        SELECT * 
+        FROM client 
+    </select>
+
+</mapper>

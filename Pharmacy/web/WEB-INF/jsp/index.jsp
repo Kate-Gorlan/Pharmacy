@@ -23,5 +23,9 @@
         </c:if>
 </div>
 
+<div class="bottom">
+    <a href="clients.html" style="font-size: 130%; width: 300px;" class="btn btn-primary">CLIENTS</a>
+</div>
+
 </body>
 </ui:html>
