@@ -1,11 +1,11 @@
 package pharmacy.dao;
 
 public interface CrudDao<ID, T> extends Dao<T> {
-    void create(T o);
+    void create(T obj);
 
     T read(ID id);
 
-    void update(T o);
+    void update(T obj);
 
     void delete(ID id);
 }

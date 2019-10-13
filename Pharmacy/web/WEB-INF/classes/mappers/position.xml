@@ -20,7 +20,7 @@
         WHERE a.position_id = #{id}
     </select>
 
-    <update id="update" parameterType="treasureChest.entity.Position">
+    <update id="update" parameterType="pharmacy.entity.Position">
         UPDATE position SET 
         position_title = #{title}
         WHERE position_id = #{id}

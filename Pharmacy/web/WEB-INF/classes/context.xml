@@ -77,6 +77,12 @@
         <aop:advisor pointcut-ref="transactionOperation" advice-ref="txAdvice" />
     </aop:config>
 
+    <bean id="positionDao" class="pharmacy.dao.mybatis.PositionMapper" parent="dao2" />
+    
+    <bean id="positionService" class="pharmacy.service.PositionService">
+        <property name="positionDao" ref="positionDao" />
+    </bean>
+
     <!--batis 
     <bean id="authorDao" class="treasureChest.dao.mybatis.AuthorMapper" parent="dao2" />
     
