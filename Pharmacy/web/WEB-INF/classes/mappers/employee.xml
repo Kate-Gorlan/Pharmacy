@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pharmacy.dao.EmployeeDao">
+
+    <resultMap id="Employee" type="pharmacy.entity.Employee">
+        <id column="employee_id" property="id" />
+        <result column="employee_full_name" property="fullName" />
+        <result column="employee_pass" property="password" />
+        <association property="position" resultMap="Position" />
+    </resultMap>
+    
+    <resultMap id="Position" type="pharmacy.entity.Position">
+        <id column="position_id" property="id" />
+        <result column="position_title" property="title" />
+    </resultMap>
+
+    <insert id="create">
+        INSERT INTO employee (position_id, employee_full_name, employee_pass) VALUES (
+            (SELECT position_id FROM position WHERE position_title = #{position.title}), #{fullName}, #{password})
+    </insert>
+
+    <select id="read" parameterType="java.lang.Long" resultMap="Employee">
+        SELECT 
+            e.employee_id,
+            e.employee_full_name,
+            e.employee_pass,
+            p.position_id,
+            p.position_title
+        FROM employee e JOIN position p ON e.position_id = p.position_id WHERE e.employee_id = #{id}
+    </select>
+
+    <update id="update" parameterType="pharmacy.entity.Employee">
+        UPDATE employee SET 
+        employee_full_name = #{fullName},
+        employee_pass = #{password},
+        position_id = (SELECT position_id FROM position WHERE position_title = #{position.title})
+        WHERE employee_id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM employee WHERE employee_id = #{id}
+    </delete>
+    
+    <select id="findAll" resultMap = "Employee" >
+        SELECT 
+            e.employee_id,
+            e.employee_full_name,
+            e.employee_pass,
+            p.position_id,
+            p.position_title
+        FROM employee e JOIN position p ON e.position_id = p.position_id 
+    </select>
+
+</mapper>
