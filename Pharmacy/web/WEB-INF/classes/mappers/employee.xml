@@ -33,9 +33,9 @@
 
     <update id="update" parameterType="pharmacy.entity.Employee">
         UPDATE employee SET 
+        position_id = (SELECT position_id FROM position WHERE position_title = #{position.title}),
         employee_full_name = #{fullName},
-        employee_pass = #{password},
-        position_id = (SELECT position_id FROM position WHERE position_title = #{position.title})
+        employee_pass = #{password}
         WHERE employee_id = #{id}
     </update>
 
@@ -61,7 +61,7 @@
             p.position_id,
             p.position_title
         FROM employee e JOIN position p ON e.position_id = p.position_id 
-        WHERE position_title = #{title}
+        WHERE p.position_title = #{title}
     </select>
 
 </mapper>
