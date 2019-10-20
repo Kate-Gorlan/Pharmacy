@@ -52,5 +52,16 @@
             p.position_title
         FROM employee e JOIN position p ON e.position_id = p.position_id 
     </select>
+    
+    <select id="findByName" parameterType="java.lang.String" resultMap = "Employee">
+        SELECT 
+            e.employee_id,
+            e.employee_full_name,
+            e.employee_pass,
+            p.position_id,
+            p.position_title
+        FROM employee e JOIN position p ON e.position_id = p.position_id 
+        WHERE position_title = #{title}
+    </select>
 
 </mapper>
