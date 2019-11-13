@@ -4,7 +4,7 @@
 <!doctype html>
 <html>
 <head>
-<link rel="stylesheet" href="css/bootstrap-sketchy.min.css">
+<link rel="stylesheet" href="css/bootstrap-flatly.min.css">
 <title>Добавление клиента</title>
 </head>
 <meta charset="utf-8"/>

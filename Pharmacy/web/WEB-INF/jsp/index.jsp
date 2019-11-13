@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="ui"%>
 
-<ui:html title="Главная страница" thema="sketchy">
+<ui:html title="Главная страница" thema="flatly">
 <body style="width:100%;height:100%;">
 
 <div style="width: 85%; overflow:auto; overflow-x:hidden;">
@@ -24,7 +24,7 @@
 </div>
 
 <div class="bottom">
-    <a href="clients.html" style="font-size: 130%; width: 300px;" class="btn btn-primary">CLIENTS</a>
+    <a href="clients.html" style="font-size: 130%; width: 300px;" class="btn btn-success">Клиенты</a>
 </div>
 
 </body>

@@ -11,9 +11,9 @@
 </head>
 <body>
 	<!-- LOGO -->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-		<a class="navbar-brand" href="index.html" style="font-size: 250%; color: #1b8e99;"><img
-			src="resources/mainSite/LogoPharmacy.png" height="64" width="56">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="index.html" style="font-size: 200%; color: white;"><img
+			src="resources/mainSite/Logo1.png" height="56" width="56">
 			Pharmacy </a>
 		<!-- Logo -->
 
@@ -22,7 +22,8 @@
 		<form class="form-inline my-2 my-lg-0" action="${href}" method="POST">
 			<input class="form-control mr-sm-2" type="search" name="findName"
 				placeholder="Enter name" aria-label="product search">
-			<button class="btn btn-success my-2 my-sm-0" type="submit">
+				<!--  disabled -->
+			<button class="btn btn-info my-2 my-sm-0" type="submit">
 				Search <img src="resources/mainSite/Srch.png" height="15" width="15">
 			</button>
 			<!--  type="button" -->
