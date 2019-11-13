@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pharmacy.dao.OrderMedicamentDao">
+
+    <resultMap id="OrderMedicament" type="pharmacy.entity.OrderMedicament">
+        <id column="order_medicament_id" property="id" />
+        <association property="medicament" resultMap="Medicament" />
+        <association property="order" resultMap="Order" />
+    </resultMap>
+
+    <resultMap id="Medicament" type="pharmacy.entity.Medicament">
+        <id column="medicament_id" property="id" />
+        <result column="medicament_name" property="name" />
+        <result column="mode_of_application" property="modeOfApplication" />
+        <result column="medicament_type" property="type" />
+        <result column="availability_of_prescription" property="availabilityOfPrescription" />
+        <result column="manufacturability" property="manufacturability" />
+    </resultMap>
+
+    <resultMap id="Order" type="pharmacy.entity.Order">
+        <id column="order_id" property="id" />
+        <result column="order_date" property="date" />
+        <association property="employee" resultMap="Employee" />
+    </resultMap>
+    
+    <resultMap id="Employee" type="pharmacy.entity.Employee">
+        <id column="employee_id" property="id" />
+        <result column="employee_full_name" property="fullName" />
+        <result column="employee_pass" property="password" />
+        <association property="position" resultMap="Position" />
+    </resultMap>
+    
+    <resultMap id="Position" type="pharmacy.entity.Position">
+        <id column="position_id" property="id" />
+        <result column="position_title" property="title" />
+    </resultMap>
+
+    <insert id="create">
+        INSERT INTO order_medicament (medicament_id, order_id) VALUES (
+            (SELECT medicament_id FROM medicament WHERE medicament_id = #{medicament.id}),
+            (SELECT order_id FROM order WHERE order_id = #{order.id})
+            )
+    </insert>
+
+    <select id="read" parameterType="java.lang.Long" resultMap="OrderMedicament">
+        SELECT 
+            om.order_medicament_id,
+            m.*,
+            e.employee_id,
+            e.employee_full_name,
+            o.order_id,
+            o.order_date
+        FROM order_medicament om 
+        JOIN medicament m ON om.medicament_id = m.medicament_id 
+        JOIN order o ON po.order_id = o.order_id 
+        JOIN employee e ON e.employee_id = po.employeee_cooking_id 
+        WHERE om.order_medicament_id = #{id}
+    </select>
+
+    <update id="update" parameterType="pharmacy.entity.OrderMedicament">
+        UPDATE order_medicament SET 
+        medicament_id = (SELECT medicament_id FROM medicament WHERE medicament_id = #{medicament.id}),
+        order_id = (SELECT order_id FROM order WHERE order_id = #{order.id})
+        WHERE order_medicament_id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM order_medicament WHERE order_medicament_id = #{id}
+    </delete>
+    
+    <select id="findAll" resultMap = "OrderMedicament" >
+        SELECT 
+            om.order_medicament_id,
+            m.*,
+            e.employee_id,
+            e.employee_full_name,
+            o.order_id,
+            o.order_date
+        FROM order_medicament om 
+        JOIN medicament m ON om.medicament_id = m.medicament_id 
+        JOIN order o ON po.order_id = o.order_id 
+        JOIN employee e ON e.employee_id = po.employeee_cooking_id
+    </select>
+    
+</mapper>
