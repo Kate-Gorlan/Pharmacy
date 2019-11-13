@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pharmacy.dao.MedicamentDao">
+
+    <resultMap id="Medicament" type="pharmacy.entity.Medicament">
+        <id column="medicament_id" property="id" />
+        <result column="medicament_name" property="name" />
+        <result column="mode_of_application" property="modeOfApplication" />
+        <result column="medicament_type" property="type" />
+        <result column="availability_of_prescription" property="availabilityOfPrescription" />
+        <result column="manufacturability" property="manufacturability" />
+    </resultMap>
+
+    <insert id="create">
+        INSERT INTO medicament (medicament_name, mode_of_application, medicament_type, availability_of_prescription, manufacturability) VALUES (
+        #{name}, #{modeOfApplication}, #{type}, #{availabilityOfPrescription}, #{manufacturability})
+    </insert>
+
+    <select id="read" parameterType="java.lang.Long" resultMap="Medicament">
+        SELECT 
+            m.medicament_id,
+            m.medicament_name,
+            m.mode_of_application,
+            m.medicament_type, 
+            m.availability_of_prescription,
+            m.manufacturability
+        FROM medicament m 
+        WHERE m.medicament_id = #{id}
+    </select>
+
+    <update id="update" parameterType="pharmacy.entity.Medicament">
+        UPDATE medicament SET 
+        medicament_name = #{name},
+        mode_of_application = #{modeOfApplication},
+        medicament_type = #{type},
+        availability_of_prescription = #{availabilityOfPrescription},
+        manufacturability = #{manufacturability}
+        WHERE medicament_id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM medicament WHERE medicament_id = #{id}
+    </delete>
+    
+    <select id="findAll" resultMap = "Medicament" >
+        SELECT 
+            m.medicament_id,
+            m.medicament_name,
+            m.mode_of_application,
+            m.medicament_type,
+            m.availability_of_prescription, 
+            m.manufacturability
+        FROM medicament m
+    </select>
+    
+    <select id="findByName" parameterType="java.lang.String" resultMap = "Medicament">
+        SELECT 
+            m.medicament_id,
+            m.medicament_name,
+            m.mode_of_application,
+            m.medicament_type,
+            m.availability_of_prescription, 
+            m.manufacturability
+        FROM medicament m
+        WHERE m.medicament_name = #{name}
+    </select>
+    
+    <select id="findByModOfAppl" parameterType="java.lang.String" resultMap = "Medicament">
+        SELECT 
+            m.medicament_id,
+            m.medicament_name,
+            m.mode_of_application,
+            m.medicament_type,
+            m.availability_of_prescription, 
+            m.manufacturability
+        FROM medicament m
+        WHERE m.medicament_name = #{modeOfApplication}
+    </select>
+    
+    <select id="findByType" parameterType="java.lang.String" resultMap = "Medicament">
+        SELECT 
+            m.medicament_id,
+            m.medicament_name,
+            m.mode_of_application,
+            m.medicament_type,
+            m.availability_of_prescription, 
+            m.manufacturability
+        FROM medicament m
+        WHERE m.medicament_type = #{type}
+    </select>
+    
+    <select id="findByAvailabilityOfPrescription" parameterType="java.lang.String" resultMap = "Medicament">
+        SELECT 
+            m.medicament_id,
+            m.medicament_name,
+            m.mode_of_application,
+            m.medicament_type,
+            m.availability_of_prescription, 
+            m.manufacturability
+        FROM medicament m
+        WHERE m.availability_of_prescription = #{availabilityOfPrescription}
+    </select>
+    
+    <select id="findByManufacturability" parameterType="java.lang.String" resultMap = "Medicament">
+        SELECT 
+            m.medicament_id,
+            m.medicament_name,
+            m.mode_of_application,
+            m.medicament_type,
+            m.availability_of_prescription, 
+            m.manufacturability
+        FROM medicament m
+        WHERE m.manufacturability = #{manufacturability}
+    </select>
+
+</mapper>
