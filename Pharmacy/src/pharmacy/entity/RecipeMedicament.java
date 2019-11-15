@@ -6,6 +6,7 @@ public class RecipeMedicament extends Entity {
     
     private Medicament medicament;
     private String technology;
+    private int settlingTime;
     
     public Medicament getMedicament() {
         return medicament;
@@ -18,6 +19,12 @@ public class RecipeMedicament extends Entity {
     }
     public void setTechnology(String technology) {
         this.technology = technology;
+    }
+    public int getSettlingTime() {
+        return settlingTime;
+    }
+    public void setSettlingTime(int settlingTime) {
+        this.settlingTime = settlingTime;
     }
     
 }
