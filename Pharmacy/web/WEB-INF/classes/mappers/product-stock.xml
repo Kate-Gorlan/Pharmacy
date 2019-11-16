@@ -51,7 +51,7 @@
         DELETE FROM product_stock WHERE product_stock_id = #{id}
     </delete>
     
-    <select id="findAll" resultMap = "Employee" >
+    <select id="findAll" resultMap = "ProductStock" >
         SELECT 
             ps.*,
             p.*

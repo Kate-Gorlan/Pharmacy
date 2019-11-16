@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pharmacy.dao.MedicamentStockDao">
+
+    <resultMap id="MedicamentStock" type="pharmacy.entity.MedicamentStock">
+        <id column="medicament_stock_id" property="id" />
+        <result column="medicament_quantity" property="quantity" />
+        <result column="medicament_price" property="price" />
+        <result column="medicament_shelf_life" property="shelfLife" />
+        <result column="medicament_date_of_arrival" property="dateOfArrival" />
+        <result column="medicament_critical_norm" property="criticalNorm" />
+        <association property="medicament" resultMap="Medicament" />
+    </resultMap>
+    
+    <resultMap id="Medicament" type="pharmacy.entity.Medicament">
+        <id column="medicament_id" property="id" />
+        <result column="medicament_name" property="name" />
+        <result column="mode_of_application" property="modeOfApplication" />
+        <result column="medicament_type" property="type" />
+        <result column="availability_of_prescription" property="availabilityOfPrescription" />
+        <result column="manufacturability" property="manufacturability" />
+    </resultMap>
+
+    <insert id="create">
+        INSERT INTO medicament_stock (medicament_id, medicament_quantity, medicament_price, medicament_shelf_life,
+        medicament_date_of_arrival, medicament_critical_norm) VALUES (
+            (SELECT medicament_id FROM medicament WHERE medicament_id = #{medicament.id}),
+             #{quantity}, #{price}, #{shelfLife}, #{dateOfArrival}, #{criticalNorm})
+    </insert>
+
+    <select id="read" parameterType="java.lang.Long" resultMap="MedicamentStock">
+        SELECT 
+            ps.*,
+            p.*
+        FROM medicament_stock ps
+        JOIN medicament p ON ps.medicament_id = p.medicament_id 
+        WHERE ps.medicament_stock_id = #{id}
+    </select>
+
+    <update id="update" parameterType="pharmacy.entity.MedicamentStock">
+        UPDATE medicament_stock SET 
+        medicament_id = (SELECT medicament_id FROM medicament WHERE medicament_id = #{medicament.id}),
+        medicament_quantity = #{quantity},
+        medicament_price = #{price},
+        medicament_shelf_life = #{shelfLife},
+        medicament_date_of_arrival = #{dateOfArrival},
+        medicament_critical_norm = #{criticalNorm}
+        WHERE medicament_stock_id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM medicament_stock WHERE medicament_stock_id = #{id}
+    </delete>
+    
+    <select id="findAll" resultMap = "MedicamentStock" >
+        SELECT 
+            ps.*,
+            p.*
+        FROM medicament_stock ps
+        JOIN medicament p ON ps.medicament_id = p.medicament_id
+    </select>
+   
+</mapper>
