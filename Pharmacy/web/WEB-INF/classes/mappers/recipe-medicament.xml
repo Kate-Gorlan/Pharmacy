@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pharmacy.dao.RecipeMedicamentDao">
+
+    <resultMap id="RecipeMedicament" type="pharmacy.entity.RecipeMedicament">
+        <id column="recipe_medicament_id" property="id" />
+        <result column="technology" property="technology" />
+        <result column="settling_time" property="settlingTime" />
+        <association property="medicament" resultMap="Medicament" />
+        <collection property="ingredient" javaType="List" ofType="pharmacy.entity.Ingredient">
+            <id column="ingredient_id" property="id" />
+            <result column="ingredient_quantity"  property="quantity" />
+            <result column="time_for_preparing"  property="timeForPreparing" />
+            <result column="price_of_work"  property="money" />
+            <association property="product" javaType="pharmacy.entity.Product">
+                <id column="product_id" property="id" />
+                <result column="product_name"  property="name" />
+                <result column="product_type"  property="type" />
+            </association>
+        </collection>
+    </resultMap>
+
+    <resultMap id="Medicament" type="pharmacy.entity.Medicament">
+        <id column="medicament_id" property="id" />
+        <result column="medicament_name" property="name" />
+        <result column="mode_of_application" property="modeOfApplication" />
+        <result column="medicament_type" property="type" />
+        <result column="availability_of_prescription" property="availabilityOfPrescription" />
+        <result column="manufacturability" property="manufacturability" />
+    </resultMap>
+<!--  -->
+    <insert id="create">
+        INSERT INTO recipe_medicament (medicament_id, technology, settling_time) VALUES (
+            (SELECT medicament_id FROM medicament WHERE medicament_id = #{medicament.id}),
+            #{technology}, #{settlingTime}
+            )
+    </insert>
+
+    <select id="read" parameterType="java.lang.Long" resultMap="RecipeMedicament">
+        SELECT
+            r.*,
+            m.*,
+            i.*,
+            p.*
+        FROM recipe_medicament r
+        JOIN medicament m ON r.medicament_id = m.medicament_id
+        JOIN ingredient i ON i.recipe_medicament_id = r.recipe_medicament_id
+        JOIN product p ON p.product_id = i.product_id
+        WHERE r.recipe_medicament_id = #{id}
+        ORDER BY p.product_name
+    </select>
+
+    <update id="update" parameterType="pharmacy.entity.RecipeMedicament">
+        UPDATE recipe_medicament SET 
+        medicament_id = (SELECT medicament_id FROM medicament WHERE medicament_id = #{medicament.id}),
+        technology = #{technology},
+        settling_time = #{settlingTime}
+        WHERE recipe_medicament_id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM recipe_medicament WHERE recipe_medicament_id = #{id}
+    </delete>
+    
+    <select id="findAll" resultMap = "RecipeMedicament" >
+        SELECT
+            r.*,
+            m.*,
+            i.*,
+            p.*
+        FROM recipe_medicament r
+        JOIN medicament m ON r.medicament_id = m.medicament_id
+        JOIN ingredient i ON i.recipe_medicament_id = r.recipe_medicament_id
+        JOIN product p ON p.product_id = i.product_id
+    </select>
+    
+</mapper>

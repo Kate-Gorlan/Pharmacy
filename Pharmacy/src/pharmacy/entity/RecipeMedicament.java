@@ -1,5 +1,9 @@
 package pharmacy.entity;
 
+import java.util.List;
+
+import pharmacy.entity.Ingredient;
+
 public class RecipeMedicament extends Entity {
 
     private static final long serialVersionUID = 1L;
@@ -7,6 +11,7 @@ public class RecipeMedicament extends Entity {
     private Medicament medicament;
     private String technology;
     private int settlingTime;
+    private List<Ingredient> ingredients;
     
     public Medicament getMedicament() {
         return medicament;
@@ -25,6 +30,12 @@ public class RecipeMedicament extends Entity {
     }
     public void setSettlingTime(int settlingTime) {
         this.settlingTime = settlingTime;
+    }
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
     
 }
