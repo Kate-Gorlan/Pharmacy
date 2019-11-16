@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pharmacy.dao.IngredientDao">
+    
+    <resultMap id="Ingredient" type="pharmacy.entity.Ingredient">
+            <id column="ingredient_id" property="id" />
+            <result column="ingredient_quantity"  property="quantity" />
+            <result column="time_for_preparing"  property="timeForPreparing" />
+            <result column="price_of_work"  property="money" />
+            <association property="recipeMedicament" resultMap="RecipeMedicament" />
+            <association property="product" resultMap="Position" />
+    </resultMap>
+
+    <resultMap id="Product" type="pharmacy.entity.Product">
+        <id column="product_id" property="id" />
+        <result column="product_name" property="name" />
+        <result column="product_type" property="type" />
+    </resultMap>
+
+    <resultMap id="RecipeMedicament" type="pharmacy.entity.RecipeMedicament">
+        <id column="recipe_medicament_id" property="id" />
+        <result column="technology" property="technology" />
+        <result column="settling_time" property="settlingTime" />
+        <association property="medicament" resultMap="Medicament" />
+    </resultMap>
+
+    <resultMap id="Medicament" type="pharmacy.entity.Medicament">
+        <id column="medicament_id" property="id" />
+        <result column="medicament_name" property="name" />
+        <result column="mode_of_application" property="modeOfApplication" />
+        <result column="medicament_type" property="type" />
+        <result column="availability_of_prescription" property="availabilityOfPrescription" />
+        <result column="manufacturability" property="manufacturability" />
+    </resultMap>
+
+    <insert id="create">
+        INSERT INTO ingredient 
+        (recipe_medicament_id, product_id, ingredient_quantity, time_for_preparing, price_of_work) 
+        VALUES (
+            (SELECT recipe_medicament_id FROM recipe_medicament WHERE recipe_medicament_id = #{recipeMedicament.id}), 
+            (SELECT product_id FROM product WHERE product_id = #{product.id}),
+            #{quantity}, #{timeForPreparing}, #{money})
+    </insert>
+
+    <select id="read" parameterType="java.lang.Long" resultMap="Ingredient">
+        SELECT 
+            i.*,
+            p.*,
+            rc.*,
+            m.*
+        FROM ingredient i
+        JOIN product p ON p.product_id = i.product_id 
+        JOIN recipe_medicament rc ON p.recipe_medicament_id = rc.recipe_medicament_id 
+        JOIN medicament m ON rc.medicament_id = m.medicament_id 
+        WHERE p.prescription_id = #{id}
+    </select>
+
+    <update id="update" parameterType="pharmacy.entity.Ingredient">
+        UPDATE ingredient SET 
+        recipe_medicament_id = (SELECT recipe_medicament_id FROM recipe_medicament WHERE recipe_medicament_id = #{recipeMedicament.id}),
+        product_id = (SELECT product_id FROM product WHERE product_id = #{product.id}),
+        ingredient_quantity = #{quantity},
+        time_for_preparing = #{timeForPreparing},
+        price_of_work = #{money}
+        WHERE ingredient_id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM ingredient WHERE ingredient_id = #{id}
+    </delete>
+    
+    <select id="findAll" resultMap = "Ingredient" >
+        SELECT 
+            i.*,
+            p.*,
+            rc.*,
+            m.*
+        FROM ingredient i
+        JOIN product p ON p.product_id = i.product_id 
+        JOIN recipe_medicament rc ON p.recipe_medicament_id = rc.recipe_medicament_id 
+        JOIN medicament m ON rc.medicament_id = m.medicament_id 
+    </select>
+
+</mapper>

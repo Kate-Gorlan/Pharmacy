@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pharmacy.dao.ProductStockDao">
+
+    <resultMap id="ProductStock" type="pharmacy.entity.ProductStock">
+        <id column="product_stock_id" property="id" />
+        <result column="product_quantity" property="quantity" />
+        <result column="product_price" property="price" />
+        <result column="product_shelf_life" property="shelfLife" />
+        <result column="product_date_of_arrival" property="dateOfArrival" />
+        <result column="product_critical_norm" property="criticalNorm" />
+        <association property="product" resultMap="Product" />
+    </resultMap>
+    
+    <resultMap id="Product" type="pharmacy.entity.Product">
+        <id column="product_id" property="id" />
+        <result column="product_name" property="name" />
+        <result column="product_type" property="type" />
+    </resultMap>
+
+    <insert id="create">
+        INSERT INTO product_stock (product_id, product_quantity, product_price, product_shelf_life,
+        product_date_of_arrival, product_critical_norm) VALUES (
+            (SELECT product_id FROM product WHERE product_id = #{product.id}),
+             #{quantity}, #{price}, #{shelfLife}, #{dateOfArrival}, #{criticalNorm})
+    </insert>
+
+    <select id="read" parameterType="java.lang.Long" resultMap="ProductStock">
+        SELECT 
+            ps.*,
+            p.*
+        FROM product_stock ps
+        JOIN product p ON ps.product_id = p.product_id 
+        WHERE ps.product_stock_id = #{id}
+    </select>
+
+    <update id="update" parameterType="pharmacy.entity.ProductStock">
+        UPDATE product_stock SET 
+        product_id = (SELECT product_id FROM product WHERE product_id = #{product.id}),
+        product_quantity = #{quantity},
+        product_price = #{price},
+        product_shelf_life = #{shelfLife},
+        product_date_of_arrival = #{dateOfArrival},
+        product_critical_norm = #{criticalNorm}
+        WHERE product_stock_id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM product_stock WHERE product_stock_id = #{id}
+    </delete>
+    
+    <select id="findAll" resultMap = "Employee" >
+        SELECT 
+            ps.*,
+            p.*
+        FROM product_stock ps
+        JOIN product p ON ps.product_id = p.product_id
+    </select>
+   
+</mapper>

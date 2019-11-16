@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pharmacy.dao.PrescriptionDao">
+
+    <resultMap id="Prescription" type="pharmacy.entity.Prescription">
+        <id column="prescription_id" property="id" />
+        <result column="amount_of_medicine" property="amountOfMedicine" />
+        <result column="diagnosis" property="diagnosis" />
+        <result column="signature" property="signature" />
+        <result column="seal" property="seal" />
+        <association property="medicament" resultMap="Medicament" />
+        <association property="client" resultMap="Client" />
+        <association property="doctor" resultMap="Doctor" />
+    </resultMap>
+    
+    <resultMap id="Medicament" type="pharmacy.entity.Medicament">
+        <id column="medicament_id" property="id" />
+        <result column="medicament_name" property="name" />
+        <result column="mode_of_application" property="modeOfApplication" />
+        <result column="medicament_type" property="type" />
+        <result column="availability_of_prescription" property="availabilityOfPrescription" />
+        <result column="manufacturability" property="manufacturability" />
+    </resultMap>
+    
+    <resultMap id="Client" type="pharmacy.entity.Client">
+        <id column="client_id" property="id" />
+        <result column="client_full_name" property="fullName" />
+        <result column="client_age" property="age" />
+        <result column="client_address" property="address" />
+        <result column="client_phone" property="phone" />
+    </resultMap>
+    
+    <resultMap id="Doctor" type="pharmacy.entity.Doctor">
+        <id column="doctor_id" property="id" />
+        <result column="doctor_full_name" property="doctorFullName" />
+    </resultMap>
+
+    <insert id="create">
+        INSERT INTO prescription 
+        (medicament_id, client_id, doctor_id, amount_of_medicine, diagnosis, signature, seal) 
+        VALUES (
+            (SELECT medicament_id FROM medicament WHERE medicament_id = #{medicament.id}), 
+            (SELECT client_id FROM client WHERE client_id = #{client.id}),
+            (SELECT doctor_id FROM doctor WHERE doctor_id = #{doctor.id}),
+        #{amount_of_medicine}, #{diagnosis}, #{signature}, #{seal})
+    </insert>
+
+    <select id="read" parameterType="java.lang.Long" resultMap="Prescription">
+        SELECT 
+            p.*,
+            m.*,
+            c.*,
+            d.*
+        FROM prescription p 
+        JOIN medicament m ON p.medicament_id = m.medicament_id 
+        JOIN client c ON p.client_id = c.client_id 
+        JOIN doctor d ON p.doctor_id = d.doctor_id 
+        WHERE p.prescription_id = #{id}
+    </select>
+
+    <update id="update" parameterType="pharmacy.entity.Prescription">
+        UPDATE prescription SET 
+        medicament_id = (SELECT medicament_id FROM medicament WHERE medicament_id = #{medicament.id}), 
+        client_id = (SELECT client_id FROM client WHERE client_id = #{client.id}),
+        doctor_id = (SELECT doctor_id FROM doctor WHERE doctor_id = #{doctor.id}),
+        amount_of_medicine =  #{amount_of_medicine},
+        diagnosis = #{diagnosis},
+        signature = #{signature},
+        seal = #{seal}
+        WHERE prescription_id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM prescription WHERE prescription_id = #{id}
+    </delete>
+    
+    <select id="findAll" resultMap = "Prescription" >
+        SELECT 
+            p.*,
+            m.*,
+            c.*,
+            d.*
+        FROM prescription p 
+        JOIN medicament m ON p.medicament_id = m.medicament_id 
+        JOIN client c ON p.client_id = c.client_id 
+        JOIN doctor d ON p.doctor_id = d.doctor_id
+    </select>
+
+</mapper>

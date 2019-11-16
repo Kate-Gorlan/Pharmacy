@@ -30,7 +30,7 @@
         <result column="availability_of_prescription" property="availabilityOfPrescription" />
         <result column="manufacturability" property="manufacturability" />
     </resultMap>
-<!--  -->
+
     <insert id="create">
         INSERT INTO recipe_medicament (medicament_id, technology, settling_time) VALUES (
             (SELECT medicament_id FROM medicament WHERE medicament_id = #{medicament.id}),
