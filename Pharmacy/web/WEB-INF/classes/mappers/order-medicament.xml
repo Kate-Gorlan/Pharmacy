@@ -6,6 +6,7 @@
 
     <resultMap id="OrderMedicament" type="pharmacy.entity.OrderMedicament">
         <id column="order_medicament_id" property="id" />
+        <result column="quantity" property="quantity" />
         <association property="medicament" resultMap="Medicament" />
         <association property="order" resultMap="Order" />
     </resultMap>
@@ -38,15 +39,16 @@
     </resultMap>
 
     <insert id="create">
-        INSERT INTO order_medicament (medicament_id, order_id) VALUES (
+        INSERT INTO order_medicament (medicament_id, order_id, quantity) VALUES (
             (SELECT medicament_id FROM medicament WHERE medicament_id = #{medicament.id}),
-            (SELECT order_id FROM order WHERE order_id = #{order.id})
+            (SELECT order_id FROM order WHERE order_id = #{order.id}) , #{quantity}
             )
     </insert>
 
     <select id="read" parameterType="java.lang.Long" resultMap="OrderMedicament">
         SELECT 
             om.order_medicament_id,
+            om.quantity,
             m.*,
             e.employee_id,
             e.employee_full_name,
@@ -62,7 +64,8 @@
     <update id="update" parameterType="pharmacy.entity.OrderMedicament">
         UPDATE order_medicament SET 
         medicament_id = (SELECT medicament_id FROM medicament WHERE medicament_id = #{medicament.id}),
-        order_id = (SELECT order_id FROM order WHERE order_id = #{order.id})
+        order_id = (SELECT order_id FROM order WHERE order_id = #{order.id}),
+        quantity = #{quantity}
         WHERE order_medicament_id = #{id}
     </update>
 
@@ -73,6 +76,7 @@
     <select id="findAll" resultMap = "OrderMedicament" >
         SELECT 
             om.order_medicament_id,
+            om.quantity,
             m.*,
             e.employee_id,
             e.employee_full_name,

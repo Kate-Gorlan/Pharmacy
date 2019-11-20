@@ -7,6 +7,16 @@ public class OrderMedicament extends Entity {
     private Order order;
     
     private Medicament medicament;
+    
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    private int quantity;
 
     public Order getOrder() {
         return order;
