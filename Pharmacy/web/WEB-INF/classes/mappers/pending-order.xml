@@ -10,7 +10,6 @@
         <result column="take_status" property="takeStatus" />
         <association property="employee" resultMap="Employee" />
         <association property="order" resultMap="Order" />
-        <association property="prescription" resultMap="Prescription" />
     </resultMap>
 
     <resultMap id="Order" type="pharmacy.entity.Order">
@@ -30,46 +29,12 @@
         <id column="position_id" property="id" />
         <result column="position_title" property="title" />
     </resultMap>
-    
-    <resultMap id="Prescription" type="pharmacy.entity.Prescription">
-        <id column="prescription_id" property="id" />
-        <result column="amount_of_medicine" property="amountOfMedicine" />
-        <result column="diagnosis" property="diagnosis" />
-        <result column="signature" property="signature" />
-        <result column="seal" property="seal" />
-        <association property="medicament" resultMap="Medicament" />
-        <association property="client" resultMap="Client" />
-        <association property="doctor" resultMap="Doctor" />
-    </resultMap>
-    
-    <resultMap id="Medicament" type="pharmacy.entity.Medicament">
-        <id column="medicament_id" property="id" />
-        <result column="medicament_name" property="name" />
-        <result column="mode_of_application" property="modeOfApplication" />
-        <result column="medicament_type" property="type" />
-        <result column="availability_of_prescription" property="availabilityOfPrescription" />
-        <result column="manufacturability" property="manufacturability" />
-    </resultMap>
-    
-    <resultMap id="Client" type="pharmacy.entity.Client">
-        <id column="client_id" property="id" />
-        <result column="client_full_name" property="fullName" />
-        <result column="client_age" property="age" />
-        <result column="client_address" property="address" />
-        <result column="client_phone" property="phone" />
-    </resultMap>
-    
-    <resultMap id="Doctor" type="pharmacy.entity.Doctor">
-        <id column="doctor_id" property="id" />
-        <result column="doctor_full_name" property="doctorFullName" />
-    </resultMap>
 
     <insert id="create">
-        INSERT INTO pending_order (order_id, employeee_cooking_id, prescription_id, availability_date, take_status) VALUES (
+        INSERT INTO pending_order (order_id, employeee_cooking_id, availability_date, take_status) VALUES (
             (SELECT order_id FROM order WHERE order_id = #{order.id}),
             (SELECT employee_id FROM employee WHERE employee_full_name = #{employee.fullName}),
-            (SELECT prescription_id FROM prescription WHERE prescription_id = #{prescription.id})
-            , #{availabilityDate}, #{takeStatus})
+            #{availabilityDate}, #{takeStatus})
     </insert>
 
     <select id="read" parameterType="java.lang.Long" resultMap="PendingOrder">

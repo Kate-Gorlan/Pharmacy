@@ -6,7 +6,6 @@ public class PendingOrder extends Entity {
     
     private Order order;
     private Employee employee;
-    private Prescription prescription;
     
     private String availabilityDate;
     private String takeStatus;
@@ -33,12 +32,6 @@ public class PendingOrder extends Entity {
     }
     public void setTakeStatus(String takeStatus) {
         this.takeStatus = takeStatus;
-    }
-    public Prescription getPrescription() {
-        return prescription;
-    }
-    public void setPrescription(Prescription prescription) {
-        this.prescription = prescription;
     }
 
 }

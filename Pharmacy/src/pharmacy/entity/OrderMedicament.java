@@ -8,6 +8,8 @@ public class OrderMedicament extends Entity {
     
     private Medicament medicament;
     
+    private Prescription prescription;
+    
     public int getQuantity() {
         return quantity;
     }
@@ -32,6 +34,14 @@ public class OrderMedicament extends Entity {
 
     public void setMedicament(Medicament medicament) {
         this.medicament = medicament;
+    }
+
+    public Prescription getPrescription() {
+        return prescription;
+    }
+
+    public void setPrescription(Prescription prescription) {
+        this.prescription = prescription;
     }
     
 }
