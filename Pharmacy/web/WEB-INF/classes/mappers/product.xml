@@ -4,41 +4,81 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pharmacy.dao.ProductDao">
 
-    <resultMap id="Product" type="pharmacy.entity.Product">
-        <id column="product_id" property="id" />
-        <result column="product_name" property="name" />
-        <result column="product_type" property="type" />
-    </resultMap>
+	<resultMap id="Product" type="pharmacy.entity.Product">
+		<id column="product_id" property="id" />
+		<result column="product_name" property="name" />
+		<result column="product_type" property="type" />
+	</resultMap>
 
-    <insert id="create">
-        INSERT INTO product (product_name, product_type)
-            VALUES (#{name}, #{type})
-    </insert>
+	<resultMap id="ProductCriticalNorm"
+		type="pharmacy.common.ProductCriticalNorm">
+		<result column="Product" property="product" />
+		<result column="Product type" property="productType" />
+		<result column="Product quantity" property="productQuantity" />
+	</resultMap>
 
-    <select id="read" parameterType="java.lang.Long" resultMap="Product">
-        SELECT *
-        FROM product a
-        WHERE a.product_id = #{id}
-    </select>
+	<insert id="create">
+		INSERT INTO product (product_name, product_type)
+		VALUES (#{name}, #{type})
+	</insert>
 
-    <update id="update" parameterType="pharmacy.entity.Product">
-        UPDATE product SET 
-        product_name = #{name},
-        product_type = #{type}
-        WHERE product_id = #{id}
-    </update>
+	<select id="read" parameterType="java.lang.Long"
+		resultMap="Product">
+		SELECT *
+		FROM product a
+		WHERE a.product_id = #{id}
+	</select>
 
-    <delete id="delete" parameterType="java.lang.Long">
-        DELETE FROM product WHERE product_id = #{id}
-    </delete>
+	<update id="update" parameterType="pharmacy.entity.Product">
+		UPDATE product SET
+		product_name = #{name},
+		product_type = #{type}
+		WHERE product_id = #{id}
+	</update>
 
-    <select id="findById" parameterType="java.lang.Long" resultMap = "Product">
-        SELECT * FROM product WHERE product_id = #{id}
-    </select>
-    
-    <select id="findAll" resultMap = "Product" >
-        SELECT * 
-        FROM product 
-    </select>
+	<delete id="delete" parameterType="java.lang.Long">
+		DELETE FROM product WHERE
+		product_id = #{id}
+	</delete>
+
+	<select id="findById" parameterType="java.lang.Long"
+		resultMap="Product">
+		SELECT * FROM product WHERE product_id = #{id}
+	</select>
+
+	<select id="findAll" resultMap="Product">
+		SELECT *
+		FROM product
+	</select>
+
+	<select id="volumeOfProductUsed"
+		parameterType="java.lang.String" resultType="java.lang.Integer">
+		select
+		dbo.GetVolumeOfProductUsed (#{productName});
+	</select>
+
+	<select id="GetVolumeOfPUForThePeriod" parameterType="hashmap"
+		resultType="java.lang.Integer">
+		select dbo.GetVolumeOfPUForThePeriod (#{productName},
+		#{firstDate},
+		#{secondDate});
+	</select>
+
+	<select id="GetProdOver" resultMap="Product">
+		SELECT
+		p.*
+
+		FROM [product] p
+		LEFT JOIN
+		[product_stock] sp ON
+		p.product_id = sp.product_id
+		WHERE sp.product_id
+		IS NULL
+	</select>
+
+	<select id="GetReachedCriticalNormProduct"
+		resultMap="ProductCriticalNorm">
+		SELECT * from dbo.GetReachedCriticalNormProduct();
+	</select>
 
 </mapper>

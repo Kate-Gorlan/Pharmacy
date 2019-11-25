@@ -10,6 +10,7 @@ import java.util.ListIterator;
 
 import pharmacy.dao.ClientDao;
 import pharmacy.entity.Client;
+import pharmacy.common.ClientNotTakenOrder;
 
 public class ClientService {
 
@@ -72,5 +73,9 @@ public class ClientService {
         client.setFullName(name);
         String address = new String(client.getAddress().getBytes("iso-8859-1"), "utf-8");
         client.setAddress(address);
+    }
+    
+    public List<ClientNotTakenOrder> getNotTakeOrderClient() {
+        return clientDao.getNotTakeOrderClient();
     }
 }

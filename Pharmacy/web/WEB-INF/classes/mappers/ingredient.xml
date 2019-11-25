@@ -34,6 +34,13 @@
         <result column="availability_of_prescription" property="availabilityOfPrescription" />
         <result column="manufacturability" property="manufacturability" />
     </resultMap>
+    
+    <resultMap id="DopIngredient" type="pharmacy.common.DopIngredient">
+        <id column="idIngredient" property="id" />
+        <result column="nameIngredient" property="name" />
+        <result column="costIngredient" property="cost" />
+        <result column="volumeIngredient" property="volume" />
+    </resultMap>
 
     <insert id="create">
         INSERT INTO ingredient 
@@ -81,6 +88,10 @@
         JOIN product p ON p.product_id = i.product_id 
         JOIN recipe_medicament rc ON p.recipe_medicament_id = rc.recipe_medicament_id 
         JOIN medicament m ON rc.medicament_id = m.medicament_id 
+    </select>
+    
+    <select id="dop" parameterType="java.lang.Long" resultMap="DopIngredient">
+       select * from  dbo.getDopIngredient(#{id});
     </select>
 
 </mapper>

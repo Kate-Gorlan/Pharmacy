@@ -14,7 +14,6 @@
         <property name="basename" value="messages" />
     </bean>
 
-    <!--batis-->  
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="mapperLocations" value="classpath:/mappers/*.xml" />
@@ -32,31 +31,6 @@
             value="jdbc:sqlserver://localhost\\SQLEXPRESS:51637;databaseName=pharmacyBD;integratedSecurity=true" />
             
     </bean>
-    
-    <!-- MS_SERVER
-    <property name="driverClassName" value="net.sourceforge.jtds.jdbc.Driver" />
-        <property name="url" 
-            value="jdbc:jtds:sqlserver://MS_SERVER/pharmacy;integrated security=false" />
-    
-    jdbc:sqlserver://localhost;databaseName=springbootdb
-    spring.datasource.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
-    
-    DESKTOP-GLP89SN/SQLEXPRESS
-    
-    bean id="dataSource"
-        class="org.apache.commons.dbcp2.BasicDataSource"
-        destroy-method="close">
-        <property name="driverClassName"
-            value="org.apache.derby.jdbc.EmbeddedDriver" />
-        <property name="url" value="jdbc:derby:pharmacy;create=true" />
-    </bean-->
-
-    <!--  bean id="liquibase"
-        class="liquibase.integration.spring.SpringLiquibase">
-        <property name="dataSource" ref="dataSource" />
-        <property name="changeLog"
-            value="classpath:db-changelog.xml" />
-    </bean-->
 
     <bean id="transactionManager"
         class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -77,6 +51,9 @@
         <aop:advisor pointcut-ref="transactionOperation" advice-ref="txAdvice" />
     </aop:config>
 
+
+
+
     <bean id="positionDao" class="pharmacy.dao.mybatis.PositionMapper" parent="dao2" />
     
     <bean id="positionService" class="pharmacy.service.PositionService">
@@ -88,6 +65,20 @@
     <bean id="clientService" class="pharmacy.service.ClientService">
         <property name="clientDao" ref="clientDao" />
     </bean>
+    
+    <bean id="doctorDao" class="pharmacy.dao.mybatis.DoctorMapper" parent="dao2" />
+    <bean id="employeeDao" class="pharmacy.dao.mybatis.EmployeeMapper" parent="dao2" />
+    <bean id="ingredientDao" class="pharmacy.dao.mybatis.IngredientMapper" parent="dao2" />
+    <bean id="medicamentStockDao" class="pharmacy.dao.mybatis.MedicamentStockMapper" parent="dao2" />
+    <bean id="medicamentDao" class="pharmacy.dao.mybatis.MedicamentMapper" parent="dao2" />
+    <bean id="orderMedicamentDao" class="pharmacy.dao.mybatis.OrderMedicamentMapper" parent="dao2" />
+    <bean id="orderDao" class="pharmacy.dao.mybatis.OrderMapper" parent="dao2" />
+    <bean id="pendingOrderDao" class="pharmacy.dao.mybatis.PendingOrderMapper" parent="dao2" />
+    
+    <bean id="prescriptionDao" class="pharmacy.dao.mybatis.PrescriptionMapper" parent="dao2" />
+    <bean id="productStockDao" class="pharmacy.dao.mybatis.ProductStockMapper" parent="dao2" />
+    <bean id="productDao" class="pharmacy.dao.mybatis.ProductMapper" parent="dao2" />
+    <bean id="recipeMedicamentDao" class="pharmacy.dao.mybatis.RecipeMedicamentMapper" parent="dao2" />
 
     <!--batis 
     <bean id="authorDao" class="treasureChest.dao.mybatis.AuthorMapper" parent="dao2" />

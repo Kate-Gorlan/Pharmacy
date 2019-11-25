@@ -36,6 +36,47 @@
             </c:forEach>
         </div>   
         </c:if>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <c:if test="${not empty test}">
+         <div class="card-deck">
+            <c:forEach items="${test}" var="clienttt">
+                <div class="card mb-3" style="max-width: 300px; min-width: 300px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h4>${clienttt.takeStatus}</h4>
+                                <p class="card-text">ВClient: ${clienttt.client}</p>
+                                <p class="card-text">ID: ${clienttt.id}</p>
+                                <p class="card-text">Телефон: +375${clienttt.clientPhone}</p>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>   
+        </c:if>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 </div>
 </body>
 </ui:html>
