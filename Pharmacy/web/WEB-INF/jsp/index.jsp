@@ -13,7 +13,23 @@
                     <div class="row no-gutters">
                         <div class="col-md-8">
                             <div class="card-body">
-                                <p>${position.title}</p>
+                            <c:choose>
+                            <c:when test="${position.title == 'Администратор'}">
+                            <p href="admin.html">${position.title}</p>
+                            </c:when>
+                            <c:when test="${position.title == 'Фармацевт'}">
+                            <p href="pharmacist.html">${position.title}</p>
+                            </c:when>
+                            <c:when test="${position.title == 'Провизор-технолог'}">
+                            <p href="pharmacistTechnologist').html">${position.title}</p>
+                            </c:when>
+                            <c:when test="${position.title == 'Кладовщик'}">
+                            <p href="storekeeper.html">${position.title}</p>
+                            </c:when>
+                            <c:otherwise>
+                            <p>${position.title}</p>
+                            </c:otherwise>
+                            </c:choose>
                              </div>
                         </div>
                     </div>
@@ -22,10 +38,5 @@
         </div>   
         </c:if>
 </div>
-
-<div class="bottom">
-    <a href="clients.html" style="font-size: 130%; width: 300px;" class="btn btn-success">Клиенты</a>
-</div>
-
 </body>
 </ui:html>

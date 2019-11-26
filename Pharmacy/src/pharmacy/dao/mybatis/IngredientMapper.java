@@ -6,7 +6,6 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import pharmacy.dao.IngredientDao;
 import pharmacy.entity.Ingredient;
-import pharmacy.common.DopIngredient;
 
 public class IngredientMapper extends SqlSessionDaoSupport implements IngredientDao{
 
@@ -38,9 +37,5 @@ public class IngredientMapper extends SqlSessionDaoSupport implements Ingredient
     @Override
     public List<Ingredient> findAll() {
         return getSqlSession().selectList("pharmacy.dao.IngredientDao.findAll");
-    }
-    
-    public List<DopIngredient> dopIngredient() {
-        return getSqlSession().selectList("pharmacy.dao.IngredientDao.dop");
     }
 } 

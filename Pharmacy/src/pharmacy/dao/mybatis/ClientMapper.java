@@ -10,6 +10,7 @@ import pharmacy.entity.Client;
 import pharmacy.common.ClientMed;
 import pharmacy.common.ClientNotTakenOrder;
 import pharmacy.common.ClientsPendingOrder;
+import pharmacy.common.TopClientsMed;
 
 public class ClientMapper extends SqlSessionDaoSupport implements ClientDao{
 
@@ -91,5 +92,15 @@ public class ClientMapper extends SqlSessionDaoSupport implements ClientDao{
     @Override
     public int getNumberOfClientMedPeriod(HashMap<String, Object> values) {
         return getSqlSession().selectOne("pharmacy.dao.ClientDao.GetNumberOfClientMedPeriod", values);
+    }
+
+    @Override
+    public List<TopClientsMed> getClientsMedByName(String name) {
+        return getSqlSession().selectList("pharmacy.dao.ClientDao.GetClientsMedByName", name);
+    }
+
+    @Override
+    public List<TopClientsMed> getClientsMedByType(String type) {
+        return getSqlSession().selectList("pharmacy.dao.ClientDao.GetClientsMedByType", type);
     }
 }

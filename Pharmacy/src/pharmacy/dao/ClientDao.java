@@ -7,6 +7,7 @@ import pharmacy.entity.Client;
 import pharmacy.common.ClientMed;
 import pharmacy.common.ClientNotTakenOrder;
 import pharmacy.common.ClientsPendingOrder;
+import pharmacy.common.TopClientsMed;
 
 public interface ClientDao extends CrudDao<Long, Client>{
 
@@ -33,4 +34,8 @@ public interface ClientDao extends CrudDao<Long, Client>{
     int getNumberOfClientMedTypePeriod(HashMap<String, Object> values);
     
     int getNumberOfClientMedPeriod(HashMap<String, Object> values);
+    
+    List<TopClientsMed> getClientsMedByName(String name);
+    
+    List<TopClientsMed> getClientsMedByType(String type);
 }

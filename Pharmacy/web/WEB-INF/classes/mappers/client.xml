@@ -40,6 +40,13 @@
 		<result column="Client phone" property="clientPhone" />
 	</resultMap>
 
+	<resultMap id="TopClientsMed"
+		type="pharmacy.common.TopClientsMed">
+		<result column="Quantity" property="quantity" />
+		<result column="Client id" property="id" />
+		<result column="Client" property="client" />
+	</resultMap>
+
 	<insert id="create">
 		INSERT INTO client (client_full_name, client_age,
 		client_address,
@@ -183,29 +190,75 @@
 		resultMap="ClientsMed">
 		select
 		m.medicament_name AS [Medicament],
-		o.order_date AS [Order date],
+		o.order_date AS
+		[Order date],
 		c.client_id AS [Client id],
-		c.client_full_name AS [Client],
+		c.client_full_name AS
+		[Client],
 		c.client_phone AS [Client phone]
 
 		FROM [order] o
-		JOIN [order_medicament] om ON o.order_id = om.order_id
+		JOIN
+		[order_medicament] om ON o.order_id = om.order_id
+		JOIN [medicament] m
+		ON m.medicament_id = om.medicament_id
+		JOIN [prescription] pres ON
+		pres.prescription_id = om.prescription_id
+		JOIN [client] c ON
+		pres.client_id = c.client_id
+
+		WHERE LOWER(m.medicament_type) =
+		LOWER(dbo.DeleteDoublуSpace(#{type}))
+		and o.order_date between
+		#{firstDate} and #{secondDate}
+	</select>
+
+	<select id="GetNumberOfClientMedTypePeriod"
+		parameterType="hashmap" resultType="java.lang.Integer">
+		select dbo.GetNumberOfClientMedTypePeriod (#{type}, #{firstDate},
+		#{secondDate});
+	</select>
+
+	<select id="GetNumberOfClientMedPeriod" parameterType="hashmap"
+		resultType="java.lang.Integer">
+		select dbo.GetNumberOfClientMedPeriod (#{name}, #{firstDate},
+		#{secondDate});
+	</select>
+
+	<select id="GetClientsMedByName"
+		parameterType="java.lang.String" resultMap="TopClientsMed">
+		SELECT top 10
+		res.Quantity as [Quantity],
+		cl.client_id AS [Client id],
+		cl.client_full_name AS [Client]
+		from (select COUNT(c.client_id) as [Quantity], c.client_id AS [Client]
+		FROM [order_medicament] om
 		JOIN [medicament] m ON m.medicament_id = om.medicament_id
 		JOIN [prescription] pres ON pres.prescription_id = om.prescription_id
 		JOIN [client] c ON pres.client_id = c.client_id
 
-		WHERE LOWER(m.medicament_type) = LOWER(dbo.DeleteDoublуSpace(#{type}))
-		and o.order_date between #{firstDate} and #{secondDate}
+		WHERE LOWER(m.medicament_name) = LOWER(dbo.DeleteDoublуSpace(#{name}))
+		group by c.client_id ) as res
+		JOIN [client] cl ON res.Client = cl.client_id
+		ORDER BY res.Quantity DESC
 	</select>
 	
-	<select id="GetNumberOfClientMedTypePeriod" parameterType="hashmap"
-        resultType="java.lang.Integer">
-        select dbo.GetNumberOfClientMedTypePeriod (#{type}, #{firstDate}, #{secondDate});
-    </select>
-    
-    <select id="GetNumberOfClientMedPeriod" parameterType="hashmap"
-        resultType="java.lang.Integer">
-        select dbo.GetNumberOfClientMedPeriod (#{name}, #{firstDate}, #{secondDate});
+	   <select id="GetClientsMedByType"
+        parameterType="java.lang.String" resultMap="TopClientsMed">
+        SELECT top 10
+        res.Quantity as [Quantity],
+        cl.client_id AS [Client id],
+        cl.client_full_name AS [Client]
+        from (select COUNT(c.client_id) as [Quantity], c.client_id AS [Client]
+        FROM [order_medicament] om
+        JOIN [medicament] m ON m.medicament_id = om.medicament_id
+        JOIN [prescription] pres ON pres.prescription_id = om.prescription_id
+        JOIN [client] c ON pres.client_id = c.client_id
+
+        WHERE LOWER(m.medicament_type) = LOWER(dbo.DeleteDoublуSpace(#{type}))
+        group by c.client_id ) as res
+        JOIN [client] cl ON res.Client = cl.client_id
+        ORDER BY res.Quantity DESC
     </select>
 
 </mapper>

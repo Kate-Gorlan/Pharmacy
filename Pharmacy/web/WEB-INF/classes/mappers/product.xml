@@ -72,13 +72,62 @@
 		LEFT JOIN
 		[product_stock] sp ON
 		p.product_id = sp.product_id
-		WHERE sp.product_id
+		WHERE
+		sp.product_id
 		IS NULL
 	</select>
 
 	<select id="GetReachedCriticalNormProduct"
 		resultMap="ProductCriticalNorm">
 		SELECT * from dbo.GetReachedCriticalNormProduct();
+	</select>
+
+	<select id="GetMinProductInStockByType"
+		parameterType="java.lang.String" resultMap="ProductCriticalNorm">
+		SELECT TOP(1)
+		p.product_name AS [Product],
+		p.product_type AS [Product type],
+		ps.quantity AS [Product quantity]
+
+		FROM (SELECT sp.[product_id], SUM(sp.[product_quantity]) as quantity
+		FROM product_stock sp GROUP BY sp.[product_id]) as ps
+		JOIN [product] p ON p.product_id = ps.product_id
+		where LOWER(p.product_type) = LOWER(dbo.DeleteDoublуSpace(#{type}))
+		ORDER BY ps.quantity ASC
+	</select>
+
+	<select id="GetMinProductInStock"
+		resultMap="ProductCriticalNorm">
+		SELECT TOP(1)
+		p.product_name AS [Product],
+		p.product_type AS [Product type],
+		ps.quantity AS [Product quantity]
+
+		FROM (SELECT sp.[product_id], SUM(sp.[product_quantity]) as quantity
+		FROM product_stock sp GROUP BY sp.[product_id]) as ps
+		JOIN [product] p ON p.product_id = ps.product_id
+		ORDER BY ps.quantity ASC
+	</select>
+
+	<select id="GetProductForOrderInProduction"
+		resultMap="ProductCriticalNorm">
+		SELECT
+		products.product_name AS Product,
+		products.product_type AS [Product type],
+		SUM(products.ingredient_quantity) AS [Product quantity]
+		FROM
+		(
+		SELECT p.*, i.ingredient_quantity
+		FROM [pending_order] po
+		JOIN [order] o ON o.order_id = po.order_id
+		JOIN [order_medicament] om ON o.order_id = om.order_id
+		JOIN [medicament] m ON m.medicament_id = om.medicament_id
+		JOIN [recipe_medicament] rm ON rm.medicament_id = m.medicament_id
+		JOIN [ingredient] i ON i.recipe_medicament_id = rm.recipe_medicament_id
+		JOIN [product] p ON p.product_id = i.product_id
+		WHERE po.employeee_cooking_id IS NOT NULL AND po.take_status = 'В ожидании'
+		) as products
+		GROUP BY products.product_name
 	</select>
 
 </mapper>

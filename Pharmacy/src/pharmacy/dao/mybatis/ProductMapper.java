@@ -60,4 +60,19 @@ public class ProductMapper extends SqlSessionDaoSupport implements ProductDao{
     public List<ProductCriticalNorm> getReachedCriticalNormProduct() {
         return getSqlSession().selectList("pharmacy.dao.ProductDao.GetReachedCriticalNormProduct");
     }
+
+    @Override
+    public List<ProductCriticalNorm> getMinProductInStockByType(String type) {
+        return getSqlSession().selectList("pharmacy.dao.ProductDao.GetMinProductInStockByType", type);
+    }
+
+    @Override
+    public List<ProductCriticalNorm> getMinProductInStock() {
+        return getSqlSession().selectList("pharmacy.dao.ProductDao.GetMinProductInStock");
+    }
+
+    @Override
+    public List<ProductCriticalNorm> getProductForOrderInProduction() {
+        return getSqlSession().selectList("pharmacy.dao.ProductDao.GetProductForOrderInProduction");
+    }
 } 

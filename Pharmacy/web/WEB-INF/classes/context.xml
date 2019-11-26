@@ -74,51 +74,14 @@
     <bean id="orderMedicamentDao" class="pharmacy.dao.mybatis.OrderMedicamentMapper" parent="dao2" />
     <bean id="orderDao" class="pharmacy.dao.mybatis.OrderMapper" parent="dao2" />
     <bean id="pendingOrderDao" class="pharmacy.dao.mybatis.PendingOrderMapper" parent="dao2" />
-    
     <bean id="prescriptionDao" class="pharmacy.dao.mybatis.PrescriptionMapper" parent="dao2" />
     <bean id="productStockDao" class="pharmacy.dao.mybatis.ProductStockMapper" parent="dao2" />
     <bean id="productDao" class="pharmacy.dao.mybatis.ProductMapper" parent="dao2" />
     <bean id="recipeMedicamentDao" class="pharmacy.dao.mybatis.RecipeMedicamentMapper" parent="dao2" />
 
+
+
     <!--batis 
-    <bean id="authorDao" class="treasureChest.dao.mybatis.AuthorMapper" parent="dao2" />
-    
-    <bean id="authorService" class="treasureChest.service.AuthorServiceImpl">
-        <property name="authorDao" ref="authorDao" />
-    </bean>
-    
-    <bean id="filmDao" class="treasureChest.dao.mybatis.FilmMapper" parent="dao2" />
-    
-    <bean id="filmService" class="treasureChest.service.FilmServiceImpl">
-        <property name="filmDao" ref="filmDao" />
-    </bean>
-    
-    <bean id="bookDao" class="treasureChest.dao.mybatis.BookMapper" parent="dao2" />
-    
-    <bean id="bookService" class="treasureChest.service.BookServiceImpl">
-        <property name="bookDao" ref="bookDao" />
-    </bean>
-    
-    <bean id="mangaDao" class="treasureChest.dao.mybatis.MangaMapper" parent="dao2" />
-    
-    <bean id="mangaService" class="treasureChest.service.MangaServiceImpl">
-        <property name="mangaDao" ref="mangaDao" />
-    </bean>
-    
-    <bean id="ranobeDao" class="treasureChest.dao.mybatis.RanobeMapper" parent="dao2" />
-    
-    <bean id="ranobeService" class="treasureChest.service.RanobeServiceImpl">
-        <property name="ranobeDao" ref="ranobeDao" />
-    </bean>
-    
-    <bean id="serialDao" class="treasureChest.dao.mybatis.SerialMapper" parent="dao2" />
-    
-    <bean id="serialService" class="treasureChest.service.SerialServiceImpl">
-        <property name="serialDao" ref="serialDao" />
-    </bean>
-    
-    <bean id="searchService" class="treasureChest.service.SearchService" />
-    
     <bean id="save" class="treasureChest.service.Save">
         <property name="authorDao" ref="authorDao" />
         <property name="serialDao" ref="serialDao" />

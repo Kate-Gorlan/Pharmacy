@@ -30,6 +30,59 @@
 			property="medicamentQuantity" />
 	</resultMap>
 
+	<resultMap id="MedTechnology"
+		type="pharmacy.common.MedTechnology">
+		<result column="Medicament" property="medicament" />
+		<result column="Technology" property="technology" />
+		<result column="Manufacturer" property="manufacturer" />
+		<result column="Order date" property="orderDate" />
+		<result column="Availability date" property="availabilityDate" />
+	</resultMap>
+
+	<resultMap id="MedTechnologyByType"
+		type="pharmacy.common.MedTechnologyByType">
+		<result column="Medicament" property="medicament" />
+		<result column="Technology" property="technology" />
+	</resultMap>
+
+	<resultMap id="MedTechnologyByName"
+		type="pharmacy.common.MedTechnologyByName">
+		<result column="Medicament Type" property="medicamentType" />
+		<result column="Technology" property="technology" />
+	</resultMap>
+
+	<resultMap id="MedicamentInfo"
+		type="pharmacy.common.MedicamentInfo">
+		<result column="Medicament type" property="medicamentType" />
+		<result column="Medicament" property="technology" />
+		<result column="Medicament quantity" property="ingredient" />
+		<result column="Medicament type" property="productName" />
+		<result column="Medicament" property="deliveryQuantity" />
+		<result column="Medicament quantity" property="deliveryPrice" />
+	</resultMap>
+	
+	<resultMap id="MedicamentIngredients" type="pharmacy.common.MedicamentIngredients">
+        <id column="ingr_id" property="id" />
+        <result column="medicament" property="medicament" />
+        <result column="medicament_name" property="medicamentName" />
+        <result column="medicament_type" property="medicamentType" />
+        <result column="recipe_medicament" property="recipeMedicament" />
+        <result column="settling_time" property="settlingTime" />
+        <result column="technology" property="technology" />
+        <result column="ingredient" property="ingredient" />
+        <result column="product" property="product" />
+        <result column="ingredient_quantity" property="ingredientQuantity" />
+        <result column="price_of_work" property="priceOfWork" />
+        <result column="time_for_preparing" property="timeForPreparing" />
+        <result column="product_name" property="productName" />
+        <result column="product_type" property="productType" />
+        <result column="stock" property="stock" />
+        <result column="product_price" property="productPrice" />
+        <result column="product_quantity" property="productQuantity" />
+        <result column="product_need_quantity" property="productNeedQuantity" />
+        <result column="product_need_price" property="productNeedPrice" />
+    </resultMap>
+
 	<insert id="create">
 		INSERT INTO medicament (medicament_name,
 		mode_of_application,
@@ -148,15 +201,20 @@
 
 	<select id="GetTopMedicament" resultMap="TopMedicament">
 
-		select top 10 res.Count as Quantity, m.medicament_name as Medicament,
-		m.medicament_type as [Medicament type]
+		select top 10 res.Count
+		as Quantity, m.medicament_name as Medicament,
+		m.medicament_type as
+		[Medicament type]
 		from (SELECT om.medicament_id as
-		Medicament, COUNT(om.medicament_id) as
+		Medicament,
+		COUNT(om.medicament_id) as
 		Count
 		FROM [order_medicament] om
-		group by om.medicament_id) as res
+		group by
+		om.medicament_id) as res
 		JOIN [medicament] m ON res.Medicament
-		= m.medicament_id
+		=
+		m.medicament_id
 		ORDER BY res.Count DESC
 	</select>
 
@@ -193,7 +251,100 @@
 	</select>
 
 	<select id="GetReachedCriticalNorm" resultMap="MedCriticalNorm">
-		SELECT * from dbo.GetReachedCriticalNorm();
+		SELECT * from
+		dbo.GetReachedCriticalNorm();
 	</select>
+
+	<select id="GetMinMedInStockByType"
+		parameterType="java.lang.String" resultMap="MedCriticalNorm">
+		SELECT TOP(1)
+		m.medicament_name AS [Medicament],
+		m.medicament_type AS [Medicament type],
+		ms.quantity AS [Medicament quantity]
+
+		FROM (SELECT sm.[medicament_id], SUM(sm.[medicament_quantity]) as quantity
+		FROM medicament_stock sm GROUP BY sm.[medicament_id]) as ms
+		JOIN [medicament] m ON m.medicament_id = ms.medicament_id
+		where LOWER(m.medicament_type) = LOWER(dbo.DeleteDoublуSpace(#{type}))
+		ORDER BY ms.quantity ASC
+	</select>
+
+	<select id="GetMinMedInStock" resultMap="MedCriticalNorm">
+		SELECT TOP(1)
+		m.medicament_name AS [Medicament],
+		m.medicament_type AS [Medicament type],
+		ms.quantity AS [Medicament quantity]
+
+		FROM (SELECT sm.[medicament_id], SUM(sm.[medicament_quantity]) as quantity
+		FROM medicament_stock sm GROUP BY sm.[medicament_id]) as ms
+		JOIN [medicament] m ON m.medicament_id = ms.medicament_id
+		ORDER BY ms.quantity ASC
+	</select>
+
+	<select id="GetTechnologyOrderInProduction"
+		resultMap="MedTechnology">
+		SELECT
+		m.medicament_name AS [Medicament],
+		rm.technology AS [Technology],
+		e.employee_full_name AS [Manufacturer],
+		o.order_date AS [Order date],
+		po.availability_date AS [Availability date]
+		FROM [pending_order] po
+		JOIN [order] o ON o.order_id = po.order_id
+		JOIN [order_medicament] om ON o.order_id = om.order_id
+		JOIN [medicament] m ON m.medicament_id = om.medicament_id
+		JOIN [recipe_medicament] rm ON m.medicament_id = rm.medicament_id
+		JOIN [employee] e ON e.employee_id = po.employeee_cooking_id
+		WHERE po.employeee_cooking_id IS NOT NULL AND po.take_status = 'В ожидании'
+	</select>
+
+	<select id="GetTechnologyByName"
+		parameterType="java.lang.String" resultMap="MedTechnologyByName">
+		SELECT
+		m.medicament_type AS [Medicament Type],
+		rm.technology AS [Technology]
+		FROM [medicament] m
+		JOIN [recipe_medicament] rm ON m.medicament_id = rm.medicament_id
+		WHERE LOWER(m.medicament_name) = LOWER(dbo.DeleteDoublуSpace(#{name}))
+	</select>
+
+	<select id="GetTechnologyByType"
+		parameterType="java.lang.String" resultMap="MedTechnologyByType">
+		SELECT
+		m.medicament_name AS [Medicament],
+		rm.technology AS [Technology]
+		FROM [medicament] m
+		JOIN [recipe_medicament] rm ON m.medicament_id = rm.medicament_id
+		WHERE LOWER(m.medicament_type) = LOWER(dbo.DeleteDoublуSpace(#{type}))
+	</select>
+
+	<select id="GetInfoMedicamentByName"
+		parameterType="java.lang.String" resultMap="MedicamentInfo">
+		SELECT
+		m.medicament_type AS [Medicament type],
+		rm.technology AS [Technology],
+		i.ingredient_id AS [Ingredient],
+		p.product_name AS [Product name],
+		res.q AS [Delivery quantity],
+		res.p AS [Delivery price]
+
+		FROM [medicament] m
+		JOIN [recipe_medicament] rm ON m.medicament_id = rm.medicament_id
+		JOIN [ingredient] i ON i.recipe_medicament_id = rm.recipe_medicament_id
+		JOIN [product] p ON p.product_id = i.product_id
+		JOIN (
+		select SUM(stock.product_quantity) AS q,
+		SUM(stock.product_price) AS p,
+		stock.product_id AS id
+		from [product_stock] stock
+		group by stock.product_id
+		) as res ON res.id = p.product_id
+		WHERE LOWER(m.medicament_name) = LOWER(dbo.DeleteDoublуSpace(#{name}))
+	</select>
+	
+	<select id="GetIngredients"
+        parameterType="java.lang.String" resultMap="MedicamentIngredients">
+        select * from dbo.getIngredients(#{name})
+    </select>
 
 </mapper>

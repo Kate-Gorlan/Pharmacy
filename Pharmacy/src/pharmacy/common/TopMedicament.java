@@ -2,14 +2,14 @@ package pharmacy.common;
 
 public class TopMedicament {
 
-    private String quantity;
+    private int quantity;
     private String medicament;
     private String medicamentType;
     
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
     public String getMedicament() {

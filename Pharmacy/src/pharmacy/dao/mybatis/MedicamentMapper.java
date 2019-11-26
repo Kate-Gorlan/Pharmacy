@@ -5,6 +5,11 @@ import java.util.List;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import pharmacy.common.MedCriticalNorm;
+import pharmacy.common.MedTechnology;
+import pharmacy.common.MedTechnologyByName;
+import pharmacy.common.MedTechnologyByType;
+import pharmacy.common.MedicamentInfo;
+import pharmacy.common.MedicamentIngredients;
 import pharmacy.common.TopMedicament;
 import pharmacy.dao.MedicamentDao;
 import pharmacy.entity.Medicament;
@@ -59,5 +64,40 @@ public class MedicamentMapper extends SqlSessionDaoSupport implements Medicament
     @Override
     public List<MedCriticalNorm> getReachedCriticalNorm() {
         return getSqlSession().selectList("pharmacy.dao.MedicamentDao.GetReachedCriticalNorm");
+    }
+
+    @Override
+    public List<MedCriticalNorm> getMinMedInStockByType(String type) {
+        return getSqlSession().selectList("pharmacy.dao.MedicamentDao.GetMinMedInStockByType", type);
+    }
+
+    @Override
+    public List<MedCriticalNorm> getMinMedInStock() {
+        return getSqlSession().selectList("pharmacy.dao.MedicamentDao.GetMinMedInStock");
+    }
+
+    @Override
+    public List<MedTechnology> getTechnologyOrderInProduction() {
+        return getSqlSession().selectList("pharmacy.dao.MedicamentDao.GetTechnologyOrderInProduction");
+    }
+
+    @Override
+    public List<MedTechnologyByName> getTechnologyByName(String name) {
+        return getSqlSession().selectList("pharmacy.dao.MedicamentDao.GetTechnologyByName", name);
+    }
+
+    @Override
+    public List<MedTechnologyByType> getTechnologyByType(String type) {
+        return getSqlSession().selectList("pharmacy.dao.MedicamentDao.GetTechnologyByType", type);
+    }
+
+    @Override
+    public List<MedicamentInfo> getInfoMedicamentByName(String name) {
+        return getSqlSession().selectList("pharmacy.dao.MedicamentDao.GetInfoMedicamentByName", name);
+    }
+
+    @Override
+    public List<MedicamentIngredients> getIngredients(String name) {
+        return getSqlSession().selectList("pharmacy.dao.MedicamentDao.GetIngredients", name);
     }
 } 

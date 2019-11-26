@@ -19,5 +19,11 @@ public interface ProductDao extends CrudDao<Long, Product>{
     List<Product> getProdOver();
     
     List<ProductCriticalNorm> getReachedCriticalNormProduct();
+    
+    List<ProductCriticalNorm> getMinProductInStockByType(String type);
+    
+    List<ProductCriticalNorm> getMinProductInStock();
+    
+    List<ProductCriticalNorm> getProductForOrderInProduction();
 
 }

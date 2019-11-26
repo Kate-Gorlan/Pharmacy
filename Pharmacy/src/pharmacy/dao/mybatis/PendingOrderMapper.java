@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
+import pharmacy.common.OrderInProduction;
 import pharmacy.dao.PendingOrderDao;
 import pharmacy.entity.PendingOrder;
 
@@ -37,5 +38,15 @@ public class PendingOrderMapper extends SqlSessionDaoSupport implements PendingO
     @Override
     public List<PendingOrder> findAll() {
         return getSqlSession().selectList("pharmacy.dao.PendingOrderDao.findAll");
+    }
+
+    @Override
+    public List<OrderInProduction> getOrderInProduction() {
+        return getSqlSession().selectList("pharmacy.dao.PendingOrderDao.GetOrderInProduction");
+    }
+
+    @Override
+    public int getNumberOfOrderInProduction() {
+        return getSqlSession().selectOne("pharmacy.dao.PendingOrderDao.GetNumberOfOrderInProduction");
     }
 } 
