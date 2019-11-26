@@ -15,16 +15,16 @@
                             <div class="card-body">
                             <c:choose>
                             <c:when test="${position.title == 'Администратор'}">
-                            <p href="admin.html">${position.title}</p>
+                            <a href="admin.html">${position.title}</a>
                             </c:when>
                             <c:when test="${position.title == 'Фармацевт'}">
-                            <p href="pharmacist.html">${position.title}</p>
+                            <a href="pharmacist.html">${position.title}</a>
                             </c:when>
                             <c:when test="${position.title == 'Провизор-технолог'}">
-                            <p href="pharmacistTechnologist').html">${position.title}</p>
+                            <a href="pharmacistTechnologist').html">${position.title}</a>
                             </c:when>
                             <c:when test="${position.title == 'Кладовщик'}">
-                            <p href="storekeeper.html">${position.title}</p>
+                            <a href="storekeeper.html">${position.title}</a>
                             </c:when>
                             <c:otherwise>
                             <p>${position.title}</p>

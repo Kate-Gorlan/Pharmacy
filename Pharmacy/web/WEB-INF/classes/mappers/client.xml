@@ -160,7 +160,7 @@
 	</select>
 
 	<select id="GetClientMedPeriod" parameterType="hashmap"
-		resultMap="ClientsMed">
+		resultMap="ClientMed">
 		select
 		m.medicament_name AS [Medicament],
 		o.order_date AS
@@ -187,7 +187,7 @@
 	</select>
 
 	<select id="GetClientMedTypePeriod" parameterType="hashmap"
-		resultMap="ClientsMed">
+		resultMap="ClientMed">
 		select
 		m.medicament_name AS [Medicament],
 		o.order_date AS
