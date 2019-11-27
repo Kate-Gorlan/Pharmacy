@@ -5,7 +5,10 @@
 <ui:html title="Главная страница" thema="flatly">
 <body style="width:100%;height:100%;">
 
-<div style="width: 85%; overflow:auto; overflow-x:hidden;">
+<div style="width: 50%; background-color:red; overflow:auto; overflow-x:hidden;">
+    
+</div>
+<div style="width: 50%; background-color:green; overflow:auto; overflow-x:hidden;">
     
 </div>
 

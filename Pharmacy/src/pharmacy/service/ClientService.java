@@ -4,13 +4,17 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
 import pharmacy.dao.ClientDao;
 import pharmacy.entity.Client;
+import pharmacy.common.ClientMed;
 import pharmacy.common.ClientNotTakenOrder;
+import pharmacy.common.ClientsPendingOrder;
+import pharmacy.common.TopClientsMed;
 
 public class ClientService {
 
@@ -77,5 +81,49 @@ public class ClientService {
     
     public List<ClientNotTakenOrder> getNotTakeOrderClient() {
         return clientDao.getNotTakeOrderClient();
+    }
+    
+    public int getNumberOfNotTakeOrderClient() {
+        return clientDao.getNumberOfNotTakeOrderClient();
+    }
+    
+    public List<ClientsPendingOrder> getClientsPendingOrder(){
+        return clientDao.getClientsPendingOrder();
+    }
+    
+    public List<ClientsPendingOrder> getCPOMedicament(String name){
+        return clientDao.getCPOMedicament(name);
+    }
+    
+    public int getNCPOMedicament(String name) {
+        return clientDao.getNCPOMedicament(name);
+    }
+    
+    public int getNumberOfClientsPendingOrder(){
+        return clientDao.getNumberOfClientsPendingOrder();
+    }
+    
+    public List<ClientMed> getClientMedPeriod(HashMap<String, Object> values){
+        return clientDao.getClientMedPeriod(values);
+    }
+    
+    public List<ClientMed> getClientMedTypePeriod(HashMap<String, Object> values){
+        return clientDao.getClientMedTypePeriod(values);
+    }
+    
+    public int getNumberOfClientMedTypePeriod(HashMap<String, Object> values){
+        return clientDao.getNumberOfClientMedTypePeriod(values);
+    }
+    
+    public int getNumberOfClientMedPeriod(HashMap<String, Object> values){
+        return clientDao.getNumberOfClientMedPeriod(values);
+    }
+    
+    public List<TopClientsMed> getClientsMedByName(String name){
+        return clientDao.getClientsMedByName(name);
+    }
+    
+    public List<TopClientsMed> getClientsMedByType(String type){
+        return clientDao.getClientsMedByType(type);
     }
 }
