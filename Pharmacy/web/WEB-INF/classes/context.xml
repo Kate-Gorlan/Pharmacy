@@ -70,16 +70,58 @@
     <bean id="employeeDao" class="pharmacy.dao.mybatis.EmployeeMapper" parent="dao2" />
     <bean id="ingredientDao" class="pharmacy.dao.mybatis.IngredientMapper" parent="dao2" />
     <bean id="medicamentStockDao" class="pharmacy.dao.mybatis.MedicamentStockMapper" parent="dao2" />
+    <bean id="medicamentStockService" class="pharmacy.service.MedicamentStockService">
+        <property name="medicamentStockDao" ref="medicamentStockDao" />
+    </bean>
     <bean id="medicamentDao" class="pharmacy.dao.mybatis.MedicamentMapper" parent="dao2" />
+    <bean id="medicamentService" class="pharmacy.service.MedicamentService">
+        <property name="medicamentDao" ref="medicamentDao" />
+    </bean>
+    
     <bean id="orderMedicamentDao" class="pharmacy.dao.mybatis.OrderMedicamentMapper" parent="dao2" />
+    <bean id="orderMedicamentService" class="pharmacy.service.OrderMedicamentService">
+        <property name="orderMedicamentDao" ref="orderMedicamentDao" />
+    </bean>
+    
     <bean id="orderDao" class="pharmacy.dao.mybatis.OrderMapper" parent="dao2" />
+    <bean id="orderService" class="pharmacy.service.OrderService">
+        <property name="orderDao" ref="orderDao" />
+    </bean>
+    
     <bean id="pendingOrderDao" class="pharmacy.dao.mybatis.PendingOrderMapper" parent="dao2" />
+    <bean id="pendingOrderService" class="pharmacy.service.PendingOrderService">
+        <property name="pendingOrderDao" ref="pendingOrderDao" />
+    </bean>
+    
     <bean id="prescriptionDao" class="pharmacy.dao.mybatis.PrescriptionMapper" parent="dao2" />
+    <bean id="prescriptionService" class="pharmacy.service.PrescriptionService">
+        <property name="prescriptionDao" ref="prescriptionDao" />
+    </bean>
+    
     <bean id="productStockDao" class="pharmacy.dao.mybatis.ProductStockMapper" parent="dao2" />
+    <bean id="productStockService" class="pharmacy.service.ProductStockService">
+        <property name="productStockDao" ref="productStockDao" />
+    </bean>
+    
     <bean id="productDao" class="pharmacy.dao.mybatis.ProductMapper" parent="dao2" />
+    <bean id="productService" class="pharmacy.service.ProductService">
+        <property name="productDao" ref="productDao" />
+    </bean>
+    
     <bean id="recipeMedicamentDao" class="pharmacy.dao.mybatis.RecipeMedicamentMapper" parent="dao2" />
+    <bean id="recipeMedicamentService" class="pharmacy.service.RecipeMedicamentService">
+        <property name="recipeMedicamentDao" ref="recipeMedicamentDao" />
+    </bean>
 
-
+    <bean id="ingredientService" class="pharmacy.service.IngredientService">
+        <property name="ingredientDao" ref="ingredientDao" />
+    </bean>
+    <bean id="doctorService" class="pharmacy.service.DoctorService">
+        <property name="doctorDao" ref="doctorDao" />
+    </bean>
+    <bean id="employeeService" class="pharmacy.service.EmployeeService">
+        <property name="employeeDao" ref="employeeDao" />
+    </bean>
 
     <!--batis 
     <bean id="save" class="treasureChest.service.Save">
