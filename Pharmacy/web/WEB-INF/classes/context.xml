@@ -47,7 +47,7 @@
     </tx:advice>
 
     <aop:config proxy-target-class="true">
-        <aop:pointcut id="transactionOperation" expression="execution(* treasureChest.service..*ServiceImpl.*(..))" />
+        <aop:pointcut id="transactionOperation" expression="execution(* pharmacy.service..*Service.*(..))" />
         <aop:advisor pointcut-ref="transactionOperation" advice-ref="txAdvice" />
     </aop:config>
 
@@ -72,6 +72,7 @@
     <bean id="medicamentStockDao" class="pharmacy.dao.mybatis.MedicamentStockMapper" parent="dao2" />
     <bean id="medicamentStockService" class="pharmacy.service.MedicamentStockService">
         <property name="medicamentStockDao" ref="medicamentStockDao" />
+        <property name="medicamentDao" ref="medicamentDao" />
     </bean>
     <bean id="medicamentDao" class="pharmacy.dao.mybatis.MedicamentMapper" parent="dao2" />
     <bean id="medicamentService" class="pharmacy.service.MedicamentService">

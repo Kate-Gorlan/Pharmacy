@@ -15,19 +15,6 @@
 		<a class="navbar-brand" href="index.html" style="font-size: 200%; color: white;"><img
 			src="resources/mainSite/Logo1.png" height="56" width="56">
 			Pharmacy </a>
-		<!-- Logo -->
-
-		<!-- Search -->
-		<c:url value="/find.html" var="href" />
-		<form class="form-inline my-2 my-lg-0" action="${href}" method="POST">
-			<input class="form-control mr-sm-2" type="search" name="findName"
-				placeholder="Enter name" aria-label="product search">
-				<!--  disabled -->
-			<button class="btn btn-info my-2 my-sm-0" type="submit">
-				Search <img src="resources/mainSite/Srch.png" height="15" width="15">
-			</button>
-			<!--  type="button" -->
-		</form>
 	</nav>
 
 	<!-- jsp body -->
@@ -36,20 +23,6 @@
 		<jsp:doBody />
 
 	</div>
-
-	<!-- Footer -->
-	<!--<div class="footer container-lg width-full p-responsive"
-		role="contentinfo">
-		<div
-			class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light ">
-			<ul
-				class="list-style-none d-flex flex-wrap col-12 col-lg-5 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
-				<li class="w-100">admin: Kate Gorlan</li>
-				<li class="col"><a href="https://new.vk.com/katya_gorlan"
-					data-ga-click="Footer, go to vk, text:vk">vk</a></li>
-			</ul>
-		</div>
-	</div>-->
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

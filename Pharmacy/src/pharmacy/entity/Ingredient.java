@@ -40,7 +40,7 @@ public class Ingredient extends Entity {
         return money;
     }
     public void setMoney(BigDecimal money) {
-        this.money = money;
+        this.money = money.setScale(2, BigDecimal.ROUND_HALF_EVEN);
     }
     
 }

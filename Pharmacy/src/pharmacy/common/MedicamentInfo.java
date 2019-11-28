@@ -45,6 +45,6 @@ public class MedicamentInfo {
         return deliveryPrice;
     }
     public void setDeliveryPrice(BigDecimal deliveryPrice) {
-        this.deliveryPrice = deliveryPrice;
+        this.deliveryPrice = deliveryPrice.setScale(2, BigDecimal.ROUND_HALF_EVEN);
     }    
 }

@@ -17,7 +17,7 @@ public class MedicamentStock extends Entity {
         return price;
     }
     public void setPrice(BigDecimal price) {
-        this.price = price;
+        this.price = price.setScale(2, BigDecimal.ROUND_HALF_EVEN);
     }
     public String getDateOfArrival() {
         return dateOfArrival;

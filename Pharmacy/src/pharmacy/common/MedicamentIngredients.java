@@ -88,7 +88,7 @@ public class MedicamentIngredients {
         return priceOfWork;
     }
     public void setPriceOfWork(BigDecimal priceOfWork) {
-        this.priceOfWork = priceOfWork;
+        this.priceOfWork = priceOfWork.setScale(2, BigDecimal.ROUND_HALF_EVEN);
     }
     public int getTimeForPreparing() {
         return timeForPreparing;
@@ -118,7 +118,7 @@ public class MedicamentIngredients {
         return productPrice;
     }
     public void setProductPrice(BigDecimal productPrice) {
-        this.productPrice = productPrice;
+        this.productPrice = productPrice.setScale(2, BigDecimal.ROUND_HALF_EVEN);
     }
     public int getProductQuantity() {
         return productQuantity;
@@ -136,6 +136,6 @@ public class MedicamentIngredients {
         return productNeedPrice;
     }
     public void setProductNeedPrice(BigDecimal productNeedPrice) {
-        this.productNeedPrice = productNeedPrice;
+        this.productNeedPrice = productNeedPrice.setScale(2, BigDecimal.ROUND_HALF_EVEN);
     }
 }

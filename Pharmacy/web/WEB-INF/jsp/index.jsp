@@ -21,10 +21,10 @@
                             <a href="pharmacist.html">${position.title}</a>
                             </c:when>
                             <c:when test="${position.title == 'Провизор-технолог'}">
-                            <a href="pharmacistTechnologist').html">${position.title}</a>
+                            <a href="pharmacistTechnologist.html">${position.title}</a>
                             </c:when>
                             <c:when test="${position.title == 'Кладовщик'}">
-                            <a href="storekeeper.html">${position.title}</a>
+                            <a href="storekeeper.html?typeMed=not&typeProd=not">${position.title}</a>
                             </c:when>
                             <c:otherwise>
                             <p>${position.title}</p>
