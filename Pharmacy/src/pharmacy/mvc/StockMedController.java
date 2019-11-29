@@ -64,7 +64,14 @@ public class StockMedController {
             try {
             medicamentStockService.add(medicamentStock);
             } catch (Exception e) {
-                errors.add("Дата введена не верно");
+                if (e.getMessage().indexOf("Ошибка преобразования даты или времени из символьной строки") != -1)
+                {
+                errors.add("Дата введена не корректно");
+                }
+                else
+                {
+                errors.add(e.getMessage());
+                }
                 model.addAttribute("errors", errors);
                 model.addAttribute("medicamentStocks", medicamentStock);
                 return "editStockMedicament";

@@ -102,6 +102,7 @@
     <bean id="productStockDao" class="pharmacy.dao.mybatis.ProductStockMapper" parent="dao2" />
     <bean id="productStockService" class="pharmacy.service.ProductStockService">
         <property name="productStockDao" ref="productStockDao" />
+        <property name="productDao" ref="productDao" />
     </bean>
     
     <bean id="productDao" class="pharmacy.dao.mybatis.ProductMapper" parent="dao2" />
