@@ -9,22 +9,22 @@
     <c:if test="${not empty positions}">
          <div class="card-deck">
             <c:forEach items="${positions}" var="position">
-                <div class="card mb-3" style="max-width: 300px; min-width: 300px;">
+                <div class="card mb-3" style="max-width: 600px; min-width: 600px;">
                     <div class="row no-gutters">
                         <div class="col-md-8">
                             <div class="card-body">
                             <c:choose>
                             <c:when test="${position.title == 'Администратор'}">
-                            <a href="admin.html">${position.title}</a>
+                            <a href="admin.html" style="font-size: 200%;">${position.title}</a>
                             </c:when>
                             <c:when test="${position.title == 'Фармацевт'}">
-                            <a href="pharmacist.html">${position.title}</a>
+                            <a href="pharmacist.html" style="font-size: 200%;">${position.title}</a>
                             </c:when>
                             <c:when test="${position.title == 'Провизор-технолог'}">
-                            <a href="pharmacistTechnologist.html">${position.title}</a>
+                            <a href="pharmacistTechnologist.html" style="font-size: 200%;">${position.title}</a>
                             </c:when>
                             <c:when test="${position.title == 'Кладовщик'}">
-                            <a href="storekeeper.html?typeMed=not&typeProd=not">${position.title}</a>
+                            <a href="storekeeper.html?typeMed=not&typeProd=not" style="font-size: 200%;">${position.title}</a>
                             </c:when>
                             <c:otherwise>
                             <p>${position.title}</p>

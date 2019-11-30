@@ -16,6 +16,12 @@
 		<result column="Product type" property="productType" />
 		<result column="Product quantity" property="productQuantity" />
 	</resultMap>
+	
+	<resultMap id="ProductProgress"
+        type="pharmacy.common.ProductProgress">
+        <result column="Product" property="product" />
+        <result column="Product quantity" property="productQuantity" />
+    </resultMap>
 
 	<insert id="create">
 		INSERT INTO product (product_name, product_type)
@@ -110,24 +116,8 @@
 	</select>
 
 	<select id="GetProductForOrderInProduction"
-		resultMap="ProductCriticalNorm">
-		SELECT
-		products.product_name AS Product,
-		products.product_type AS [Product type],
-		SUM(products.ingredient_quantity) AS [Product quantity]
-		FROM
-		(
-		SELECT p.*, i.ingredient_quantity
-		FROM [pending_order] po
-		JOIN [order] o ON o.order_id = po.order_id
-		JOIN [order_medicament] om ON o.order_id = om.order_id
-		JOIN [medicament] m ON m.medicament_id = om.medicament_id
-		JOIN [recipe_medicament] rm ON rm.medicament_id = m.medicament_id
-		JOIN [ingredient] i ON i.recipe_medicament_id = rm.recipe_medicament_id
-		JOIN [product] p ON p.product_id = i.product_id
-		WHERE po.employeee_cooking_id IS NOT NULL AND po.take_status = 'В ожидании'
-		) as products
-		GROUP BY products.product_name
+		resultMap="ProductProgress">
+		select * from dbo.GetProductForOrderInProduction();
 	</select>
 
 </mapper>

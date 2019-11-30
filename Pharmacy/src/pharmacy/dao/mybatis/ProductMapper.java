@@ -6,6 +6,7 @@ import java.util.List;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import pharmacy.common.ProductCriticalNorm;
+import pharmacy.common.ProductProgress;
 import pharmacy.dao.ProductDao;
 import pharmacy.entity.Product;
 
@@ -72,7 +73,7 @@ public class ProductMapper extends SqlSessionDaoSupport implements ProductDao{
     }
 
     @Override
-    public List<ProductCriticalNorm> getProductForOrderInProduction() {
+    public List<ProductProgress> getProductForOrderInProduction() {
         return getSqlSession().selectList("pharmacy.dao.ProductDao.GetProductForOrderInProduction");
     }
 } 

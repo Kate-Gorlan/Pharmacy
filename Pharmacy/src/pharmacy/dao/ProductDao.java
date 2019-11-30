@@ -5,6 +5,7 @@ import java.util.List;
 
 import pharmacy.entity.Product;
 import pharmacy.common.ProductCriticalNorm;
+import pharmacy.common.ProductProgress;
 
 public interface ProductDao extends CrudDao<Long, Product>{
 
@@ -24,6 +25,6 @@ public interface ProductDao extends CrudDao<Long, Product>{
     
     List<ProductCriticalNorm> getMinProductInStock();
     
-    List<ProductCriticalNorm> getProductForOrderInProduction();
+    List<ProductProgress> getProductForOrderInProduction();
 
 }

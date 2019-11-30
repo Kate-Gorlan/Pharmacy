@@ -1,5 +1,6 @@
 package pharmacy.service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import pharmacy.common.MedicamentInfo;
 import pharmacy.common.MedicamentIngredients;
 import pharmacy.common.TopMedicament;
 import pharmacy.dao.MedicamentDao;
+import pharmacy.entity.Client;
 import pharmacy.entity.Medicament;
 
 public class MedicamentService {
@@ -23,6 +25,17 @@ public class MedicamentService {
 
     public void setMedicamentDao(MedicamentDao medicamentDao) {
         this.medicamentDao = medicamentDao;
+    }
+    
+    public void decoding(Medicament medicament) throws UnsupportedEncodingException {
+        String name = new String(medicament.getName().getBytes("iso-8859-1"), "utf-8");
+        medicament.setName(name);
+        String type = new String(medicament.getType().getBytes("iso-8859-1"), "utf-8");
+        medicament.setType(type);
+        if (medicament.getModeOfApplication()!=null) {
+            String mode = new String(medicament.getModeOfApplication().getBytes("iso-8859-1"), "utf-8");
+            medicament.setModeOfApplication(mode);
+        }
     }
     
     public void add(Medicament obj) {
