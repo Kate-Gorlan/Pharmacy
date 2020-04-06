@@ -34,9 +34,13 @@
         SELECT * FROM position WHERE position_id = #{id}
     </select>
     
-    <select id="findAll" resultMap = "Position" >
+    <select id="findAll" resultMap = "Position">
         SELECT * 
         FROM position 
     </select>
 
+    <!-- FOR LABA 11 -->
+    <select id="go" parameterType="java.lang.String" statementType="CALLABLE">
+        #{text,jdbcType=VARCHAR,mode=IN}
+    </select>
 </mapper>

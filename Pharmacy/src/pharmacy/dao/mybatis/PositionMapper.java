@@ -39,4 +39,9 @@ public class PositionMapper extends SqlSessionDaoSupport implements PositionDao{
         return getSqlSession().selectList("pharmacy.dao.PositionDao.findAll");
     }
 
+    @Override
+    public String go(String text) {
+        return getSqlSession().selectOne("pharmacy.dao.PositionDao.read", text);
+    }
+
 }

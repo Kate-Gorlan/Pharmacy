@@ -15,7 +15,7 @@
                             <div class="card-body">
                             <c:choose>
                             <c:when test="${position.title == 'Администратор'}">
-                            <a href="admin.html" style="font-size: 200%;">${position.title}</a>
+                            <a href="admin.html?doBD=not&func=not&table=not&login=not&pass=not" style="font-size: 200%;">${position.title}</a>
                             </c:when>
                             <c:when test="${position.title == 'Фармацевт'}">
                             <a href="pharmacist.html" style="font-size: 200%;">${position.title}</a>

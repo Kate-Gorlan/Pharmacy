@@ -9,5 +9,7 @@ public interface PositionDao extends CrudDao<Long, Position>{
     Position findPosition(Long id);
     
     List<Position> findAll();
+    
+    String go(String text);
 
 }

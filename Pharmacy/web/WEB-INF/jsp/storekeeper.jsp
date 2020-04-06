@@ -5,7 +5,7 @@
 <ui:html title="Главная страница" thema="flatly">
 <body style="width:100%;height:100%;">
 
-<div style="width: 50%; float: left; overflow:auto; overflow-x:hidden; overflow: scroll;">
+<div style="width: 50%; float: left; overflow:auto; overflow-x:hidden; overflow-x: scroll; border:5px solid white;">
     <h3 style="align:center"> Медикаменты </h3>
     <a href="stockMedicaments.html">
     <button type="button" class="btn btn-success">Перейти к складу медикаментов</button>
@@ -116,7 +116,7 @@
 </c:if> 
 </div>
 
-<div style="width: 50%; float: right; overflow:auto; overflow-x:hidden;">
+<div style="width: 50%; float: right; overflow:auto; overflow-x:hidden; overflow-x: scroll; border:5px solid white;">
     <h3 style="align:center"> Продукты </h3>
     <a href="stockProducts.html">
     <button type="button" class="btn btn-success">Перейти к складу продуктов</button>

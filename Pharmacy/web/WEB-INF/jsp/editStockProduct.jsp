@@ -48,7 +48,7 @@
                 <!-- quantity -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" style="background-color: #F7819F;">Количество</span>
+                        <span class="input-group-text" style="background-color: #F7819F;">Количество в граммах\миллилитрах</span>
                     </div>
                     <c:choose>
                         <c:when test="${empty productStocks}">
