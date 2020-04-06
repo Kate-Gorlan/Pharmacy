@@ -61,27 +61,27 @@ public class ProductStockService {
         Long id = productStock.getProduct().getId();
         Product prod = productDao.read(id);
         if (prod == null) {
-            errors.add("Указанного продукта нету в базе");
+            errors.add("Р—Р°РїРёСЃСЊ Рѕ РїСЂРѕРґСѓРєС‚Рµ РЅРµ РЅР°Р№РґРµРЅР°");
         }
         if (productStock.getQuantity()<=0) {
-            errors.add("Количество не может быть нулевым или отрицательным");
+            errors.add("РљРѕР»РёС‡РµСЃС‚РІРѕ РїСЂРѕРґСѓРєС‚Р° РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РЅСѓР»РµРј РёР»Рё РјРµРЅСЊС€Рµ РЅСѓР»СЏ");
         }
         if (productStock.getShelfLife()<=0) {
-            errors.add("Срок годности не может быть нулевым или отрицательным");
+            errors.add("РЎСЂРѕРє РіРѕРґРЅРѕСЃС‚Рё РїСЂРѕРґСѓРєС‚Р° РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РЅСѓР»РµРј РёР»Рё РјРµРЅСЊС€Рµ РЅСѓР»СЏ");
         }
         try {
         Date date = new SimpleDateFormat("yyyy-MM-dd").parse(new String(productStock.getDateOfArrival()));
         Date date1 = Calendar.getInstance().getTime();
         
         if (date1.getTime()<date.getTime()) {
-            errors.add("Дата поставки не может быть больше текущей");
+            errors.add("Р”Р°С‚Р° РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ Р±РѕР»СЊС€Рµ С‚РµРєСѓС‰РµР№");
         }
         } catch (Exception e) {
-            errors.add("Дата введена не в формате ГГГГ-ММ-ДД ");
+            errors.add("Р”Р°С‚Р° РІРІРµРґРµРЅР° РЅРµ РІ С„РѕСЂРјР°С‚Рµ yyyy-MM-dd");
         }
         
         if (productStock.getCriticalNorm()<=0) {
-            errors.add("Критическая норма продукта не может быть нулевой или отрицательной");
+            errors.add("РљСЂРёС‚РёС‡РµСЃРєР°СЏ РЅРѕСЂРјР° РїСЂРѕРґСѓРєС‚Р° РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РЅСѓР»РµРј РёР»Рё РјРµРЅСЊС€Рµ РЅСѓР»СЏ");
         }
 
         return errors;

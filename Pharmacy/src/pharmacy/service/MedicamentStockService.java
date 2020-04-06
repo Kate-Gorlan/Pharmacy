@@ -63,27 +63,27 @@ public class MedicamentStockService {
         Long id = medicamentStock.getMedicament().getId();
         Medicament med = medicamentDao.read(id);
         if (med == null) {
-            errors.add("Указанного медикамента нету в базе");
+            errors.add("Р—Р°РїРёСЃСЊ Рѕ РјРµРґРёРєР°РјРµРЅС‚Рµ РЅРµ РЅР°Р№РґРµРЅР°");
         }
         if (medicamentStock.getQuantity()<=0) {
-            errors.add("Количество не может быть нулевым или отрицательным");
+            errors.add("РљРѕР»РёС‡РµСЃС‚РІРѕ РјРµРґРёРєР°РјРµРЅС‚Р° РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РЅСѓР»РµРј РёР»Рё РјРµРЅСЊС€Рµ РЅСѓР»СЏ");
         }
         if (medicamentStock.getShelfLife()<=0) {
-            errors.add("Срок годности не может быть нулевым или отрицательным");
+            errors.add("РЎСЂРѕРє РіРѕРґРЅРѕСЃС‚Рё РјРµРґРёРєР°РјРµРЅС‚Р° РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РЅСѓР»РµРј РёР»Рё РјРµРЅСЊС€Рµ РЅСѓР»СЏ");
         }
         try {
         Date date = new SimpleDateFormat("yyyy-MM-dd").parse(new String(medicamentStock.getDateOfArrival()));
         Date date1 = Calendar.getInstance().getTime();
         
         if (date1.getTime()<date.getTime()) {
-            errors.add("Дата поставки не может быть больше текущей");
+            errors.add("Р”Р°С‚Р° РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ Р±РѕР»СЊС€Рµ С‚РµРєСѓС‰РµР№");
         }
         } catch (Exception e) {
-            errors.add("Дата введена не в формате ГГГГ-ММ-ДД ");
+            errors.add("Р”Р°С‚Р° РІРІРµРґРµРЅР° РЅРµ РІ С„РѕСЂРјР°С‚Рµ yyyy-MM-dd");
         }
         
         if (medicamentStock.getCriticalNorm()<=0) {
-            errors.add("Критическая норма медикамента не может быть нулевой или отрицательной");
+            errors.add("РљСЂРёС‚РёС‡РµСЃРєР°СЏ РЅРѕСЂРјР° РјРµРґРёРєР°РјРµРЅС‚Р° РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РЅСѓР»РµРј РёР»Рё РјРµРЅСЊС€Рµ РЅСѓР»СЏ");
         }
 
         return errors;

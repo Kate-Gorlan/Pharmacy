@@ -43,16 +43,16 @@ public class ClientService {
             errors.add("Длина ФИО не может быть больше 80 символов");
         }
         if (client.getAge()>100 || client.getAge()<6) {
-            errors.add("������� ������ ���� � �������� 6-100");
+            errors.add("Возраст должен быть в рамках 6-100");
         }
         if (client.getAddress().length()>80) {
-            errors.add("������ ������ ��������� 80 ��������");
+            errors.add("Длина адреса не может быть больше 80 символов");
         }
         if (client.getPhone().length()!=9) {
-            errors.add("������ ������ �������� ������ ���� 9 ��������");
+            errors.add("Длина телефона должна быть 9 символов");
         }
         if (!client.getPhone().matches("^[0-9]+$")) {
-            errors.add("����� �������� ������ ��������� ������ �������");
+            errors.add("Номер телефона должен состоять из цифр");
         }
 
         return errors;

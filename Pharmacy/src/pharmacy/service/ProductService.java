@@ -76,10 +76,10 @@ public class ProductService {
         Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(sd);
         
         if (date1.getTime()<date.getTime()) {
-            errors.add("Äàòà íà÷àëà ïåðèîäà íå ìîæåò áûòü áîëüøå êîíå÷íîé");
+            errors.add("Ð”Ð°Ñ‚Ð° Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð±Ð¾Ð»ÑŒÑˆÐµ Ñ‚ÐµÐºÑƒÑ‰ÐµÐ¹");
         }
         } catch (Exception e) {
-            errors.add("Äàòà ââåäåíà íå â ôîðìàòå ÃÃÃÃ-ÌÌ-ÄÄ ");
+            errors.add("Ð”Ð°Ñ‚Ð° Ð²Ð²ÐµÐ´ÐµÐ½Ð° Ð½Ðµ Ð² Ñ„Ð¾Ñ€Ð¼Ð°Ñ‚Ðµ yyyy-MM-dd");
         }
 
         return errors;
