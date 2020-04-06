@@ -111,7 +111,7 @@ public class ProdController {
         try {
         prodNumByPeriod = productService.getVolumeOfPUForThePeriod(name2, fd, sd);
         } catch (Exception e) {
-            errors.add("Дата введена не верно");
+            errors.add("РћС€РёР±РєР°: " + e);
             model.addAttribute("errors", errors);
             model.addAttribute("name", name2);
             model.addAttribute("fd", fd);

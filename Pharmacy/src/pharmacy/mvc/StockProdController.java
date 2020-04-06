@@ -67,14 +67,9 @@ public class StockProdController {
             try {
             productStockService.add(productStock);
             } catch (Exception e) {
-                if (e.getMessage().indexOf("Ошибка преобразования даты или времени из символьной строки") != -1)
-                {
-                errors.add("Дата введена не корректно");
-                }
-                else
-                {
-                errors.add(e.getMessage());
-                }
+
+                errors.add("РћС€РёР±РєР°: " + e.getMessage());
+
                 model.addAttribute("errors", errors);
                 model.addAttribute("productStocks", productStock);
                 return "editStockProduct";
