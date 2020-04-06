@@ -31,33 +31,33 @@ public class AdminController {
         if (doBD.equals("add")) {
             try {
             positionService.addlogin(login, pass);
-            message = "Пользователь добавлен";
+            message = "Р”РѕР±Р°РІР»РµРЅРёРµ РїСЂРѕС€Р»Рѕ СѓСЃРїРµС€РЅРѕ";
             } catch (Exception e) {
-                message = "Пользователь не добавлен";
+                message = "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ Р±С‹Р» РґРѕР±Р°РІР»РµРЅ. РћС€РёР±РєР°: " + e;
             }
         }
         if (doBD.equals("delete")) {
             try {
             positionService.deletelogin(login);
-            message = "Пользователь удален";
+            message = "РЈРґР°Р»РµРЅРёРµ РїСЂРѕС€Р»Рѕ СѓСЃРїРµС€РЅРѕ";
             } catch (Exception e) {
-                message = "Пользователь не удален";
+                message = "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ Р±С‹Р» СѓРґР°Р»РµРЅ. РћС€РёР±РєР°: " + e;
             }
         }
         if (doBD.equals("grant")) {
             try {
             positionService.grantlogin(func, table, login);
-            message = "Пользователю добавлены разрешения";
+            message = "Р”РѕР±Р°РІР»РµРЅРёРµ РїСЂРѕС€Р»Рѕ СѓСЃРїРµС€РЅРѕ";
             } catch (Exception e) {
-                message = "Пользователю не добавлены разрешения";
+                message = "РџСЂР°РІР° РЅРµ Р±С‹Р»Рё РґРѕР±Р°РІР»РµРЅС‹. РћС€РёР±РєР°: " + e;
             }
         }
         if (doBD.equals("revoke")) {
             try {
             positionService.revokelogin(func, table, login);
-            message = "Пользователю удалены разрешения";
+            message = "РЈРґР°Р»РµРЅРёРµ РїСЂРѕС€Р»Рѕ СѓСЃРїРµС€РЅРѕ";
             } catch (Exception e) {
-                message = "Пользователю не удалены разрешения";
+                message = "РџСЂР°РІР° РЅРµ Р±С‹Р»Рё СѓРґР°Р»РµРЅС‹. РћС€РёР±РєР°: " + e;
             }
         }
         model.addAttribute("message", message);
