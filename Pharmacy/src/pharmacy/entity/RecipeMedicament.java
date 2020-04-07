@@ -11,6 +11,7 @@ public class RecipeMedicament extends Entity {
     private Medicament medicament;
     private String technology;
     private int settlingTime;
+    private int quantity;
     private List<Ingredient> ingredients;
     
     public Medicament getMedicament() {
@@ -36,6 +37,12 @@ public class RecipeMedicament extends Entity {
     }
     public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
+    }
+    public int getQuantity() {
+        return quantity;
+    }
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
     
 }

@@ -8,6 +8,7 @@
         <id column="recipe_medicament_id" property="id" />
         <result column="technology" property="technology" />
         <result column="settling_time" property="settlingTime" />
+        <result column="quantity" property="quantity" />
         <association property="medicament" resultMap="Medicament" />
         <collection property="ingredient" javaType="List" ofType="pharmacy.entity.Ingredient">
             <id column="ingredient_id" property="id" />
@@ -34,7 +35,7 @@
     <insert id="create">
         INSERT INTO recipe_medicament (medicament_id, technology, settling_time) VALUES (
             (SELECT medicament_id FROM medicament WHERE medicament_id = #{medicament.id}),
-            #{technology}, #{settlingTime}
+            #{technology}, #{settlingTime}, #{quantity}
             )
     </insert>
 
@@ -57,6 +58,7 @@
         medicament_id = (SELECT medicament_id FROM medicament WHERE medicament_id = #{medicament.id}),
         technology = #{technology},
         settling_time = #{settlingTime}
+        quantity = #{quantity}
         WHERE recipe_medicament_id = #{id}
     </update>
 
