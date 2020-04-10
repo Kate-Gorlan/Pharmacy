@@ -4,247 +4,220 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pharmacy.dao.ClientDao">
 
-	<resultMap id="Client" type="pharmacy.entity.Client">
-		<id column="client_id" property="id" />
-		<result column="client_full_name" property="fullName" />
-		<result column="client_age" property="age" />
-		<result column="client_address" property="address" />
-		<result column="client_phone" property="phone" />
-	</resultMap>
+    <resultMap id="Client" type="pharmacy.entity.Client">
+        <id column="client_id" property="id" />
+        <result column="client_full_name" property="fullName" />
+        <result column="client_age" property="age" />
+        <result column="client_address" property="address" />
+        <result column="client_phone" property="phone" />
+        <association property="user" resultMap="User" />
+    </resultMap>
 
-	<resultMap id="ClientNotTakenOrder"
-		type="pharmacy.common.ClientNotTakenOrder">
-		<result column="Take Status" property="takeStatus" />
-		<result column="Date" property="date" />
-		<result column="Medicament name" property="medicamentName" />
-		<result column="Client id" property="id" />
-		<result column="Client" property="client" />
-		<result column="Client phone" property="clientPhone" />
-	</resultMap>
+    <resultMap id="User" type="pharmacy.entity.User">
+        <id column="user_id" property="id" />
+        <result column="login" property="login" />
+        <result column="password" property="password" />
+    </resultMap>
 
-	<resultMap id="ClientsPendingOrder"
-		type="pharmacy.common.ClientsPendingOrder">
-		<result column="Medicament" property="medicamentName" />
-		<result column="Order date" property="orderDate" />
-		<result column="Availability date" property="availabilityDate" />
-		<result column="Client id" property="id" />
-		<result column="Client" property="client" />
-		<result column="Client phone" property="clientPhone" />
-	</resultMap>
+    <resultMap id="ClientNotTakenOrder" type="pharmacy.common.ClientNotTakenOrder">
+        <result column="Take Status" property="takeStatus" />
+        <result column="Date" property="date" />
+        <result column="Medicament name" property="medicamentName" />
+        <result column="Client id" property="id" />
+        <result column="Client" property="client" />
+        <result column="Client phone" property="clientPhone" />
+    </resultMap>
 
-	<resultMap id="ClientMed" type="pharmacy.common.ClientMed">
-		<result column="Medicament" property="medicamentName" />
-		<result column="Order date" property="date" />
-		<result column="Client id" property="id" />
-		<result column="Client" property="client" />
-		<result column="Client phone" property="clientPhone" />
-	</resultMap>
+    <resultMap id="ClientsPendingOrder" type="pharmacy.common.ClientsPendingOrder">
+        <result column="Medicament" property="medicamentName" />
+        <result column="Order date" property="orderDate" />
+        <result column="Availability date" property="availabilityDate" />
+        <result column="Client id" property="id" />
+        <result column="Client" property="client" />
+        <result column="Client phone" property="clientPhone" />
+    </resultMap>
 
-	<resultMap id="TopClientsMed"
-		type="pharmacy.common.TopClientsMed">
-		<result column="Quantity" property="quantity" />
-		<result column="Client id" property="id" />
-		<result column="Client" property="client" />
-	</resultMap>
+    <resultMap id="ClientMed" type="pharmacy.common.ClientMed">
+        <result column="Medicament" property="medicamentName" />
+        <result column="Order date" property="date" />
+        <result column="Client id" property="id" />
+        <result column="Client" property="client" />
+        <result column="Client phone" property="clientPhone" />
+    </resultMap>
 
-	<insert id="create">
-		INSERT INTO client (client_full_name, client_age,
-		client_address,
-		client_phone)
-		VALUES (#{fullName}, #{age}, #{address},
-		#{phone})
-	</insert>
+    <resultMap id="TopClientsMed" type="pharmacy.common.TopClientsMed">
+        <result column="Quantity" property="quantity" />
+        <result column="Client id" property="id" />
+        <result column="Client" property="client" />
+    </resultMap>
 
-	<select id="read" parameterType="java.lang.Long"
-		resultMap="Client">
-		SELECT *
-		FROM client a
-		WHERE a.client_id = #{id}
-	</select>
+    <insert id="create">
+        INSERT INTO client (client_full_name, client_age,
+        client_address,
+        client_phone, user_id)
+        VALUES (#{fullName}, #{age}, #{address},
+        #{phone}, (SELECT user_id FROM user WHERE user_id = #{user.id}))
+    </insert>
 
-	<update id="update" parameterType="pharmacy.entity.Client">
-		UPDATE client SET
-		client_full_name = #{fullName},
-		client_age = #{age},
-		client_address =
-		#{address},
-		client_phone = #{phone}
-		WHERE client_id = #{id}
-	</update>
+    <select id="read" parameterType="java.lang.Long" resultMap="Client">
+        SELECT *
+        FROM client a
+        WHERE a.client_id = #{id}
+    </select>
 
-	<delete id="delete" parameterType="java.lang.Long">
-		DELETE FROM client WHERE
-		client_id = #{id}
-	</delete>
+    <update id="update" parameterType="pharmacy.entity.Client">
+        UPDATE client SET
+        client_full_name = #{fullName},
+        client_age = #{age},
+        client_address =
+        #{address},
+        client_phone = #{phone}
+        WHERE client_id = #{id}
+    </update>
 
-	<select id="findById" parameterType="java.lang.Long"
-		resultMap="Client">
-		SELECT * FROM client WHERE client_id = #{id}
-	</select>
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM client WHERE
+        client_id = #{id}
+    </delete>
 
-	<select id="findAll" resultMap="Client">
-		SELECT *
-		FROM client
-	</select>
+    <select id="findById" parameterType="java.lang.Long" resultMap="Client">
+        SELECT * FROM client WHERE client_id = #{id}
+    </select>
 
-	<select id="GetNotTakeOrderClient"
-		resultMap="ClientNotTakenOrder">
-		SELECT
-		po.take_status AS [Take Status],
-		o.order_date AS
-		[Date],
-		m.medicament_name AS [Medicament name],
-		c.client_id AS [Client
-		id],
-		c.client_full_name AS [Client],
-		c.client_phone AS [Client phone]
-		FROM [pending_order] po
-		JOIN [order] o ON o.order_id = po.order_id
-		JOIN
-		[order_medicament] om ON o.order_id = om.order_id
-		JOIN [medicament] m
-		ON om.medicament_id = m.medicament_id
-		JOIN [prescription] pres ON
-		pres.prescription_id = om.prescription_id
-		JOIN [client] c ON
-		pres.client_id = c.client_id
-		WHERE po.take_status = 'Не взято' OR
-		po.take_status = 'Взято с опозданием'
-	</select>
+    <select id="findAll" resultMap="Client">
+        SELECT *
+        FROM client
+    </select>
 
-	<select id="GetNumberOfNotTakeOrderClient"
-		resultType="java.lang.Integer">
-		select dbo.GetNumberOfNotTakeOrderClient();
-	</select>
+    <select id="GetNotTakeOrderClient" resultMap="ClientNotTakenOrder">
+        SELECT
+        po.take_status AS [Take Status],
+        o.order_date AS
+        [Date],
+        m.medicament_name AS [Medicament name],
+        c.client_id AS [Client
+        id],
+        c.client_full_name AS [Client],
+        c.client_phone AS [Client phone]
+        FROM [pending_order] po
+        JOIN [order] o ON o.order_id = po.order_id
+        JOIN
+        [order_medicament] om ON o.order_id = om.order_id
+        JOIN [medicament] m
+        ON om.medicament_id = m.medicament_id
+        JOIN [prescription] pres ON
+        pres.prescription_id = om.prescription_id
+        JOIN [client] c ON
+        pres.client_id = c.client_id
+        WHERE po.take_status = 'Не взято' OR
+        po.take_status = 'Взято с опозданием'
+    </select>
 
-	<select id="GetClientsPendingOrder"
-		resultMap="ClientsPendingOrder">
-		SELECT
-		m.medicament_name AS [Medicament],
-		o.order_date AS
-		[Order date],
-		po.availability_date AS [Availability date],
-		c.client_id
-		AS [Client id],
-		c.client_full_name AS [Client],
-		c.client_phone AS
-		[Client phone]
+    <select id="GetNumberOfNotTakeOrderClient" resultType="java.lang.Integer">
+        select dbo.GetNumberOfNotTakeOrderClient();
+    </select>
 
-		FROM [pending_order] po
-		JOIN [order] o ON o.order_id =
-		po.order_id
-		JOIN [order_medicament] om ON o.order_id = om.order_id
-		JOIN
-		[medicament] m ON m.medicament_id = om.medicament_id
-		JOIN
-		[prescription] pres ON pres.prescription_id = om.prescription_id
-		JOIN
-		[client] c ON pres.client_id = c.client_id
-		WHERE
-		po.employeee_cooking_id IS NULL AND po.take_status = 'В ожидании'
-	</select>
+    <select id="GetClientsPendingOrder" resultMap="ClientsPendingOrder">
+        SELECT
+        m.medicament_name AS [Medicament],
+        o.order_date AS
+        [Order date],
+        po.availability_date AS [Availability date],
+        c.client_id
+        AS [Client id],
+        c.client_full_name AS [Client],
+        c.client_phone AS
+        [Client phone]
 
-	<select id="GetCPOMedicament" parameterType="java.lang.String"
-		resultMap="ClientsPendingOrder">
-		select * from dbo.GetCPOMedicament(#{name});
-	</select>
+        FROM [pending_order] po
+        JOIN [order] o ON o.order_id =
+        po.order_id
+        JOIN [order_medicament] om ON o.order_id = om.order_id
+        JOIN
+        [medicament] m ON m.medicament_id = om.medicament_id
+        JOIN
+        [prescription] pres ON pres.prescription_id = om.prescription_id
+        JOIN
+        [client] c ON pres.client_id = c.client_id
+        WHERE
+        po.employeee_cooking_id IS NULL AND po.take_status = 'В ожидании'
+    </select>
 
-	<select id="GetNCPOMedicament" parameterType="java.lang.String"
-		resultType="java.lang.Integer">
-		select dbo.GetNCPOMedicament(#{name});
-	</select>
+    <select id="GetCPOMedicament" parameterType="java.lang.String" resultMap="ClientsPendingOrder">
+        select * from dbo.GetCPOMedicament(#{name});
+    </select>
 
-	<select id="GetNumberOfClientsPendingOrder"
-		resultType="java.lang.Integer">
-		select dbo.GetNumberOfClientsPendingOrder();
-	</select>
+    <select id="GetNCPOMedicament" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select dbo.GetNCPOMedicament(#{name});
+    </select>
 
-	<select id="GetClientMedPeriod" parameterType="hashmap"
-		resultMap="ClientMed">
-		select
-		m.medicament_name AS [Medicament],
-		o.order_date AS
-		[Order date],
-		c.client_id AS [Client id],
-		c.client_full_name AS
-		[Client],
-		c.client_phone AS [Client phone]
+    <select id="GetNumberOfClientsPendingOrder" resultType="java.lang.Integer">
+        select dbo.GetNumberOfClientsPendingOrder();
+    </select>
 
-		FROM [order] o
-		JOIN
-		[order_medicament] om ON o.order_id = om.order_id
-		JOIN [medicament] m
-		ON m.medicament_id = om.medicament_id
-		JOIN [prescription] pres ON
-		pres.prescription_id = om.prescription_id
-		JOIN [client] c ON
-		pres.client_id = c.client_id
+    <select id="GetClientMedPeriod" parameterType="hashmap" resultMap="ClientMed">
+        select
+        m.medicament_name AS [Medicament],
+        o.order_date AS
+        [Order date],
+        c.client_id AS [Client id],
+        c.client_full_name AS
+        [Client],
+        c.client_phone AS [Client phone]
 
-		WHERE LOWER(m.medicament_name) =
-		LOWER(dbo.DeleteDoublуSpace(#{name}))
-		and o.order_date between
-		#{firstDate} and #{secondDate}
-	</select>
+        FROM [order] o
+        JOIN
+        [order_medicament] om ON o.order_id = om.order_id
+        JOIN [medicament] m
+        ON m.medicament_id = om.medicament_id
+        JOIN [prescription] pres ON
+        pres.prescription_id = om.prescription_id
+        JOIN [client] c ON
+        pres.client_id = c.client_id
 
-	<select id="GetClientMedTypePeriod" parameterType="hashmap"
-		resultMap="ClientMed">
-		select
-		m.medicament_name AS [Medicament],
-		o.order_date AS
-		[Order date],
-		c.client_id AS [Client id],
-		c.client_full_name AS
-		[Client],
-		c.client_phone AS [Client phone]
+        WHERE LOWER(m.medicament_name) =
+        LOWER(dbo.DeleteDoublуSpace(#{name}))
+        and o.order_date between
+        #{firstDate} and #{secondDate}
+    </select>
 
-		FROM [order] o
-		JOIN
-		[order_medicament] om ON o.order_id = om.order_id
-		JOIN [medicament] m
-		ON m.medicament_id = om.medicament_id
-		JOIN [prescription] pres ON
-		pres.prescription_id = om.prescription_id
-		JOIN [client] c ON
-		pres.client_id = c.client_id
+    <select id="GetClientMedTypePeriod" parameterType="hashmap" resultMap="ClientMed">
+        select
+        m.medicament_name AS [Medicament],
+        o.order_date AS
+        [Order date],
+        c.client_id AS [Client id],
+        c.client_full_name AS
+        [Client],
+        c.client_phone AS [Client phone]
 
-		WHERE LOWER(m.medicament_type) =
-		LOWER(dbo.DeleteDoublуSpace(#{type}))
-		and o.order_date between
-		#{firstDate} and #{secondDate}
-	</select>
+        FROM [order] o
+        JOIN
+        [order_medicament] om ON o.order_id = om.order_id
+        JOIN [medicament] m
+        ON m.medicament_id = om.medicament_id
+        JOIN [prescription] pres ON
+        pres.prescription_id = om.prescription_id
+        JOIN [client] c ON
+        pres.client_id = c.client_id
 
-	<select id="GetNumberOfClientMedTypePeriod"
-		parameterType="hashmap" resultType="java.lang.Integer">
-		select dbo.GetNumberOfClientMedTypePeriod (#{type}, #{firstDate},
-		#{secondDate});
-	</select>
+        WHERE LOWER(m.medicament_type) =
+        LOWER(dbo.DeleteDoublуSpace(#{type}))
+        and o.order_date between
+        #{firstDate} and #{secondDate}
+    </select>
 
-	<select id="GetNumberOfClientMedPeriod" parameterType="hashmap"
-		resultType="java.lang.Integer">
-		select dbo.GetNumberOfClientMedPeriod (#{name}, #{firstDate},
-		#{secondDate});
-	</select>
+    <select id="GetNumberOfClientMedTypePeriod" parameterType="hashmap" resultType="java.lang.Integer">
+        select dbo.GetNumberOfClientMedTypePeriod (#{type}, #{firstDate},
+        #{secondDate});
+    </select>
 
-	<select id="GetClientsMedByName"
-		parameterType="java.lang.String" resultMap="TopClientsMed">
-		SELECT top 10
-		res.Quantity as [Quantity],
-		cl.client_id AS [Client id],
-		cl.client_full_name AS [Client]
-		from (select COUNT(c.client_id) as [Quantity], c.client_id AS [Client]
-		FROM [order_medicament] om
-		JOIN [medicament] m ON m.medicament_id = om.medicament_id
-		JOIN [prescription] pres ON pres.prescription_id = om.prescription_id
-		JOIN [client] c ON pres.client_id = c.client_id
+    <select id="GetNumberOfClientMedPeriod" parameterType="hashmap" resultType="java.lang.Integer">
+        select dbo.GetNumberOfClientMedPeriod (#{name}, #{firstDate},
+        #{secondDate});
+    </select>
 
-		WHERE LOWER(m.medicament_name) = LOWER(dbo.DeleteDoublуSpace(#{name}))
-		group by c.client_id ) as res
-		JOIN [client] cl ON res.Client = cl.client_id
-		ORDER BY res.Quantity DESC
-	</select>
-	
-	   <select id="GetClientsMedByType"
-        parameterType="java.lang.String" resultMap="TopClientsMed">
+    <select id="GetClientsMedByName" parameterType="java.lang.String" resultMap="TopClientsMed">
         SELECT top 10
         res.Quantity as [Quantity],
         cl.client_id AS [Client id],
@@ -255,8 +228,29 @@
         JOIN [prescription] pres ON pres.prescription_id = om.prescription_id
         JOIN [client] c ON pres.client_id = c.client_id
 
-        WHERE LOWER(m.medicament_type) = LOWER(dbo.DeleteDoublуSpace(#{type}))
+        WHERE LOWER(m.medicament_name) = LOWER(dbo.DeleteDoublуSpace(#{name}))
         group by c.client_id ) as res
+        JOIN [client] cl ON res.Client = cl.client_id
+        ORDER BY res.Quantity DESC
+    </select>
+
+    <select id="GetClientsMedByType" parameterType="java.lang.String" resultMap="TopClientsMed">
+        SELECT top 10
+        res.Quantity as [Quantity],
+        cl.client_id AS
+        [Client id],
+        cl.client_full_name AS [Client]
+        from (select COUNT(c.client_id) as [Quantity], c.client_id AS [Client]
+        FROM [order_medicament]
+        om
+        JOIN [medicament] m ON m.medicament_id = om.medicament_id
+        JOIN [prescription] pres ON pres.prescription_id = om.prescription_id
+        JOIN
+        [client] c ON pres.client_id = c.client_id
+
+        WHERE LOWER(m.medicament_type) = LOWER(dbo.DeleteDoublуSpace(#{type}))
+        group by c.client_id )
+        as res
         JOIN [client] cl ON res.Client = cl.client_id
         ORDER BY res.Quantity DESC
     </select>

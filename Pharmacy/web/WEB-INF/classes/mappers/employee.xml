@@ -9,16 +9,24 @@
         <result column="employee_full_name" property="fullName" />
         <result column="employee_pass" property="password" />
         <association property="position" resultMap="Position" />
+        <association property="user" resultMap="User" />
     </resultMap>
     
     <resultMap id="Position" type="pharmacy.entity.Position">
         <id column="position_id" property="id" />
         <result column="position_title" property="title" />
     </resultMap>
+    
+    <resultMap id="User" type="pharmacy.entity.User">
+        <id column="user_id" property="id" />
+        <result column="login" property="login" />
+        <result column="password" property="password" />
+    </resultMap>
 
     <insert id="create">
-        INSERT INTO employee (position_id, employee_full_name, employee_pass) VALUES (
-            (SELECT position_id FROM position WHERE position_title = #{position.title}), #{fullName}, #{password})
+        INSERT INTO employee (user_id, position_id, employee_full_name, employee_pass) VALUES (
+            (SELECT position_id FROM position WHERE position_title = #{position.title}),
+            (SELECT user_id FROM user WHERE user_id = #{user.id}), #{fullName}, #{password})
     </insert>
 
     <select id="read" parameterType="java.lang.Long" resultMap="Employee">

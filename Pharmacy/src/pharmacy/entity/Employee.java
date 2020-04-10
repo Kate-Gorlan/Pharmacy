@@ -9,6 +9,8 @@ public class Employee extends Entity {
     private String fullName;
     
     private String password;
+    
+    private User user;
 
     public Position getPosition() {
         return position;
@@ -32,6 +34,14 @@ public class Employee extends Entity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

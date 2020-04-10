@@ -4,151 +4,146 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pharmacy.dao.PendingOrderDao">
 
-	<resultMap id="PendingOrder"
-		type="pharmacy.entity.PendingOrder">
-		<id column="pending_order_id" property="id" />
-		<result column="availability_date" property="availabilityDate" />
-		<result column="take_status" property="takeStatus" />
-		<association property="employee" resultMap="Employee" />
-		<association property="order" resultMap="Order" />
-	</resultMap>
+    <resultMap id="PendingOrder" type="pharmacy.entity.PendingOrder">
+        <id column="pending_order_id" property="id" />
+        <result column="availability_date" property="availabilityDate" />
+        <result column="take_status" property="takeStatus" />
+        <association property="employee" resultMap="Employee" />
+        <association property="order" resultMap="Order" />
+    </resultMap>
 
-	<resultMap id="Order" type="pharmacy.entity.Order">
-		<id column="order_id" property="id" />
-		<result column="order_date" property="date" />
-		<association property="employee" resultMap="Employee" />
-	</resultMap>
+    <resultMap id="Order" type="pharmacy.entity.Order">
+        <id column="order_id" property="id" />
+        <result column="order_date" property="date" />
+        <association property="employee" resultMap="Employee" />
+    </resultMap>
 
-	<resultMap id="Employee" type="pharmacy.entity.Employee">
-		<id column="employee_id" property="id" />
-		<result column="employee_full_name" property="fullName" />
-		<result column="employee_pass" property="password" />
-		<association property="position" resultMap="Position" />
-	</resultMap>
+    <resultMap id="Employee" type="pharmacy.entity.Employee">
+        <id column="employee_id" property="id" />
+        <result column="employee_full_name" property="fullName" />
+        <result column="employee_pass" property="password" />
+        <association property="position" resultMap="Position" />
+    </resultMap>
 
-	<resultMap id="Position" type="pharmacy.entity.Position">
-		<id column="position_id" property="id" />
-		<result column="position_title" property="title" />
-	</resultMap>
+    <resultMap id="Position" type="pharmacy.entity.Position">
+        <id column="position_id" property="id" />
+        <result column="position_title" property="title" />
+    </resultMap>
 
-	<resultMap id="OrderInProduction"
-		type="pharmacy.common.OrderInProduction">
-		<result column="Medicament" property="medicament" />
-		<result column="Order date" property="orderDate" />
-		<result column="Availability date" property="availabilityDate" />
-		<result column="Manufacturer" property="manufacturer" />
-	</resultMap>
+    <resultMap id="OrderInProduction" type="pharmacy.common.OrderInProduction">
+        <result column="Medicament" property="medicament" />
+        <result column="Order date" property="orderDate" />
+        <result column="Availability date" property="availabilityDate" />
+        <result column="Manufacturer" property="manufacturer" />
+    </resultMap>
 
-	<insert id="create">
-		INSERT INTO pending_order (order_id, employeee_cooking_id,
-		availability_date, take_status) VALUES (
-		(SELECT order_id FROM order WHERE order_id = #{order.id}),
-		(SELECT employee_id FROM employee WHERE employee_full_name =
-		#{employee.fullName}),
-		#{availabilityDate}, #{takeStatus})
-	</insert>
+    <insert id="create">
+        INSERT INTO pending_order (order_id, employeee_cooking_id,
+        availability_date, take_status) VALUES (
+        (SELECT order_id FROM order WHERE order_id = #{order.id}),
+        (SELECT employee_id FROM employee WHERE employee_full_name =
+        #{employee.fullName}),
+        #{availabilityDate}, #{takeStatus})
+    </insert>
 
-	<select id="read" parameterType="java.lang.Long"
-		resultMap="PendingOrder">
-		SELECT
-		po.pending_order_id,
-		po.order_id,
-		po.employeee_cooking_id,
-		po.availability_date,
-		po.take_status,
-		e.employee_id,
-		e.employee_full_name,
-		o.order_id,
-		o.order_date
-		FROM pending_order po
-		JOIN order o ON po.order_id = o.order_id
-		JOIN employee e ON e.employee_id = po.employeee_cooking_id
-		WHERE po.pending_order_id = #{id}
-	</select>
+    <select id="read" parameterType="java.lang.Long" resultMap="PendingOrder">
+        SELECT
+        po.pending_order_id,
+        po.order_id,
+        po.employeee_cooking_id,
+        po.availability_date,
+        po.take_status,
+        e.employee_id,
+        e.employee_full_name,
+        o.order_id,
+        o.order_date
+        FROM pending_order po
+        JOIN order o ON po.order_id = o.order_id
+        JOIN employee e ON e.employee_id = po.employeee_cooking_id
+        WHERE po.pending_order_id = #{id}
+    </select>
 
-	<update id="update" parameterType="pharmacy.entity.PendingOrder">
-		UPDATE pending_order SET
-		order_id = (SELECT order_id FROM order WHERE order_id = #{order.id}),
-		employeee_cooking_id = (SELECT employee_id FROM employee WHERE
-		employee_full_name = #{employee.fullName}),
-		prescription_id = (SELECT prescription_id FROM prescription WHERE prescription_id =
-		#{prescription.id}),
-		availability_date = #{availabilityDate},
-		take_status = #{takeStatus}
-		WHERE pending_order_id = #{id}
-	</update>
+    <update id="update" parameterType="pharmacy.entity.PendingOrder">
+        UPDATE pending_order SET
+        order_id = (SELECT order_id FROM order WHERE order_id = #{order.id}),
+        employeee_cooking_id = (SELECT employee_id FROM employee WHERE
+        employee_full_name = #{employee.fullName}),
+        prescription_id = (SELECT prescription_id FROM prescription WHERE prescription_id =
+        #{prescription.id}),
+        availability_date = #{availabilityDate},
+        take_status = #{takeStatus}
+        WHERE pending_order_id = #{id}
+    </update>
 
-	<delete id="delete" parameterType="java.lang.Long">
-		DELETE FROM pending_order WHERE pending_order_id = #{id}
-	</delete>
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM pending_order WHERE pending_order_id = #{id}
+    </delete>
 
-	<select id="findAll" resultMap="PendingOrder">
-		SELECT
-		po.pending_order_id,
-		po.order_id,
-		po.employeee_cooking_id,
-		po.availability_date,
-		po.take_status,
-		e.employee_id,
-		e.employee_full_name,
-		o.order_id,
-		o.order_date
-		FROM pending_order po
-		JOIN order o ON po.order_id = o.order_id
-		JOIN employee e ON e.employee_id = po.employeee_cooking_id
-	</select>
+    <select id="findAll" resultMap="PendingOrder">
+        SELECT
+        po.pending_order_id,
+        po.order_id,
+        po.employeee_cooking_id,
+        po.availability_date,
+        po.take_status,
+        e.employee_id,
+        e.employee_full_name,
+        o.order_id,
+        o.order_date
+        FROM pending_order po
+        JOIN order o ON po.order_id = o.order_id
+        JOIN employee e ON e.employee_id = po.employeee_cooking_id
+    </select>
 
-	<select id="findByDate" parameterType="java.lang.String"
-		resultMap="PendingOrder">
-		SELECT
-		po.pending_order_id,
-		po.order_id,
-		po.employeee_cooking_id,
-		po.availability_date,
-		po.take_status,
-		e.employee_id,
-		e.employee_full_name,
-		o.order_id,
-		o.order_date
-		FROM pending_order po
-		JOIN order o ON po.order_id = o.order_id
-		JOIN employee e ON e.employee_id = po.employeee_cooking_id
-		WHERE po.availability_date = #{availabilityDate}
-	</select>
+    <select id="findByDate" parameterType="java.lang.String" resultMap="PendingOrder">
+        SELECT
+        po.pending_order_id,
+        po.order_id,
+        po.employeee_cooking_id,
+        po.availability_date,
+        po.take_status,
+        e.employee_id,
+        e.employee_full_name,
+        o.order_id,
+        o.order_date
+        FROM pending_order po
+        JOIN order o ON po.order_id = o.order_id
+        JOIN employee e ON e.employee_id = po.employeee_cooking_id
+        WHERE po.availability_date = #{availabilityDate}
+    </select>
 
-	<select id="findByStatus" parameterType="java.lang.String"
-		resultMap="PendingOrder">
-		SELECT
-		po.pending_order_id,
-		po.order_id,
-		po.employeee_cooking_id,
-		po.availability_date,
-		po.take_status,
-		e.employee_id,
-		e.employee_full_name,
-		o.order_id,
-		o.order_date
-		FROM pending_order po
-		JOIN order o ON po.order_id = o.order_id
-		JOIN employee e ON e.employee_id = po.employeee_cooking_id
-		WHERE po.take_status = #{takeStatus}
-	</select>
+    <select id="findByStatus" parameterType="java.lang.String" resultMap="PendingOrder">
+        SELECT
+        po.pending_order_id,
+        po.order_id,
+        po.employeee_cooking_id,
+        po.availability_date,
+        po.take_status,
+        e.employee_id,
+        e.employee_full_name,
+        o.order_id,
+        o.order_date
+        FROM pending_order po
+        JOIN order o ON po.order_id = o.order_id
+        JOIN employee e ON e.employee_id = po.employeee_cooking_id
+        WHERE po.take_status = #{takeStatus}
+    </select>
 
-	<select id="GetOrderInProduction" resultMap="OrderInProduction">
-		SELECT
-		m.medicament_name AS [Medicament],
-		o.order_date AS [Order date],
-		po.availability_date AS [Availability date],
-		e.employee_full_name AS [Manufacturer]
-		FROM [pending_order] po
-		JOIN [order] o ON o.order_id = po.order_id
-		JOIN [order_medicament] om ON o.order_id = om.order_id
-		JOIN [medicament] m ON m.medicament_id = om.medicament_id
-		JOIN [employee] e ON e.employee_id = po.employeee_cooking_id
-		WHERE po.employeee_cooking_id IS NOT NULL AND po.take_status = 'В ожидании'
-	</select>
-	
-	<select id="GetNumberOfOrderInProduction" resultType="java.lang.Integer">
+    <select id="GetOrderInProduction" resultMap="OrderInProduction">
+        SELECT
+        m.medicament_name AS [Medicament],
+        o.order_date AS [Order date],
+        po.availability_date AS [Availability date],
+        e.employee_full_name AS [Manufacturer]
+        FROM [pending_order] po
+        JOIN [order] o ON o.order_id = po.order_id
+        JOIN [order_medicament] om ON o.order_id = om.order_id
+        JOIN [medicament] m ON m.medicament_id = om.medicament_id
+        JOIN [employee] e ON e.employee_id = po.employeee_cooking_id
+        WHERE po.employeee_cooking_id IS NOT NULL AND po.take_status = 'В ожидании'
+    </select>
+
+    <select id="GetNumberOfOrderInProduction" resultType="java.lang.Integer">
         SELECT dbo.GetNumberOfOrderInProduction();
     </select>
 

@@ -8,6 +8,7 @@ public class Client extends Entity {
     private Integer age;
     private String address;
     private String phone;
+    private User user;
     
     public String getFullName() {
         return fullName;
@@ -32,5 +33,11 @@ public class Client extends Entity {
     }
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
     }
 }
