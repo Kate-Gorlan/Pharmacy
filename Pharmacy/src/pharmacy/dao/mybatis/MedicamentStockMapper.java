@@ -38,4 +38,14 @@ public class MedicamentStockMapper extends SqlSessionDaoSupport implements Medic
     public List<MedicamentStock> findAll() {
         return getSqlSession().selectList("pharmacy.dao.MedicamentStockDao.findAll");
     }
+
+    @Override
+    public List<MedicamentStock> GetMedicamentThatHaveExpired() {
+        return getSqlSession().selectList("pharmacy.dao.MedicamentStockDao.GetMedicamentThatHaveExpired");
+    }
+
+    @Override
+    public List<MedicamentStock> GetMedicamentThatWillSoonExpire() {
+        return getSqlSession().selectList("pharmacy.dao.MedicamentStockDao.GetMedicamentThatWillSoonExpire");
+    }
 } 

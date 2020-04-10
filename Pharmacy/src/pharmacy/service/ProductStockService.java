@@ -87,4 +87,13 @@ public class ProductStockService {
         return errors;
     }
 
+    public List<ProductStock> getProductThatHaveExpired(){
+        List<ProductStock> list = productStockDao.GetProductThatHaveExpired();
+        return list;
+    }
+    
+    public List<ProductStock> getProductThatWillSoonExpire(){
+        List<ProductStock> list = productStockDao.GetProductThatWillSoonExpire();
+        return list;
+    }
 }

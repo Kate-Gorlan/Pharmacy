@@ -38,4 +38,14 @@ public class ProductStockMapper extends SqlSessionDaoSupport implements ProductS
     public List<ProductStock> findAll() {
         return getSqlSession().selectList("pharmacy.dao.ProductStockDao.findAll");
     }
+
+    @Override
+    public List<ProductStock> GetProductThatHaveExpired() {
+        return getSqlSession().selectList("pharmacy.dao.ProductStockDao.GetProductThatHaveExpired");
+    }
+
+    @Override
+    public List<ProductStock> GetProductThatWillSoonExpire() {
+        return getSqlSession().selectList("pharmacy.dao.ProductStockDao.GetProductThatWillSoonExpire");
+    }
 } 

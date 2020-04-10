@@ -1,8 +1,6 @@
 package pharmacy.service;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -87,5 +85,15 @@ public class MedicamentStockService {
         }
 
         return errors;
+    }
+    
+    public List<MedicamentStock> getMedicamentThatHaveExpired(){
+        List<MedicamentStock> list = medicamentStockDao.GetMedicamentThatHaveExpired();
+        return list;
+    }
+    
+    public List<MedicamentStock> getMedicamentThatWillSoonExpire(){
+        List<MedicamentStock> list = medicamentStockDao.GetMedicamentThatWillSoonExpire();
+        return list;
     }
 }

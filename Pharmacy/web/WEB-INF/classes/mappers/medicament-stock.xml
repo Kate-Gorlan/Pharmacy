@@ -61,5 +61,13 @@
         FROM medicament_stock ps
         JOIN medicament p ON ps.medicament_id = p.medicament_id
     </select>
-   
+    
+    <select id="GetMedicamentThatHaveExpired" resultMap="MedicamentStock">
+        SELECT * from dbo.GetMedicamentThatHaveExpired();
+    </select>
+    
+    <select id="GetMedicamentThatWillSoonExpire" resultMap="MedicamentStock">
+        SELECT * from dbo.GetMedicamentThatWillSoonExpire();
+    </select>
+
 </mapper>

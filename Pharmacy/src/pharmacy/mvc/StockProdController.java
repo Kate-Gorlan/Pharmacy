@@ -3,12 +3,10 @@ package pharmacy.mvc;
 import static java.util.stream.Collectors.toList;
 
 import java.io.UnsupportedEncodingException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.support.SQLErrorCodes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +28,12 @@ public class StockProdController {
     @GetMapping("/stockProducts.html")
     public String stockProducts(Model model) {
         List<ProductStock> listChoose = productStockService.getAll().stream().collect(toList());
+        List<ProductStock> expired = productStockService.getProductThatHaveExpired().stream().collect(toList());
+        List<ProductStock> willSoonExpire = productStockService.getProductThatWillSoonExpire().stream().collect(toList());
+        
         model.addAttribute("prodStock", listChoose);
+        model.addAttribute("prodExpired", expired);
+        model.addAttribute("prodWillSoonExpire", willSoonExpire);
         return "stockProducts";
     }
 

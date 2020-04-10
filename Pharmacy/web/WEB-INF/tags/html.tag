@@ -9,7 +9,7 @@
 	href="css/bootstrap${empty thema ? '' : '-'.concat(thema)}.min.css">
 <title>${title}</title>
 </head>
-<body>
+<body style="width:100%;height:100%;">
 	<!-- LOGO -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<a class="navbar-brand" href="index.html" style="font-size: 200%; color: white;"><img
@@ -18,11 +18,9 @@
 	</nav>
 
 	<!-- jsp body -->
-	<div>
-
+<div>
 		<jsp:doBody />
-
-	</div>
+</div>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

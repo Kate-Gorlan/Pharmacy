@@ -27,7 +27,12 @@ public class StockMedController {
     @GetMapping("/stockMedicaments.html")
     public String stockMedicaments(Model model) {
         List<MedicamentStock> listChoose = medicamentStockService.getAll().stream().collect(toList());
+        List<MedicamentStock> expired = medicamentStockService.getMedicamentThatHaveExpired().stream().collect(toList());
+        List<MedicamentStock> willSoonExpire = medicamentStockService.getMedicamentThatWillSoonExpire().stream().collect(toList());
+        
         model.addAttribute("medStock", listChoose);
+        model.addAttribute("medExpired", expired);
+        model.addAttribute("medWillSoonExpire", willSoonExpire);
         return "stockMedicaments";
     }
 
