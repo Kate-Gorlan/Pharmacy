@@ -36,6 +36,14 @@
         <result column="Availability date" property="availabilityDate" />
         <result column="Manufacturer" property="manufacturer" />
     </resultMap>
+    
+    <resultMap id="PendingOrderEmployee" type="pharmacy.common.PendingOrderEmployee">
+        <result column="ID" property="id" />
+        <result column="Date" property="orderDate" />
+        <result column="AvailabilityDate" property="availabilityDate" />
+        <result column="Medicament" property="medicamentName" />
+        <result column="Recipe" property="recipeId" />
+    </resultMap>
 
     <insert id="create">
         INSERT INTO pending_order (order_id, employeee_cooking_id,
@@ -127,6 +135,21 @@
         JOIN order o ON po.order_id = o.order_id
         JOIN employee e ON e.employee_id = po.employeee_cooking_id
         WHERE po.take_status = #{takeStatus}
+    </select>
+    
+    <select id="findByEmployee" parameterType="java.lang.Long" resultMap="PendingOrderEmployee">
+        SELECT
+        po.pending_order_id as [ID],
+        o.order_date as [Date],
+        po.availability_date as [AvailabilityDate],
+        m.medicament_name as [Medicament],
+        r.recipe_medicament_id as [Recipe]
+        FROM pending_order po
+        JOIN [order] o ON po.order_id = o.order_id
+        JOIN [order_medicament] om ON o.order_id = om.order_id
+        JOIN [medicament] m ON m.medicament_id = om.medicament_id
+        JOIN recipe_medicament r ON r.medicament_id = m.medicament_id
+        WHERE po.employee_cooking_id=#{id} AND po.take_status='Не взято'
     </select>
 
     <select id="GetOrderInProduction" resultMap="OrderInProduction">

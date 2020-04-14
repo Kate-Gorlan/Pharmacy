@@ -4,6 +4,7 @@ import java.util.List;
 
 import pharmacy.entity.PendingOrder;
 import pharmacy.common.OrderInProduction;
+import pharmacy.common.PendingOrderEmployee;
 
 public interface PendingOrderDao extends CrudDao<Long, PendingOrder>{
 
@@ -14,5 +15,7 @@ public interface PendingOrderDao extends CrudDao<Long, PendingOrder>{
     List<OrderInProduction> getOrderInProduction();
     
     int getNumberOfOrderInProduction();
+    
+    List<PendingOrderEmployee> findByEmployee(Long id);
 
 }

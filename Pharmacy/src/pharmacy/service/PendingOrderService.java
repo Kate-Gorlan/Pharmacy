@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import pharmacy.common.OrderInProduction;
+import pharmacy.common.PendingOrderEmployee;
 import pharmacy.dao.PendingOrderDao;
 import pharmacy.entity.PendingOrder;
 
@@ -47,5 +48,9 @@ public class PendingOrderService {
     
     public int getNumberOfOrderInProduction(){
         return pendingOrderDao.getNumberOfOrderInProduction();
+    }
+    
+    public List<PendingOrderEmployee> findByEmployee(Long id){
+        return pendingOrderDao.findByEmployee(id);
     }
 }

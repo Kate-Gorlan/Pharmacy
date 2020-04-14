@@ -2,10 +2,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="ui"%>
 
-<ui:html title="Главная страница" thema="flatly">
+<ui:html title="Фармацевт" thema="flatly">
 <body style="width:100%;height:100%;">
 
-<div style="width: 85%; overflow:auto; overflow-x:hidden;">
+
+<div style="width: 83%; overflow:auto;">
+
     
 </div>
 
