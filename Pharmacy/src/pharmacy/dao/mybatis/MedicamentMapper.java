@@ -100,4 +100,29 @@ public class MedicamentMapper extends SqlSessionDaoSupport implements Medicament
     public List<MedicamentIngredients> getIngredients(String name) {
         return getSqlSession().selectList("pharmacy.dao.MedicamentDao.GetIngredients", name);
     }
+
+    @Override
+    public Medicament findByName(String name) {
+        return getSqlSession().selectOne("pharmacy.dao.MedicamentDao.findByName", name);
+    }
+
+    @Override
+    public Medicament findByModOfAppl(String modOfAppl) {
+        return getSqlSession().selectOne("pharmacy.dao.MedicamentDao.findByModOfAppl", modOfAppl);
+    }
+
+    @Override
+    public Medicament findByType(String type) {
+        return getSqlSession().selectOne("pharmacy.dao.MedicamentDao.findByType", type);
+    }
+
+    @Override
+    public Medicament findByAvailabilityOfPrescription(String availabilityOfPrescription) {
+        return getSqlSession().selectOne("pharmacy.dao.MedicamentDao.findByAvailabilityOfPrescription", availabilityOfPrescription);
+    }
+
+    @Override
+    public Medicament findByManufacturability(String manufacturability) {
+        return getSqlSession().selectOne("pharmacy.dao.MedicamentDao.findByManufacturability", manufacturability);
+    }
 } 

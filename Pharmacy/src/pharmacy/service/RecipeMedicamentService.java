@@ -1,5 +1,6 @@
 package pharmacy.service;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,6 +39,10 @@ public class RecipeMedicamentService {
     
     public void deleteById(Long id) {
         recipeMedicamentDao.delete(id);
+    }
+    
+    public BigDecimal getPrice(String name) {
+        return recipeMedicamentDao.getPrice(name);
     }
 
 }

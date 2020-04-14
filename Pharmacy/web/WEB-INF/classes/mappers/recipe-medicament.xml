@@ -78,4 +78,8 @@
         JOIN product p ON p.product_id = i.product_id
     </select>
     
+    <select id="getPrice" parameterType="java.lang.String" resultType = "java.math.BigDecimal" >
+        select [dbo].[GetPrice] (#{name})
+    </select>
+    
 </mapper>

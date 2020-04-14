@@ -33,15 +33,11 @@
       <td>${medsFM.availabilityDate}</td>
       <td>${medsFM.medicamentName}</td>
       <td>${medsFM.recipeId}</td>
-     <!-- <td>
-          <a href="goAddStockProduct.html?id=${productWillSoonExpire.getId()}">
-        <button type="button" class="btn btn-warning">Изменить</button>
+      <td>
+          <a href="doneMed.html?name=${medsFM.getMedicamentName()},id=${medsFM.getId()}, recipe=${medsFM.getRecipeId()}">
+        <button type="button" class="btn btn-warning">Изготовлено</button>
         </a>
       </td>
-      <td>
-      <a href="deleteStockProduct.html?id=${productWillSoonExpire.getId()}">
-      <button type="button" class="btn btn-danger">Удалить</button></a>
-      </td> -->
     </tr>
     </c:forEach> 
   </tbody>

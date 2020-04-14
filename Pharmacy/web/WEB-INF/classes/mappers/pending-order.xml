@@ -149,7 +149,7 @@
         JOIN [order_medicament] om ON o.order_id = om.order_id
         JOIN [medicament] m ON m.medicament_id = om.medicament_id
         JOIN recipe_medicament r ON r.medicament_id = m.medicament_id
-        WHERE po.employee_cooking_id=#{id} AND po.take_status='Не взято'
+        WHERE po.employee_cooking_id=#{id} AND po.take_status='В ожидании'
     </select>
 
     <select id="GetOrderInProduction" resultMap="OrderInProduction">

@@ -1,5 +1,6 @@
 package pharmacy.dao.mybatis;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
@@ -37,5 +38,10 @@ public class RecipeMedicamentMapper extends SqlSessionDaoSupport implements Reci
     @Override
     public List<RecipeMedicament> findAll() {
         return getSqlSession().selectList("pharmacy.dao.RecipeMedicamentDao.findAll");
+    }
+
+    @Override
+    public BigDecimal getPrice(String name) {
+        return getSqlSession().selectOne("pharmacy.dao.RecipeMedicamentDao.getPrice", name);
     }
 } 

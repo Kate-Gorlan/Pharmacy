@@ -12,7 +12,6 @@ import pharmacy.common.MedicamentInfo;
 import pharmacy.common.MedicamentIngredients;
 import pharmacy.common.TopMedicament;
 import pharmacy.dao.MedicamentDao;
-import pharmacy.entity.Client;
 import pharmacy.entity.Medicament;
 
 public class MedicamentService {
@@ -44,6 +43,26 @@ public class MedicamentService {
         } else {
             medicamentDao.update(obj);
         }
+    }
+    
+    public Medicament findByName(String name) {
+        return medicamentDao.findByName(name);
+    }
+    
+    public Medicament findByModOfAppl(String param) {
+        return medicamentDao.findByModOfAppl(param);
+    }
+    
+    public Medicament findByType(String param) {
+        return medicamentDao.findByType(param);
+    }
+    
+    public Medicament findByAvailabilityOfPrescription(String param) {
+        return medicamentDao.findByAvailabilityOfPrescription(param);
+    }
+    
+    public Medicament findByManufacturability(String param) {
+        return medicamentDao.findByManufacturability(param);
     }
     
     public Medicament getById(Long id) {

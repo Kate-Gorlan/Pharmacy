@@ -298,7 +298,7 @@
         WHERE LOWER(m.medicament_type) = LOWER(dbo.DeleteDoublуSpace(#{type}))
     </select>
 
-    <select id="GetInfoMedicamentByName" parameterType="java.lang.String" resultMap="MedicamentInfo">
+<!--      <select id="GetInfoMedicamentByName" parameterType="java.lang.String" resultMap="MedicamentInfo">
         SELECT
         m.medicament_type AS [Medicament type],
         rm.technology AS [Technology],
@@ -319,7 +319,7 @@
         group by stock.product_id
         ) as res ON res.id = p.product_id
         WHERE LOWER(m.medicament_name) = LOWER(dbo.DeleteDoublуSpace(#{name}))
-    </select>
+    </select> -->
 
     <select id="GetIngredients" parameterType="java.lang.String" resultMap="MedicamentIngredients">
         select * from dbo.getIngredients(#{name})
