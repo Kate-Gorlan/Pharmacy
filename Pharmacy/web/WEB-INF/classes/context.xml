@@ -134,6 +134,11 @@
         <property name="userDao" ref="userDao"/>
     </bean>
 
+    <bean id="requestDao" class="pharmacy.dao.mybatis.RequestMapper" parent="dao2" />
+    <bean id="requestService" class="pharmacy.service.RequestService">
+        <property name="requestDao" ref="requestDao"/>
+    </bean>
+
     <!--batis 
     <bean id="save" class="treasureChest.service.Save">
         <property name="authorDao" ref="authorDao" />
