@@ -26,47 +26,41 @@ public class PharmacistTechnologistController {
 
     @Autowired
     private PendingOrderService pendingOrderService;
-    
+
     @Autowired
     private MedicamentService medicamentService;
-    
+
     @Autowired
     private MedicamentStockService medicamentStockService;
-    
+
     @Autowired
     private RecipeMedicamentService recipeMedicamentService;
-    
+
     @GetMapping("/pharmacistTechnologist.html")
     public String storekeeper(Model model) {
-        //---------
+        // ---------
         long id = 4;
-        //---------
-        
-        List<PendingOrderEmployee> medsForManufacture = pendingOrderService.findByEmployee(id).stream().collect(toList());
+        // ---------
+
+        List<PendingOrderEmployee> medsForManufacture = pendingOrderService.findByEmployee(id).stream()
+                .collect(toList());
         model.addAttribute("medsForManufacture", medsForManufacture);
-        
-        return "pharmacistTechnologist";  
+
+        return "pharmacistTechnologist";
     }
-    
+
     @GetMapping("/doneMed.html")
-    public String goToAddStockProduct(@RequestParam("id") Long id, @RequestParam("recipe") Long recipe, @RequestParam("name") String name, Model model) {
+    public String goToAddStockProduct(@RequestParam("id") Long id, @RequestParam("recipe") Long recipe,
+            @RequestParam("name") String name, Model model) {
         PendingOrder po = pendingOrderService.getById(id);
         po.setTakeStatus("Изготовлено");
         pendingOrderService.add(po);
-        Medicament med = medicamentService.findByName(name);
-        RecipeMedicament r = recipeMedicamentService.getById(recipe);
-        Integer quantity = r.getQuantity();
+        Long med = medicamentService.findByName(name).getId();
         BigDecimal price = recipeMedicamentService.getPrice(name);
-        MedicamentStock ms = new MedicamentStock();
-        ms.setCriticalNorm(0);
-        ms.setMedicament(med);
-        ms.setPrice(price);
-        ms.setQuantity(quantity);
-        //-----------------
-        ms.setShelfLife(10);
-       //-----------------
-        medicamentStockService.add(ms);
-        
-        return "pharmacistTechnologist";
+
+        model.addAttribute("medicamentId", med);
+        model.addAttribute("price", price);
+
+        return "addSMForTechnologist";
     }
 }

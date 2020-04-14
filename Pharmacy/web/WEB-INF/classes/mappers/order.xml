@@ -23,7 +23,7 @@
     </resultMap>
 
     <insert id="create">
-        INSERT INTO order (employee_id, order_date) VALUES (
+        INSERT INTO [order] (employee_id, order_date) VALUES (
             (SELECT employee_id FROM employee WHERE employee_full_name = #{employee.fullName}), #{date})
     </insert>
 
@@ -33,18 +33,18 @@
             e.employee_full_name,
             o.order_id,
             o.order_date
-        FROM order o JOIN employee e ON e.employee_id = o.employee_id WHERE o.order_id = #{id}
+        FROM [order] o JOIN employee e ON e.employee_id = o.employee_id WHERE o.order_id = #{id}
     </select>
 
     <update id="update" parameterType="pharmacy.entity.Order">
-        UPDATE order SET 
+        UPDATE [order] SET 
         employee_id = (SELECT employee_id FROM employee WHERE employee_full_name = #{employee.fullName}),
         order_date = #{date}
         WHERE order_id = #{id}
     </update>
 
     <delete id="delete" parameterType="java.lang.Long">
-        DELETE FROM order WHERE order_id = #{id}
+        DELETE FROM [order] WHERE order_id = #{id}
     </delete>
     
     <select id="findAll" resultMap = "Order" >
@@ -53,7 +53,7 @@
             e.employee_full_name,
             o.order_id,
             o.order_date
-        FROM order o JOIN employee e ON e.employee_id = o.employee_id
+        FROM [order] o JOIN employee e ON e.employee_id = o.employee_id
     </select>
     
     <select id="findByDate" parameterType="java.lang.String" resultMap = "Order">
@@ -62,7 +62,7 @@
             e.employee_full_name,
             o.order_id,
             o.order_date
-        FROM order o JOIN employee e ON e.employee_id = o.employee_id
+        FROM [order] o JOIN employee e ON e.employee_id = o.employee_id
         WHERE o.order_date = #{date}
     </select>
 

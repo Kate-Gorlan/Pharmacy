@@ -53,7 +53,7 @@ public class StockMedController {
     }
 
     @RequestMapping(value = "/stockMedicamentAdd.html", method = {RequestMethod.GET, RequestMethod.POST})
-    public String edit(@ModelAttribute MedicamentStock medicamentStock, Model model) throws UnsupportedEncodingException{
+    public String edit(@ModelAttribute MedicamentStock medicamentStock, @RequestParam("id") Long id, Model model) throws UnsupportedEncodingException{
         ArrayList<String> errors = medicamentStockService.check(medicamentStock);
         
         for(String list: errors) {
@@ -77,6 +77,8 @@ public class StockMedController {
                 return "editStockMedicament";
             }
         }
-        return "redirect:/stockMedicaments.html";
+        if (id == 1)
+            return "redirect:/stockMedicaments.html";
+        else return "redirect:/pharmacistTechnologist.html";
     }
 }

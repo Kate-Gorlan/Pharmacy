@@ -21,17 +21,18 @@ public class PendingOrder extends Entity {
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
-    public String getAvailabilityDate() {
-        return availabilityDate;
-    }
-    public void setAvailabilityDate(String availabilityDate) {
-        this.availabilityDate = availabilityDate;
-    }
+
     public String getTakeStatus() {
         return takeStatus;
     }
     public void setTakeStatus(String takeStatus) {
         this.takeStatus = takeStatus;
+    }
+    public String getAvailabilityDate() {
+        return availabilityDate;
+    }
+    public void setAvailabilityDate(String availabilityDate) {
+        this.availabilityDate = availabilityDate;
     }
 
 }

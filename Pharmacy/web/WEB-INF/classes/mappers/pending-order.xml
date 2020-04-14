@@ -46,9 +46,9 @@
     </resultMap>
 
     <insert id="create">
-        INSERT INTO pending_order (order_id, employeee_cooking_id,
+        INSERT INTO pending_order (order_id, employee_cooking_id,
         availability_date, take_status) VALUES (
-        (SELECT order_id FROM order WHERE order_id = #{order.id}),
+        (SELECT order_id FROM [order] WHERE order_id = #{order.id}),
         (SELECT employee_id FROM employee WHERE employee_full_name =
         #{employee.fullName}),
         #{availabilityDate}, #{takeStatus})
@@ -58,7 +58,7 @@
         SELECT
         po.pending_order_id,
         po.order_id,
-        po.employeee_cooking_id,
+        po.employee_cooking_id,
         po.availability_date,
         po.take_status,
         e.employee_id,
@@ -66,18 +66,16 @@
         o.order_id,
         o.order_date
         FROM pending_order po
-        JOIN order o ON po.order_id = o.order_id
-        JOIN employee e ON e.employee_id = po.employeee_cooking_id
+        JOIN [order] o ON po.order_id = o.order_id
+        JOIN employee e ON e.employee_id = po.employee_cooking_id
         WHERE po.pending_order_id = #{id}
     </select>
 
     <update id="update" parameterType="pharmacy.entity.PendingOrder">
         UPDATE pending_order SET
-        order_id = (SELECT order_id FROM order WHERE order_id = #{order.id}),
-        employeee_cooking_id = (SELECT employee_id FROM employee WHERE
-        employee_full_name = #{employee.fullName}),
-        prescription_id = (SELECT prescription_id FROM prescription WHERE prescription_id =
-        #{prescription.id}),
+        order_id = (SELECT order_id FROM [order] WHERE order_id = #{order.id}),
+        employee_cooking_id = (SELECT employee_id FROM employee WHERE
+        employee_id = #{employee.id}),
         availability_date = #{availabilityDate},
         take_status = #{takeStatus}
         WHERE pending_order_id = #{id}
@@ -91,7 +89,7 @@
         SELECT
         po.pending_order_id,
         po.order_id,
-        po.employeee_cooking_id,
+        po.employee_cooking_id,
         po.availability_date,
         po.take_status,
         e.employee_id,
@@ -99,15 +97,15 @@
         o.order_id,
         o.order_date
         FROM pending_order po
-        JOIN order o ON po.order_id = o.order_id
-        JOIN employee e ON e.employee_id = po.employeee_cooking_id
+        JOIN [order] o ON po.order_id = o.order_id
+        JOIN employee e ON e.employee_id = po.employee_cooking_id
     </select>
 
     <select id="findByDate" parameterType="java.lang.String" resultMap="PendingOrder">
         SELECT
         po.pending_order_id,
         po.order_id,
-        po.employeee_cooking_id,
+        po.employee_cooking_id,
         po.availability_date,
         po.take_status,
         e.employee_id,
@@ -115,8 +113,8 @@
         o.order_id,
         o.order_date
         FROM pending_order po
-        JOIN order o ON po.order_id = o.order_id
-        JOIN employee e ON e.employee_id = po.employeee_cooking_id
+        JOIN [order] o ON po.order_id = o.order_id
+        JOIN employee e ON e.employee_id = po.employee_cooking_id
         WHERE po.availability_date = #{availabilityDate}
     </select>
 
@@ -124,7 +122,7 @@
         SELECT
         po.pending_order_id,
         po.order_id,
-        po.employeee_cooking_id,
+        po.employee_cooking_id,
         po.availability_date,
         po.take_status,
         e.employee_id,
@@ -132,8 +130,8 @@
         o.order_id,
         o.order_date
         FROM pending_order po
-        JOIN order o ON po.order_id = o.order_id
-        JOIN employee e ON e.employee_id = po.employeee_cooking_id
+        JOIN [order] o ON po.order_id = o.order_id
+        JOIN employee e ON e.employee_id = po.employee_cooking_id
         WHERE po.take_status = #{takeStatus}
     </select>
     
@@ -162,8 +160,8 @@
         JOIN [order] o ON o.order_id = po.order_id
         JOIN [order_medicament] om ON o.order_id = om.order_id
         JOIN [medicament] m ON m.medicament_id = om.medicament_id
-        JOIN [employee] e ON e.employee_id = po.employeee_cooking_id
-        WHERE po.employeee_cooking_id IS NOT NULL AND po.take_status = 'В ожидании'
+        JOIN [employee] e ON e.employee_id = po.employee_cooking_id
+        WHERE po.employee_cooking_id IS NOT NULL AND po.take_status = 'В ожидании'
     </select>
 
     <select id="GetNumberOfOrderInProduction" resultType="java.lang.Integer">

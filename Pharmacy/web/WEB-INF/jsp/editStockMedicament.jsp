@@ -22,7 +22,7 @@
         </c:otherwise>
         </c:choose>
         
-            <c:url value="/stockMedicamentAdd.html" var="href" />
+            <c:url value="/stockMedicamentAdd.html?id=1" var="href" />
             <form action="${href}" accept-charset="UTF-8" method="POST">
                 <div class="input-group mb-3">
                         <c:if test="${not empty medicamentStocks}">
