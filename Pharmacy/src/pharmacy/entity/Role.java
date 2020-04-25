@@ -14,5 +14,8 @@ private static final long serialVersionUID = 1L;
         this.roleName = roleName;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Role [id=" + getId() + ", name=`" + roleName + "']";
+    }
 }

@@ -6,8 +6,9 @@
     <body>
         <c:forEach items="${users}" var="user">
             <ul>
-                <li>${user.id}:    ${user.login}</li>
+                <li>${user.id}:    ${user.login}     ${user.roles}</li>
             </ul>
         </c:forEach>
+
     </body>
 </ui:html>
