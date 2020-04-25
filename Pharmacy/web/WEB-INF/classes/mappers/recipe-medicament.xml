@@ -10,7 +10,7 @@
         <result column="settling_time" property="settlingTime" />
         <result column="quantity" property="quantity" />
         <association property="medicament" resultMap="Medicament" />
-        <collection property="ingredient" javaType="List" ofType="pharmacy.entity.Ingredient">
+        <collection property="ingredients" javaType="List" ofType="pharmacy.entity.Ingredient">
             <id column="ingredient_id" property="id" />
             <result column="ingredient_quantity"  property="quantity" />
             <result column="time_for_preparing"  property="timeForPreparing" />
