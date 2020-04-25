@@ -30,8 +30,8 @@ public class UserMapper extends SqlSessionDaoSupport implements UserDao{
     }
 
     @Override
-    public User findUser(Long id) {
-        return getSqlSession().selectOne("pharmacy.dao.UserDao.findUser", id);
+    public User findUser(String login) {
+        return getSqlSession().selectOne("pharmacy.dao.UserDao.findUser", login);
     }
 
     @Override

@@ -8,17 +8,19 @@
         <id column="user_id" property="id" />
         <result column="login" property="login" />
         <result column="password" property="password" />
+        <collection property="roles" javaType="list" resultMap="pharmacy.dao.RoleDao.role" />
     </resultMap>
 
-    <insert id="create">
-        INSERT INTO users (login, password)
-        VALUES (#{login}, #{password})
+    <insert id="create" parameterType="pharmacy.entity.User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO users (login, password) VALUES (#{name}, #{password})
     </insert>
 
-    <select id="read" parameterType="java.lang.Long" resultMap="User">
-        SELECT *
-        FROM users a
-        WHERE a.user_id = #{id}
+
+    <select id="read" resultMap="User" parameterType="java.lang.Long">
+        SELECT u.*, r.* FROM users u 
+        LEFT JOIN users_roles ur ON u.user_id = ur.user_id
+        LEFT JOIN roles r ON r.role_id = ur.role_id
+        WHERE u.user_id = #{id}
     </select>
 
     <update id="update" parameterType="pharmacy.entity.User">
@@ -32,13 +34,17 @@
         user_id = #{id}
     </delete>
 
-    <select id="findUser" parameterType="java.lang.Long" resultMap="User">
-        SELECT * FROM users WHERE user_id = #{id}
+    <select id="findUser" parameterType="java.lang.String" resultMap="User">
+        SELECT u.*, r.* FROM users u 
+        LEFT JOIN users_roles ur ON u.user_id = ur.user_id
+        LEFT JOIN roles r ON r.role_id = ur.role_id
+        WHERE u.login = #{login}
     </select>
 
     <select id="findAll" resultMap="User">
-        SELECT *
-        FROM users
+        SELECT u.*, r.* FROM users u
+        LEFT JOIN users_roles ur ON u.user_id = ur.user_id
+        LEFT JOIN roles r ON r.role_id = ur.role_id
     </select>
 
 </mapper>

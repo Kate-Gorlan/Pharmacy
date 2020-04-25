@@ -5,7 +5,7 @@ import pharmacy.entity.User;
 
 public interface UserDao extends CrudDao<Long, User>{
 
-    User findUser(Long id);
+    User findUser(String login);
 
     List<User> findAll();
 }
