@@ -5,6 +5,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="css/bootstrap-flatly.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.min.css">
 <title>Добавление поставки продукта</title>
 </head>
 <meta charset="utf-8"/>
@@ -147,6 +148,12 @@
                 <button style="font-size: 120%; width: 40%; margin: 0 auto;" type="submit" class="btn btn-primary">Добавить</button>
             </form>
         </div>
+        
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
+<script type="text/javascript">
+      $(".livesearch").chosen();
+</script>
 
 </body>
 </html>
