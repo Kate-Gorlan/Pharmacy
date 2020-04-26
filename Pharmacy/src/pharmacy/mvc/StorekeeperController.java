@@ -2,23 +2,19 @@ package pharmacy.mvc;
 
 import static java.util.stream.Collectors.toList;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import pharmacy.common.MedCriticalNorm;
 import pharmacy.common.ProductCriticalNorm;
-import pharmacy.entity.Client;
 import pharmacy.entity.Medicament;
 import pharmacy.entity.Product;
 import pharmacy.service.MedicamentService;

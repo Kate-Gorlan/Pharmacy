@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import pharmacy.entity.Product;
 import pharmacy.entity.ProductStock;
+import pharmacy.service.ProductService;
 import pharmacy.service.ProductStockService;
 
 
@@ -24,6 +26,9 @@ public class StockProdController {
 
     @Autowired
     private ProductStockService productStockService;
+    
+    @Autowired
+    private ProductService productService;
 
     @GetMapping("/stockProducts.html")
     public String stockProducts(Model model) {
@@ -50,6 +55,8 @@ public class StockProdController {
         if (id != -1) {
             model.addAttribute("productStocks", productStockService.getById(id));
         }
+        List<Product> prods = productService.getAll();
+        model.addAttribute("prods", prods);
         return "editStockProduct";
     }
 
@@ -62,6 +69,8 @@ public class StockProdController {
         }
         if (errors.size() != 0)
         {
+            List<Product> prods = productService.getAll();
+            model.addAttribute("prods", prods);
             model.addAttribute("errors", errors);
             model.addAttribute("productStocks", productStock);
             return "editStockProduct";
@@ -73,6 +82,8 @@ public class StockProdController {
 
                 errors.add("Ошибка: " + e.getMessage());
 
+                List<Product> prods = productService.getAll();
+                model.addAttribute("prods", prods);
                 model.addAttribute("errors", errors);
                 model.addAttribute("productStocks", productStock);
                 return "editStockProduct";

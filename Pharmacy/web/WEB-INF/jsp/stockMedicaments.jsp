@@ -92,7 +92,7 @@
 </table>
 </c:if>
 
-<h4> Все продукты на складе </h4>
+<h4> Все медикаменты на складе </h4>
     <table class="table table-primary">
   <thead>
     <tr>

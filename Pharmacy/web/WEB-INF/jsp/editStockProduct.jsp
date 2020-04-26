@@ -31,11 +31,33 @@
                         </c:if>
                 </div>
                 <!-- product.id -->
+                
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <div class="input-group-text" style="background-color: #F7819F;">ID продукта</div>
                     </div>
+                    
+                    <div style="border: 10px solid white; width: 80%;">
                     <c:choose>
+                        <c:when test="${empty productStocks}">
+                    <select class="livesearch" name="product.id" style="width: 100%;">
+                    <c:forEach items="${prods}" var="prod">
+                    <option value="${prod.id}">${prod.name}</option>
+                    </c:forEach>
+                    </select>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="medicamentStock" value="${productStocks}"/>
+                    <select class="livesearch" name="product.id" style="width: 100%;">
+                    <option selected value="${productStocks.product.id}">${productStocks.product.name}"</option>
+                    <c:forEach items="${prods}" var="med">
+                    <option value="${prod.id}">${prod.name}</option>
+                    </c:forEach>
+                    </select>
+                        </c:otherwise>
+                    </c:choose>
+                    </div>
+                    <!--<c:choose>
                         <c:when test="${empty productStocks}">
                             <input required type="text" name="product.id" class="form-control" placeholder="Введите ID продукта">
                         </c:when>
@@ -43,8 +65,9 @@
                         <c:set var="productStock" value="${productStocks}"/>
                         <input required type="text" name="product.id" value="${productStock.product.id}" class="form-control" placeholder="Введите ID продукта">
                     </c:otherwise>
-                    </c:choose>
+                    </c:choose>-->
                 </div>
+                
                 <!-- quantity -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">

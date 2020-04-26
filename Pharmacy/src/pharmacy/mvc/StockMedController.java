@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import pharmacy.entity.Medicament;
 import pharmacy.entity.MedicamentStock;
+import pharmacy.service.MedicamentService;
 import pharmacy.service.MedicamentStockService;
 
 @Controller
@@ -23,6 +25,9 @@ public class StockMedController {
 
     @Autowired
     private MedicamentStockService medicamentStockService;
+    
+    @Autowired
+    private MedicamentService medicamentService;
 
     @GetMapping("/stockMedicaments.html")
     public String stockMedicaments(Model model) {
@@ -49,11 +54,14 @@ public class StockMedController {
         if (id != -1) {
             model.addAttribute("medicamentStocks", medicamentStockService.getById(id));
         }
+        
+        List<Medicament> meds = medicamentService.getAll();
+        model.addAttribute("meds", meds);
         return "editStockMedicament";
     }
 
     @RequestMapping(value = "/stockMedicamentAdd.html", method = {RequestMethod.GET, RequestMethod.POST})
-    public String edit(@ModelAttribute MedicamentStock medicamentStock, @RequestParam("id") Long id, Model model) throws UnsupportedEncodingException{
+    public String edit(@ModelAttribute MedicamentStock medicamentStock, @RequestParam("page") Long page, Model model) throws UnsupportedEncodingException{
         ArrayList<String> errors = medicamentStockService.check(medicamentStock);
         
         for(String list: errors) {
@@ -63,6 +71,8 @@ public class StockMedController {
         {
             model.addAttribute("errors", errors);
             model.addAttribute("medicamentStocks", medicamentStock);
+            List<Medicament> meds = medicamentService.getAll();
+            model.addAttribute("meds", meds);
             return "editStockMedicament";
         } else 
         {
@@ -74,10 +84,12 @@ public class StockMedController {
                 
                 model.addAttribute("errors", errors);
                 model.addAttribute("medicamentStocks", medicamentStock);
+                List<Medicament> meds = medicamentService.getAll();
+                model.addAttribute("meds", meds);
                 return "editStockMedicament";
             }
         }
-        if (id == 1)
+        if (page == 1)
             return "redirect:/stockMedicaments.html";
         else return "redirect:/pharmacistTechnologist.html";
     }
