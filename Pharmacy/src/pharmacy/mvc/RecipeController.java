@@ -15,7 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import pharmacy.entity.Medicament;
+import pharmacy.entity.Product;
 import pharmacy.entity.RecipeMedicament;
+import pharmacy.service.MedicamentService;
+import pharmacy.service.ProductService;
 import pharmacy.service.RecipeMedicamentService;
 
 @Controller
@@ -23,6 +27,12 @@ public class RecipeController {
 
     @Autowired
     private RecipeMedicamentService recipeMedicamentService;
+    
+    @Autowired
+    private MedicamentService medicamentService;
+    
+    @Autowired
+    private ProductService productService;
     
     @GetMapping("/recipes.html")
     public String recipesMed(Model model) {
@@ -50,12 +60,19 @@ public class RecipeController {
         if (id != -1) {
             model.addAttribute("recipes", recipeMedicamentService.getById(id));
         }
-        return "editStockProduct";
+        
+        List<Product> prods = productService.getAll();
+        List<Medicament> meds = medicamentService.getAll();
+        model.addAttribute("prods", prods);
+        model.addAttribute("meds", meds);
+        return "editRecipe";
     }
 
     @RequestMapping(value = "/recipeAdd.html", method = {RequestMethod.GET, RequestMethod.POST})
     public String edit(@ModelAttribute RecipeMedicament recipe, Model model) throws UnsupportedEncodingException{
         ArrayList<String> errors = recipeMedicamentService.check(recipe);
+        List<Product> prods = productService.getAll();
+        List<Medicament> meds = medicamentService.getAll();
         
         for(String list: errors) {
             System.out.println(list);
@@ -64,6 +81,8 @@ public class RecipeController {
         {
             model.addAttribute("errors", errors);
             model.addAttribute("recipes", recipe);
+            model.addAttribute("prods", prods);
+            model.addAttribute("meds", meds);
             return "editRecipe";
         } else 
         {
@@ -75,6 +94,8 @@ public class RecipeController {
 
                 model.addAttribute("errors", errors);
                 model.addAttribute("recipes", recipe);
+                model.addAttribute("prods", prods);
+                model.addAttribute("meds", meds);
                 return "editRecipe";
             }
         }

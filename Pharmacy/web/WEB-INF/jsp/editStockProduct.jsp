@@ -35,7 +35,7 @@
                 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <div class="input-group-text" style="background-color: #F7819F;">ID продукта</div>
+                        <div class="input-group-text" style="background-color: #F7819F;">Продукт</div>
                     </div>
                     
                     <div style="border: 10px solid white; width: 80%;">
@@ -48,10 +48,10 @@
                     </select>
                     </c:when>
                     <c:otherwise>
-                        <c:set var="medicamentStock" value="${productStocks}"/>
+                        <c:set var="productStock" value="${productStocks}"/>
                     <select class="livesearch" name="product.id" style="width: 100%;">
-                    <option selected value="${productStocks.product.id}">${productStocks.product.name}"</option>
-                    <c:forEach items="${prods}" var="med">
+                    <option selected value="${productStock.product.id}">${productStock.product.name}"</option>
+                    <c:forEach items="${prods}" var="prod">
                     <option value="${prod.id}">${prod.name}</option>
                     </c:forEach>
                     </select>

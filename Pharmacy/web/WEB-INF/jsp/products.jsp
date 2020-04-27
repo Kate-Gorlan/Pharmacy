@@ -36,7 +36,7 @@
      
     <a href="progressProd.html">
     <button type="button" class="btn btn-primary" style="width: 100%; font-size: 100%;">
-    Количество продукта, которые используются в изготовлении, по имени и периоду</button></a>
+    Количество продуктов, которые используются в изготовлении, по имени и периоду</button></a>
     <c:if test="${not empty prodNumByPeriod}">
     <p>Количество: ${prodNumByPeriod} грамм</p>
     </c:if> 

@@ -21,7 +21,7 @@
   <thead>
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">ID медикамента</th>
+      <th scope="col">Медикамент</th>
       <th scope="col">Количество</th>
       <th scope="col">Цена за поставку</th>
       <th scope="col">Срок хранения</th>
@@ -34,7 +34,7 @@
     <c:forEach items="${medExpired}" var="medicamentExpired">
     <tr class="table-light" style="color:black;">
       <th scope="row">${medicamentExpired.id}</th>
-      <td>${medicamentExpired.medicament.id}</td>
+      <td>${medicamentExpired.medicament.name}</td>
       <td>${medicamentExpired.quantity}</td>
       <td>${medicamentExpired.price}</td>
       <td>${medicamentExpired.shelfLife} дней</td>
@@ -57,7 +57,7 @@
   <thead>
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">ID медикамента</th>
+      <th scope="col">Медикамент</th>
       <th scope="col">Количество</th>
       <th scope="col">Цена за поставку</th>
       <th scope="col">Срок хранения</th>
@@ -70,7 +70,7 @@
     <c:forEach items="${medWillSoonExpire}" var="medicamentWillSoonExpire">
     <tr class="table-light" style="color:black;">
       <th scope="row">${medicamentWillSoonExpire.id}</th>
-      <td>${medicamentWillSoonExpire.medicament.id}</td>
+      <td>${medicamentWillSoonExpire.medicament.name}</td>
       <td>${medicamentWillSoonExpire.quantity}</td>
       <td>${medicamentWillSoonExpire.price}</td>
       <td>${medicamentWillSoonExpire.shelfLife} дней</td>
@@ -97,7 +97,7 @@
   <thead>
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">ID медикамента</th>
+      <th scope="col">Медикамент</th>
       <th scope="col">Количество</th>
       <th scope="col">Цена за поставку</th>
       <th scope="col">Срок хранения</th>
@@ -110,7 +110,7 @@
     <c:forEach items="${medStock}" var="medicamentStock">
     <tr class="table-secondary">
       <th scope="row">${medicamentStock.id}</th>
-      <td>${medicamentStock.medicament.id}</td>
+      <td>${medicamentStock.medicament.name}</td>
       <td>${medicamentStock.quantity}</td>
       <td>${medicamentStock.price}</td>
       <td>${medicamentStock.shelfLife} дней</td>

@@ -21,7 +21,7 @@
   <thead>
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">ID продукта</th>
+      <th scope="col">Продукт</th>
       <th scope="col">Количество</th>
       <th scope="col">Цена за поставку</th>
       <th scope="col">Срок хранения</th>
@@ -33,7 +33,7 @@
     <c:forEach items="${prodExpired}" var="productExpired">
     <tr class="table-light" style="color:black;">
       <th scope="row">${productExpired.id}</th>
-      <td>${productExpired.product.id}</td>
+      <td>${productExpired.product.name}</td>
       <td>${productExpired.quantity}</td>
       <td>${productExpired.price}</td>
       <td>${productExpired.shelfLife} дней</td>
@@ -55,7 +55,7 @@
   <thead>
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">ID продукта</th>
+      <th scope="col">Продукт</th>
       <th scope="col">Количество</th>
       <th scope="col">Цена за поставку</th>
       <th scope="col">Срок хранения</th>
@@ -67,7 +67,7 @@
     <c:forEach items="${prodWillSoonExpire}" var="productWillSoonExpire">
     <tr class="table-light" style="color:black;">
       <th scope="row">${productWillSoonExpire.id}</th>
-      <td>${productWillSoonExpire.product.id}</td>
+      <td>${productWillSoonExpire.product.name}</td>
       <td>${productWillSoonExpire.quantity}</td>
       <td>${productWillSoonExpire.price}</td>
       <td>${productWillSoonExpire.shelfLife} дней</td>
@@ -93,7 +93,7 @@
   <thead>
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">ID продукта</th>
+      <th scope="col">Продукт</th>
       <th scope="col">Количество</th>
       <th scope="col">Цена за поставку</th>
       <th scope="col">Срок хранения</th>
@@ -106,7 +106,7 @@
     <c:forEach items="${prodStock}" var="productStock">
     <tr class="table-secondary">
       <th scope="row">${productStock.id}</th>
-      <td>${productStock.product.id}</td>
+      <td>${productStock.product.name}</td>
       <td>${productStock.quantity}</td>
       <td>${productStock.price}</td>
       <td>${productStock.shelfLife} дней</td>

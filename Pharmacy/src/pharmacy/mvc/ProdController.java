@@ -90,28 +90,33 @@ public class ProdController {
     
     @GetMapping("/progressProd.html")
     public String goProgressProd(Model model) {
+        List<Product> prods = productService.getAll();
+        model.addAttribute("prods", prods);
         return "VolumeOfPUForThePeriod";
     }
     
     @RequestMapping(value = "/productProgress.html", method = {RequestMethod.GET, RequestMethod.POST})
     public String progressProd(String name, String fd, String sd, Model model) throws UnsupportedEncodingException{
         String name2 = new String(name.getBytes("iso-8859-1"), "utf-8");
+        List<Product> prodAll = productService.getAll();
         ArrayList<String> errors = productService.errorsProdProgress(name2, fd, sd);
         if (errors.size() != 0)
         {
+            model.addAttribute("prods", prodAll);
             model.addAttribute("errors", errors);
             model.addAttribute("name", name2);
             model.addAttribute("fd", fd);
             model.addAttribute("sd", sd);
             return "VolumeOfPUForThePeriod";
         }
-        List<Product> prodAll = productService.getAll().stream().collect(toList());
+        
         model.addAttribute("prod", prodAll);
         int prodNumByPeriod;
         try {
         prodNumByPeriod = productService.getVolumeOfPUForThePeriod(name2, fd, sd);
         } catch (Exception e) {
             errors.add("Ошибка: " + e);
+            model.addAttribute("prods", prodAll);
             model.addAttribute("errors", errors);
             model.addAttribute("name", name2);
             model.addAttribute("fd", fd);
