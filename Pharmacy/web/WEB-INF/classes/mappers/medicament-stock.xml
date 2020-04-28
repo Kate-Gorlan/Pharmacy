@@ -21,6 +21,17 @@
         <result column="medicament_type" property="type" />
         <result column="availability_of_prescription" property="availabilityOfPrescription" />
         <result column="manufacturability" property="manufacturability" />
+        <result column="picture" property="picture" />
+        <result column="description" property="description" />
+        <result column="indications" property="indications" />
+        <result column="doses_and_method_of_application" property="dosesAndMethodOfAppl" />
+        <result column="contraindications" property="contraindications" />
+        <result column="precautions" property="precautions" />
+        <result column="interaction" property="interaction" />
+        <result column="pregnancy_and_breastfeeding" property="pregnancyAndBreastfeeding" />
+        <result column="influence_on_transport_management" property="influenceTM" />
+        <result column="side_effect" property="sideEffect" />
+        <result column="overdose" property="overdose" />     
     </resultMap>
 
     <insert id="create">

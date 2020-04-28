@@ -170,6 +170,187 @@
                     </c:choose>
                 </div>
                 
+                
+                <!-- Dop info -->
+                <h4>Дополнительная информация</h4>
+                
+                <!-- picture -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Изображение</div>
+                    </div>
+                    <c:choose>
+                        <c:when test="${empty medicaments}">
+                            <textarea maxlength="300" aria-label="textarea" name="picture" class="form-control" placeholder="Вставьте ссылку изображения"></textarea>
+                        </c:when>
+                    <c:otherwise>
+                        <c:set var="medicament" value="${medicaments}"/>
+                        <textarea maxlength="300" aria-label="textarea" name="picture" class="form-control" placeholder="Вставьте ссылку изображения">${medicament.picture}</textarea>
+                    </c:otherwise>
+                    </c:choose>
+                </div>
+                
+                <!-- description -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Описание</div>
+                    </div>
+                    <c:choose>
+                        <c:when test="${empty medicaments}">
+                            <textarea maxlength="300" aria-label="textarea" name="description" class="form-control" placeholder="Вставьте описание"></textarea>
+                        </c:when>
+                    <c:otherwise>
+                        <c:set var="medicament" value="${medicaments}"/>
+                        <textarea maxlength="300" aria-label="textarea" name="description" class="form-control" placeholder="Вставьте описание">${medicament.description}</textarea>
+                    </c:otherwise>
+                    </c:choose>
+                </div>
+                
+                <!-- indications -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Показания к применению</div>
+                    </div>
+                    <c:choose>
+                        <c:when test="${empty medicaments}">
+                            <textarea maxlength="1500" aria-label="textarea" name="indications" class="form-control" placeholder="Показания к применению"></textarea>
+                        </c:when>
+                    <c:otherwise>
+                        <c:set var="medicament" value="${medicaments}"/>
+                        <textarea maxlength="1500" aria-label="textarea" name="indications" class="form-control" placeholder="Показания к применению">${medicament.indications}</textarea>
+                    </c:otherwise>
+                    </c:choose>
+                </div>
+                
+                <!-- dosesAndMethodOfAppl -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Дозы и способ применения</div>
+                    </div>
+                    <c:choose>
+                        <c:when test="${empty medicaments}">
+                            <textarea maxlength="3000" aria-label="textarea" name="dosesAndMethodOfAppl" class="form-control" placeholder="Дозы и способ применения"></textarea>
+                        </c:when>
+                    <c:otherwise>
+                        <c:set var="medicament" value="${medicaments}"/>
+                        <textarea maxlength="3000" aria-label="textarea" name="dosesAndMethodOfAppl" class="form-control" placeholder="Дозы и способ применения">${medicament.dosesAndMethodOfAppl}</textarea>
+                    </c:otherwise>
+                    </c:choose>
+                </div>
+                
+                <!-- contraindications -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Противопоказания</div>
+                    </div>
+                    <c:choose>
+                        <c:when test="${empty medicaments}">
+                            <textarea maxlength="1500" aria-label="textarea" name="contraindications" class="form-control" placeholder="Вставьте противопоказания"></textarea>
+                        </c:when>
+                    <c:otherwise>
+                        <c:set var="medicament" value="${medicaments}"/>
+                        <textarea maxlength="1500" aria-label="textarea" name="contraindications" class="form-control" placeholder="Вставьте противопоказания">${medicament.contraindications}</textarea>
+                    </c:otherwise>
+                    </c:choose>
+                </div>
+                
+                <!-- precautions -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Меры предосторожности</div>
+                    </div>
+                    <c:choose>
+                        <c:when test="${empty medicaments}">
+                            <textarea maxlength="1000" aria-label="textarea" name="precautions" class="form-control" placeholder="Особые указания и меры предосторожности"></textarea>
+                        </c:when>
+                    <c:otherwise>
+                        <c:set var="medicament" value="${medicaments}"/>
+                        <textarea maxlength="1000" aria-label="textarea" name="precautions" class="form-control" placeholder="Особые указания и меры предосторожности">${medicament.precautions}</textarea>
+                    </c:otherwise>
+                    </c:choose>
+                </div>
+                
+                <!-- interaction -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Взаимодействие</div>
+                    </div>
+                    <c:choose>
+                        <c:when test="${empty medicaments}">
+                            <textarea maxlength="1500" aria-label="textarea" name="interaction" class="form-control" placeholder="Взаимодействие с другими лекарственными препаратами и другими видами взаимодействия"></textarea>
+                        </c:when>
+                    <c:otherwise>
+                        <c:set var="medicament" value="${medicaments}"/>
+                        <textarea maxlength="1500" aria-label="textarea" name="interaction" class="form-control" placeholder="Взаимодействие с другими лекарственными препаратами и другими видами взаимодействия">${medicament.interaction}</textarea>
+                    </c:otherwise>
+                    </c:choose>
+                </div>
+                
+                <!-- pregnancyAndBreastfeeding -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Беременным</div>
+                    </div>
+                    <c:choose>
+                        <c:when test="${empty medicaments}">
+                            <textarea maxlength="2000" aria-label="textarea" name="pregnancyAndBreastfeeding" class="form-control" placeholder="Беременность и грудное вскармливание"></textarea>
+                        </c:when>
+                    <c:otherwise>
+                        <c:set var="medicament" value="${medicaments}"/>
+                        <textarea maxlength="2000" aria-label="textarea" name="pregnancyAndBreastfeeding" class="form-control" placeholder="Беременность и грудное вскармливание">${medicament.pregnancyAndBreastfeeding}</textarea>
+                    </c:otherwise>
+                    </c:choose>
+                </div>
+                
+                <!-- influenceTM -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Водителям</div>
+                    </div>
+                    <c:choose>
+                        <c:when test="${empty medicaments}">
+                            <textarea maxlength="800" aria-label="textarea" name="influenceTM" class="form-control" placeholder="Влияние на управление транспортом и работу с механизмом"></textarea>
+                        </c:when>
+                    <c:otherwise>
+                        <c:set var="medicament" value="${medicaments}"/>
+                        <textarea maxlength="800" aria-label="textarea" name="influenceTM" class="form-control" placeholder="Влияние на управление транспортом и работу с механизмом">${medicament.influenceTM}</textarea>
+                    </c:otherwise>
+                    </c:choose>
+                </div>
+                
+                <!-- sideEffect -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Побочное действие</div>
+                    </div>
+                    <c:choose>
+                        <c:when test="${empty medicaments}">
+                            <textarea maxlength="3000" aria-label="textarea" name="sideEffect" class="form-control" placeholder="Вставьте побочные действия"></textarea>
+                        </c:when>
+                    <c:otherwise>
+                        <c:set var="medicament" value="${medicaments}"/>
+                        <textarea maxlength="3000" aria-label="textarea" name="sideEffect" class="form-control" placeholder="Вставьте побочные действия">${medicament.sideEffect}</textarea>
+                    </c:otherwise>
+                    </c:choose>
+                </div>
+                
+                <!-- overdose -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Передозировка</div>
+                    </div>
+                    <c:choose>
+                        <c:when test="${empty medicaments}">
+                            <textarea maxlength="2000" aria-label="textarea" name="overdose" class="form-control" placeholder="Вставьте симптомы и осложнения при передозировке"></textarea>
+                        </c:when>
+                    <c:otherwise>
+                        <c:set var="medicament" value="${medicaments}"/>
+                        <textarea maxlength="2000" aria-label="textarea" name="overdose" class="form-control" placeholder="Вставьте симптомы и осложнения при передозировке">${medicament.overdose}</textarea>
+                    </c:otherwise>
+                    </c:choose>
+                </div>
+                
+
                 <button style="font-size: 120%; width: 40%; margin: 0 auto;" type="submit" class="btn btn-primary">Добавить</button>
             </form>
         </div>

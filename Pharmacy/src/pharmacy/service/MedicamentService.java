@@ -35,6 +35,46 @@ public class MedicamentService {
             String mode = new String(medicament.getModeOfApplication().getBytes("iso-8859-1"), "utf-8");
             medicament.setModeOfApplication(mode);
         }
+        if (medicament.getDescription()!=null) {
+            String decode = new String(medicament.getDescription().getBytes("iso-8859-1"), "utf-8");
+            medicament.setDescription(decode);
+        }
+        if (medicament.getIndications()!=null) {
+            String decode = new String(medicament.getIndications().getBytes("iso-8859-1"), "utf-8");
+            medicament.setIndications(decode);
+        }
+        if (medicament.getDosesAndMethodOfAppl()!=null) {
+            String decode = new String(medicament.getDosesAndMethodOfAppl().getBytes("iso-8859-1"), "utf-8");
+            medicament.setDosesAndMethodOfAppl(decode);
+        }
+        if (medicament.getContraindications()!=null) {
+            String decode = new String(medicament.getContraindications().getBytes("iso-8859-1"), "utf-8");
+            medicament.setContraindications(decode);
+        }
+        if (medicament.getPrecautions()!=null) {
+            String decode = new String(medicament.getPrecautions().getBytes("iso-8859-1"), "utf-8");
+            medicament.setPrecautions(decode);
+        }
+        if (medicament.getInteraction()!=null) {
+            String decode = new String(medicament.getInteraction().getBytes("iso-8859-1"), "utf-8");
+            medicament.setInteraction(decode);
+        }
+        if (medicament.getPregnancyAndBreastfeeding()!=null) {
+            String decode = new String(medicament.getPregnancyAndBreastfeeding().getBytes("iso-8859-1"), "utf-8");
+            medicament.setPregnancyAndBreastfeeding(decode);
+        }
+        if (medicament.getInfluenceTM()!=null) {
+            String decode = new String(medicament.getInfluenceTM().getBytes("iso-8859-1"), "utf-8");
+            medicament.setInfluenceTM(decode);
+        }
+        if (medicament.getSideEffect()!=null) {
+            String decode = new String(medicament.getSideEffect().getBytes("iso-8859-1"), "utf-8");
+            medicament.setSideEffect(decode);
+        }
+        if (medicament.getOverdose()!=null) {
+            String decode = new String(medicament.getOverdose().getBytes("iso-8859-1"), "utf-8");
+            medicament.setOverdose(decode);
+        }
     }
     
     public void add(Medicament obj) {
