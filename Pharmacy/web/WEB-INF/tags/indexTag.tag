@@ -10,7 +10,7 @@
 </head>
 <body style="width: 100%; height: 100%;">
     <!-- LOGO -->
-    <div class="navbar row navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar row navbar-expand-lg navbar-dark bg-dark">
         <div class="col-md-auto">
             <a class="navbar-brand" href="index.html" style="font-size: 200%; color: white;"><img src="resources/mainSite/Logo1.png"
                 height="56" width="56"> Pharmacy </a>
@@ -28,7 +28,7 @@
                 Login
             </a>
         </div>
-    </div>
+    </nav>
     <!-- jsp body -->
     <div>
         <jsp:doBody />

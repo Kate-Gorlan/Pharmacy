@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.List;
 
+import pharmacy.common.ListMedicamentType;
 import pharmacy.common.MedCriticalNorm;
 import pharmacy.common.MedTechnology;
 import pharmacy.common.MedTechnologyByName;
@@ -25,13 +26,13 @@ public class MedicamentService {
     public void setMedicamentDao(MedicamentDao medicamentDao) {
         this.medicamentDao = medicamentDao;
     }
-    
+
     public void decoding(Medicament medicament) throws UnsupportedEncodingException {
         String name = new String(medicament.getName().getBytes("iso-8859-1"), "utf-8");
         medicament.setName(name);
         String type = new String(medicament.getType().getBytes("iso-8859-1"), "utf-8");
         medicament.setType(type);
-        if (medicament.getModeOfApplication()!=null) {
+        if (medicament.getModeOfApplication() != null) {
             String mode = new String(medicament.getModeOfApplication().getBytes("iso-8859-1"), "utf-8");
             medicament.setModeOfApplication(mode);
         }
@@ -76,7 +77,7 @@ public class MedicamentService {
             medicament.setOverdose(decode);
         }
     }
-    
+
     public void add(Medicament obj) {
         if (obj.getId() == null) {
             medicamentDao.create(obj);
@@ -84,82 +85,86 @@ public class MedicamentService {
             medicamentDao.update(obj);
         }
     }
-    
+
     public Medicament findByName(String name) {
         return medicamentDao.findByName(name);
     }
-    
+
     public Medicament findByModOfAppl(String param) {
         return medicamentDao.findByModOfAppl(param);
     }
-    
+
     public Medicament findByType(String param) {
         return medicamentDao.findByType(param);
     }
-    
+
     public Medicament findByAvailabilityOfPrescription(String param) {
         return medicamentDao.findByAvailabilityOfPrescription(param);
     }
-    
+
     public Medicament findByManufacturability(String param) {
         return medicamentDao.findByManufacturability(param);
     }
-    
+
     public Medicament getById(Long id) {
         return medicamentDao.read(id);
     }
-    
-    public List<Medicament> getAll(){
+
+    public List<Medicament> getAll() {
         List<Medicament> reverse = medicamentDao.findAll();
         Collections.reverse(reverse);
         return reverse;
     }
-    
+
     public void deleteById(Long id) {
         medicamentDao.delete(id);
     }
-    
-    public List<TopMedicament> getTopMedicament(){
+
+    public List<TopMedicament> getTopMedicament() {
         return medicamentDao.getTopMedicament();
     }
-    
-    public List<TopMedicament> getTopMedicamentType(String type){
+
+    public List<TopMedicament> getTopMedicamentType(String type) {
         return medicamentDao.getTopMedicamentType(type);
     }
-    
-    public List<Medicament> getMedOver(){
+
+    public List<Medicament> getMedOver() {
         return medicamentDao.getMedOver();
     }
-    
-    public List<MedCriticalNorm> getReachedCriticalNorm(){
+
+    public List<MedCriticalNorm> getReachedCriticalNorm() {
         return medicamentDao.getReachedCriticalNorm();
     }
-    
-    public List<MedCriticalNorm> getMinMedInStockByType(String type){
+
+    public List<MedCriticalNorm> getMinMedInStockByType(String type) {
         return medicamentDao.getMinMedInStockByType(type);
     }
-    
-    public List<MedCriticalNorm> getMinMedInStock(){
+
+    public List<MedCriticalNorm> getMinMedInStock() {
         return medicamentDao.getMinMedInStock();
     }
-    
-    public List<MedTechnology> getTechnologyOrderInProduction(){
+
+    public List<MedTechnology> getTechnologyOrderInProduction() {
         return medicamentDao.getTechnologyOrderInProduction();
     }
-    
-    public List<MedTechnologyByName> getTechnologyByName(String name){
+
+    public List<MedTechnologyByName> getTechnologyByName(String name) {
         return medicamentDao.getTechnologyByName(name);
     }
-    
-    public List<MedTechnologyByType> getTechnologyByType(String type){
+
+    public List<MedTechnologyByType> getTechnologyByType(String type) {
         return medicamentDao.getTechnologyByType(type);
     }
-    
-    public List<MedicamentInfo> getInfoMedicamentByName(String name){
+
+    public List<MedicamentInfo> getInfoMedicamentByName(String name) {
         return medicamentDao.getInfoMedicamentByName(name);
     }
-    
-    public List<MedicamentIngredients> getIngredients(String name){
+
+    public List<MedicamentIngredients> getIngredients(String name) {
         return medicamentDao.getIngredients(name);
+    }
+
+    public List<ListMedicamentType> getTypeMed(){
+        return medicamentDao.typeList();
     }
 }

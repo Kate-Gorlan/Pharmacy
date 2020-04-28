@@ -85,6 +85,10 @@
         <result column="product_need_price" property="productNeedPrice" />
     </resultMap>
 
+    <resultMap id="ListMedicamentType" type="pharmacy.common.ListMedicamentType">
+        <result column="medicament_type" property="type"/>
+    </resultMap>
+
     <insert id="create">
         INSERT INTO medicament (medicament_name,
         mode_of_application,
@@ -334,6 +338,10 @@
 
     <select id="GetIngredients" parameterType="java.lang.String" resultMap="MedicamentIngredients">
         select * from dbo.getIngredients(#{name})
+    </select>
+    
+    <select id="getAllMedType" resultMap="ListMedicamentType">
+        Select DISTINCT medicament_type from medicament
     </select>
 
 </mapper>

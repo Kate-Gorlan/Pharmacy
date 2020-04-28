@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
+import pharmacy.common.ListMedicamentType;
 import pharmacy.common.MedCriticalNorm;
 import pharmacy.common.MedTechnology;
 import pharmacy.common.MedTechnologyByName;
@@ -124,5 +125,10 @@ public class MedicamentMapper extends SqlSessionDaoSupport implements Medicament
     @Override
     public Medicament findByManufacturability(String manufacturability) {
         return getSqlSession().selectOne("pharmacy.dao.MedicamentDao.findByManufacturability", manufacturability);
+    }
+
+    @Override
+    public List<ListMedicamentType> typeList() {
+        return getSqlSession().selectList("pharmacy.dao.MedicamentDao.getAllMedType");
     }
 } 
