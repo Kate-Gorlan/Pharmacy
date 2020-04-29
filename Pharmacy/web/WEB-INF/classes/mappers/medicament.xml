@@ -89,6 +89,13 @@
         <result column="medicament_type" property="type"/>
     </resultMap>
 
+    <resultMap type="pharmacy.common.TopOverdueMed" id="ListTopOverdueMed">
+        <id column="medicament_id" property="id"/>
+        <result column="medicament_name" property="nameMed"/>
+        <result column="medicament_price" property="priceMed"/>
+        <result column="medicament_pic" property="picUri"/>
+    </resultMap>
+
     <insert id="create">
         INSERT INTO medicament (medicament_name,
         mode_of_application,
@@ -342,6 +349,10 @@
     
     <select id="getAllMedType" resultMap="ListMedicamentType">
         Select DISTINCT medicament_type from medicament
+    </select>
+
+    <select id="getTopOverdueMed" resultMap="ListTopOverdueMed">
+       select top 10 * from dbo.getTopOverdueMed()
     </select>
 
 </mapper>

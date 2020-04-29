@@ -12,6 +12,7 @@ import pharmacy.common.MedTechnologyByType;
 import pharmacy.common.MedicamentInfo;
 import pharmacy.common.MedicamentIngredients;
 import pharmacy.common.TopMedicament;
+import pharmacy.common.TopOverdueMed;
 import pharmacy.dao.MedicamentDao;
 import pharmacy.entity.Medicament;
 
@@ -166,5 +167,9 @@ public class MedicamentService {
 
     public List<ListMedicamentType> getTypeMed(){
         return medicamentDao.typeList();
+    }
+
+    public List<TopOverdueMed> getOverdueMed(){
+        return medicamentDao.overdueList();
     }
 }

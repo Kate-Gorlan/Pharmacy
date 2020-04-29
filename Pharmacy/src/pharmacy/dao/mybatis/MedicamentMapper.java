@@ -12,6 +12,7 @@ import pharmacy.common.MedTechnologyByType;
 import pharmacy.common.MedicamentInfo;
 import pharmacy.common.MedicamentIngredients;
 import pharmacy.common.TopMedicament;
+import pharmacy.common.TopOverdueMed;
 import pharmacy.dao.MedicamentDao;
 import pharmacy.entity.Medicament;
 
@@ -130,5 +131,10 @@ public class MedicamentMapper extends SqlSessionDaoSupport implements Medicament
     @Override
     public List<ListMedicamentType> typeList() {
         return getSqlSession().selectList("pharmacy.dao.MedicamentDao.getAllMedType");
+    }
+
+    @Override
+    public List<TopOverdueMed> overdueList() {
+        return getSqlSession().selectList("pharmacy.dao.MedicamentDao.getTopOverdueMed");
     }
 } 

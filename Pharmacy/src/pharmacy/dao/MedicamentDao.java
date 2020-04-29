@@ -3,6 +3,7 @@ package pharmacy.dao;
 import java.util.List;
 
 import pharmacy.common.TopMedicament;
+import pharmacy.common.TopOverdueMed;
 import pharmacy.entity.Medicament;
 import pharmacy.common.ListMedicamentType;
 import pharmacy.common.MedCriticalNorm;
@@ -51,4 +52,6 @@ public interface MedicamentDao extends CrudDao<Long, Medicament> {
     List<MedicamentIngredients> getIngredients(String name);
 
     List<ListMedicamentType> typeList();
+
+    List<TopOverdueMed> overdueList();
 }

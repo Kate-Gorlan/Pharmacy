@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import pharmacy.common.ListMedicamentType;
+import pharmacy.common.TopOverdueMed;
 import pharmacy.service.MedicamentService;
 
 @Controller
@@ -21,7 +22,9 @@ public class IndexController {
     @GetMapping("/index.html")
     public String index(Model model) {
         List<ListMedicamentType> listMedType = medSer.getTypeMed().stream().collect(toList());
+        List<TopOverdueMed> listOverdueMed = medSer.getOverdueMed().stream().collect(toList());
         model.addAttribute("medTypes", listMedType);
+        model.addAttribute("topMed", listOverdueMed);
         return "index";
     }
 }

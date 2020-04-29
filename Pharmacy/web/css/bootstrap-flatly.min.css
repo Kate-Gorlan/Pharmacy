@@ -532,6 +532,44 @@ pre code {
 	overflow-y: scroll
 }
 
+.footer {
+background:#fff;
+padding-top:20px;
+overflow:hidden;
+margin-top:20px;
+position:relative;
+z-index:1;
+clear:both;
+}
+
+.lastfooter {
+background-color: rgba(0, 0, 0, 0.03);
+padding-top:20px;
+padding-bottom: 10px;
+overflow:hidden;
+margin-top:20px;
+position:relative;
+z-index:1;
+clear:both;
+font-size: 0.85em;
+font-weight: 300
+}
+
+
+.colwide {
+	width: 30px;
+	height: 30px;
+	margin-left: 3px
+}
+
+.rowfoot {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
 .container {
 	width: 100%;
 	padding-right: 15px;
@@ -5734,6 +5772,14 @@ to {
 	margin-bottom: -1px;
 	background-color: #fff;
 	border: 1px solid rgba(0, 0, 0, 0.125)
+}
+
+.list-group-item2 {
+    position: relative;
+    display: block;
+    padding: 0.25rem 0.5rem;
+    margin-bottom: -1px;
+    background-color: #fff;
 }
 
 .list-group-item:first-child {
