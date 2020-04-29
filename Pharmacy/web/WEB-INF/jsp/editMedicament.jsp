@@ -22,7 +22,7 @@
         </c:otherwise>
         </c:choose>
         
-            <c:url value="/medicamentAdd.html" var="href" />
+            <c:url value="/medicamentAdd.html?page=${page}" var="href" />
             <form action="${href}" accept-charset="UTF-8" method="POST">
                 <div class="input-group mb-3">
                         <c:if test="${not empty medicaments}">

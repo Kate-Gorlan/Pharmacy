@@ -89,19 +89,19 @@ public class MedicamentService {
         return medicamentDao.findByName(name);
     }
     
-    public Medicament findByModOfAppl(String param) {
+    public List<Medicament> findByModOfAppl(String param) {
         return medicamentDao.findByModOfAppl(param);
     }
     
-    public Medicament findByType(String param) {
+    public List<Medicament> findByType(String param) {
         return medicamentDao.findByType(param);
     }
     
-    public Medicament findByAvailabilityOfPrescription(String param) {
+    public List<Medicament> findByAvailabilityOfPrescription(String param) {
         return medicamentDao.findByAvailabilityOfPrescription(param);
     }
     
-    public Medicament findByManufacturability(String param) {
+    public List<Medicament> findByManufacturability(String param) {
         return medicamentDao.findByManufacturability(param);
     }
     

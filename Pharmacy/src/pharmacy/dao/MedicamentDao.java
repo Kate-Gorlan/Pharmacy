@@ -17,13 +17,13 @@ public interface MedicamentDao extends CrudDao<Long, Medicament>{
     
     Medicament findByName(String name);
     
-    Medicament findByModOfAppl(String modOfAppl);
+    List<Medicament> findByModOfAppl(String modOfAppl);
     
-    Medicament findByType(String type);
+    List<Medicament> findByType(String type);
     
-    Medicament findByAvailabilityOfPrescription(String availabilityOfPrescription);
+    List<Medicament> findByAvailabilityOfPrescription(String availabilityOfPrescription);
     
-    Medicament findByManufacturability(String manufacturability);
+    List<Medicament> findByManufacturability(String manufacturability);
     
     List<Medicament> findAll();
     

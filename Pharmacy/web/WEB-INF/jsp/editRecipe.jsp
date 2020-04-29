@@ -31,10 +31,10 @@
                         <c:if test="${not empty recipes}">
                         <c:set var="recipe" value="${recipes}"/>
                         <input type="hidden" name="id" value="${recipe.id}" />
-                        <c:forEach items="${recipes.ingredients}" var="ingredient" varStatus="status">
+                        <!--<c:forEach items="${recipes.ingredients}" var="ingredient" varStatus="status">
                         <input type="hidden" name="ingredients[${status.index}].id" value="${ingredient.id}" />
                         <input type="hidden" name="ingredients[${status.index}].product.id" value="${ingredient.product.id}" />
-                        </c:forEach>
+                        </c:forEach>-->
                         </c:if>
                 </div>
                 
@@ -57,7 +57,7 @@
                     <c:otherwise>
                         <c:set var="recipe" value="${recipes}"/>
                     <select class="livesearch" name="medicament.id" style="width: 100%;">
-                    <option selected value="${recipe.medicament.id}">${recipe.medicament.name}"</option>
+                    <option selected value="${recipe.medicament.id}">${recipe.medicament.name}</option>
                     <c:forEach items="${meds}" var="med">
                     <option value="${med.id}">${med.name}</option>
                     </c:forEach>
@@ -78,7 +78,7 @@
                             <input required type="text" name="quantity" class="form-control" placeholder="Введите количество (мг/мл)"/>
                         </c:when>
                     <c:otherwise>
-                        <c:set var="medicamentStock" value="${recipes}"/>
+                        <c:set var="recipe" value="${recipes}"/>
                         <input required type="text" name="quantity" value="${recipe.quantity}" class="form-control" placeholder="Введите количество (мг/мл)"/>
                     </c:otherwise>
                     </c:choose>
@@ -116,15 +116,15 @@
                      
                 
                 <!-- Add product -->
-                <div class="element-wrapper">
+                <!--<div class="element-wrapper">
 
                 <c:choose>
                 <c:when test="${empty recipes}">
                     <div class="ow input-group mb-3" index="0" style="border: 5px solid #F7819F">
                         <span class="input-group-text" id="inputGroup-sizing-default">Продукт</span>
-                        <!--
+                        --><!--
                         <input name="ingredients[0].product.name" type="text" required maxlength="80" class="form-control">
-                        -->
+                        --> <!--
                         <select class="livesearch" name="ingredients[0].product.id">
                         <c:forEach items="${prods}" var="prod">
                         <option value="${prod.id}">${prod.name}</option>
@@ -145,13 +145,13 @@
                 <c:forEach items="${recipes.ingredients}" var="ingredient" varStatus="status">
                     <div class="ow input-group mb-3" index="${status.index}" style="border: 5px solid #F7819F">
                         <span class="input-group-text" id="inputGroup-sizing-default">Продукт</span>
-                        <!--
+                        --><!--
                         <input name="ingredients[${status.index}].product.name" type="text" required maxlength="80"
                             value="${ingredient.product.name}" class="form-control">
                         -->
-                        
+                        <!--
                         <select class="livesearch" name="ingredients[${status.index}].product.id">
-                        <option selected value="${ingredient.product.id}">${ingredient.product.name}"</option>
+                        <option selected value="${ingredient.product.id}">${ingredient.product.name}</option>
                         <c:forEach items="${prods}" var="prod">
                         <option value="${prod.id}">${prod.name}</option>
                         </c:forEach>
@@ -175,7 +175,7 @@
                 <div class="input-group mb-3">
                     <button type="button" class="btn btn-primary btn-add-row">+</button>
                 </div>
-                
+                -->
                 
                 <button style="font-size: 120%; width: 40%; margin: 0 auto;" type="submit" class="btn btn-primary">Добавить</button>
             </form>
@@ -187,7 +187,7 @@
       $(".livesearch").chosen();
 </script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
+<!--
 <script type="text/javascript">
         $(document).ready(function(){
             $(".btn-add-row").click(function(e){
@@ -218,6 +218,6 @@
                 $(".ow").eq(index).remove();
             });
         });
-</script>
+</script>-->
 </body>
 </html>

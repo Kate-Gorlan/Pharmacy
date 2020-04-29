@@ -12,6 +12,12 @@
     <a href="goAddRecipe.html?id=-1">
     <button type="button" class="btn btn-outline-info" style="width: 100%; height: 100px; font-size: 300%;">
     +</button></a>
+    <a href="medicaments.html?view=all&typeTopMed=not&page=1">
+    <button type="button" class="btn btn-info" style="width: 100%; height: 50px; font-size: 150%;">
+    Медикаменты</button></a>
+    <a href="products.html?view=all&prodNumByPeriod=not&name=not&page=1">
+    <button type="button" class="btn btn-info" style="width: 100%; height: 50px; font-size: 150%;">
+    Продукты</button></a>
 </div>
 <div style="width: 2%; height: 100vh; overflow:auto; float:left;"></div>
 <div style="width: 83%; overflow:auto;">

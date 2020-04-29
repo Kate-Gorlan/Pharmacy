@@ -44,4 +44,9 @@ public class RecipeMedicamentMapper extends SqlSessionDaoSupport implements Reci
     public BigDecimal getPrice(String name) {
         return getSqlSession().selectOne("pharmacy.dao.RecipeMedicamentDao.getPrice", name);
     }
+
+    @Override
+    public RecipeMedicament findByMedName(String name) {
+        return getSqlSession().selectOne("pharmacy.dao.RecipeMedicamentDao.findByName", name);
+    }
 } 

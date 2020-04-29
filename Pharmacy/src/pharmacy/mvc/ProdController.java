@@ -26,7 +26,9 @@ public class ProdController {
     private ProductService productService;
 
     @GetMapping("/products.html")
-    public String storekeeper(Model model, @RequestParam("name") String name,
+    public String storekeeper(Model model,
+            @RequestParam("page") Long page,
+            @RequestParam("name") String name,
             @RequestParam("prodNumByPeriod") String prodNumByPeriod,
             @RequestParam("view") String view) {
 
@@ -47,6 +49,7 @@ public class ProdController {
         model.addAttribute("prodNumByPeriod", prodNumByPeriod);
         }
         model.addAttribute("name", name);
+        model.addAttribute("page", page);
 
         return "products";
     }
@@ -57,23 +60,24 @@ public class ProdController {
     }
 
     @GetMapping("/deleteProduct.html")
-    public String delete(@RequestParam("id") Long id) {
+    public String delete(@RequestParam("id") Long id, @RequestParam("page") Long page) {
         if (id != null) {
             productService.deleteById(id);
         }
-        return "redirect:/products.html?view=all&prodNumByPeriod=not&name=not";
+        return "redirect:/products.html?view=all&prodNumByPeriod=not&name=not&page="+page;
     }
     
     @GetMapping("/goAddProduct.html")
-    public String goToAddProduct(@RequestParam("id") Long id, Model model) {
+    public String goToAddProduct(@RequestParam("id") Long id, @RequestParam("page") Long page, Model model) {
         if (id != -1) {
             model.addAttribute("products", productService.getById(id));
         }
+        model.addAttribute("page", page);
         return "editProduct";
     }
 
     @RequestMapping(value = "/productAdd.html", method = {RequestMethod.GET, RequestMethod.POST})
-    public String edit(@ModelAttribute Product product, Model model) throws UnsupportedEncodingException{
+    public String edit(@ModelAttribute Product product, @RequestParam("page") Long page, Model model) throws UnsupportedEncodingException{
         ArrayList<String> errors = new ArrayList<String>();
         productService.decoding(product);
             try {
@@ -82,10 +86,11 @@ public class ProdController {
                 errors.add(e.getMessage());
                 model.addAttribute("errors", errors);
                 model.addAttribute("products", product);
+                model.addAttribute("page", page);
                 return "editProduct";
             }
         
-        return "redirect:/products.html?view=all&prodNumByPeriod=not&name=not";
+        return "redirect:/products.html?view=all&prodNumByPeriod=not&name=not&page="+page;
     }
     
     @GetMapping("/progressProd.html")
@@ -124,6 +129,6 @@ public class ProdController {
             return "VolumeOfPUForThePeriod";
         }
         
-        return "redirect:/products.html?view=all&name=not&prodNumByPeriod="+prodNumByPeriod;
+        return "redirect:/products.html?view=all&name=not&prodNumByPeriod="+prodNumByPeriod+"&page=2";
     }
 }

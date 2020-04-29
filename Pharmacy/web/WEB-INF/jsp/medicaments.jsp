@@ -5,21 +5,33 @@
 <ui:html title="Медикаменты" thema="flatly">
 
 <div style="width: 15%; height: 100vh; overflow:auto; float:left;">
-    <a href="storekeeper.html?typeMed=not&typeProd=not">
+    <c:choose>
+        <c:when test="${page == 1}">
+        <c:set var="back" value="recipes.html"/>
+        </c:when>
+        <c:otherwise>
+        <c:set var="back" value="storekeeper.html?typeMed=not&typeProd=not"/>
+        </c:otherwise>
+    </c:choose>
+    <a href="${back}">
     <button type="button" class="btn btn-info" style="width: 100%; height: 50px; font-size: 150%;">
     Назад</button></a>
-    <a href="goAddMedicament.html?id=-1">
+    <a href="goAddMedicament.html?id=-1&page=${page}">
     <button type="button" class="btn btn-outline-info" style="width: 100%; height: 100px; font-size: 300%;">
     +</button></a>
     
-    <a href="medicaments.html?view=all&typeTopMed=not">
+    <a href="medicaments.html?view=all&typeTopMed=not&page=${page}">
     <button type="button" class="btn btn-info" style="width: 100%; height: 50px; font-size: 150%;">
     Все медикаменты</button></a>
     
-    <a href="medicaments.html?view=top&typeTopMed=not">
+    <a href="medicaments.html?view=top&typeTopMed=not&page=${page}">
     <button type="button" class="btn btn-primary" style="width: 100%; height: 50px; font-size: 150%;">
     Топ 10 покупаемых медикаментов</button></a>
-    
+   
+   <c:choose>
+        <c:when test="${page == 1}">
+        </c:when>
+        <c:otherwise>
     <c:url value="/typeTopMed.html" var="href" />
     <form action="${href}" accept-charset="UTF-8" method="POST">
     <div class="input-group mb-3">
@@ -30,7 +42,9 @@
     Топ 10 покупаемых медикаментов, данного типа
     </button>
     </form>
-    
+        </c:otherwise>
+    </c:choose>
+
 </div>
 <body style="width:100%;height:100%;">
 <div style="width: 85%; overflow:auto; overflow-x:hidden;">
@@ -58,12 +72,12 @@
       <td>${medicament.availabilityOfPrescription}</td>
       <td>${medicament.manufacturability}</td>
       <td>
-        <a href="goAddMedicament.html?id=${medicament.getId()}">
+        <a href="goAddMedicament.html?id=${medicament.getId()}&page=${page}">
         <button type="button" class="btn btn-warning">Изменить</button>
         </a>
       </td>
       <td>
-      <a href="deleteMedicament.html?id=${medicament.getId()}">
+      <a href="deleteMedicament.html?id=${medicament.getId()}&page=${page}">
       <button type="button" class="btn btn-danger">Удалить</button></a>
       </td>
     </tr>

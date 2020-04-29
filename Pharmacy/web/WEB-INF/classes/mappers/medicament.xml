@@ -86,24 +86,24 @@
     </resultMap>
 
     <insert id="create">
-        INSERT INTO medicament (medicament_name,
-        mode_of_application,
+        INSERT INTO medicament (medicament_name, mode_of_application,
         medicament_type, availability_of_prescription,
-        manufacturability)
+        manufacturability, picture, description, indications, doses_and_method_of_application,
+        contraindications, precautions, interaction, pregnancy_and_breastfeeding,
+        influence_on_transport_management, side_effect, overdose)
         VALUES (
         #{name}, #{modeOfApplication}, #{type},
-        #{availabilityOfPrescription},
-        #{manufacturability})
+        #{availabilityOfPrescription}, #{manufacturability}
+        #{picture}, #{description},
+        #{indications}, #{dosesAndMethodOfAppl},
+        #{contraindications}, #{precautions},
+        #{interaction}, #{pregnancyAndBreastfeeding},
+        #{influenceTM}, #{sideEffect},
+        #{overdose})
     </insert>
 
     <select id="read" parameterType="java.lang.Long" resultMap="Medicament">
-        SELECT
-        m.medicament_id,
-        m.medicament_name,
-        m.mode_of_application,
-        m.medicament_type,
-        m.availability_of_prescription,
-        m.manufacturability
+        SELECT *
         FROM medicament m
         WHERE m.medicament_id = #{id}
     </select>
@@ -113,9 +113,20 @@
         medicament_name = #{name},
         mode_of_application = #{modeOfApplication},
         medicament_type = #{type},
-        availability_of_prescription =
-        #{availabilityOfPrescription},
-        manufacturability = #{manufacturability}
+        availability_of_prescription = #{availabilityOfPrescription},
+        manufacturability = #{manufacturability},
+        picture = #{picture}, 
+        description = #{description},
+        indications = #{indications}, 
+        doses_and_method_of_application = #{dosesAndMethodOfAppl},
+        contraindications = #{contraindications}, 
+        precautions = #{precautions},
+        interaction = #{interaction}, 
+        pregnancy_and_breastfeeding = #{pregnancyAndBreastfeeding},
+        influence_on_transport_management = #{influenceTM}, 
+        side_effect = #{sideEffect},
+        overdose = #{overdose}
+        
         WHERE medicament_id = #{id}
     </update>
 
@@ -125,72 +136,36 @@
     </delete>
 
     <select id="findAll" resultMap="Medicament">
-        SELECT
-        m.medicament_id,
-        m.medicament_name,
-        m.mode_of_application,
-        m.medicament_type,
-        m.availability_of_prescription,
-        m.manufacturability
+        SELECT *
         FROM medicament m
     </select>
 
     <select id="findByName" parameterType="java.lang.String" resultMap="Medicament">
-        SELECT
-        m.medicament_id,
-        m.medicament_name,
-        m.mode_of_application,
-        m.medicament_type,
-        m.availability_of_prescription,
-        m.manufacturability
+        SELECT *
         FROM medicament m
         WHERE m.medicament_name = #{name}
     </select>
 
     <select id="findByModOfAppl" parameterType="java.lang.String" resultMap="Medicament">
-        SELECT
-        m.medicament_id,
-        m.medicament_name,
-        m.mode_of_application,
-        m.medicament_type,
-        m.availability_of_prescription,
-        m.manufacturability
+        SELECT *
         FROM medicament m
         WHERE m.medicament_name = #{modeOfApplication}
     </select>
 
     <select id="findByType" parameterType="java.lang.String" resultMap="Medicament">
-        SELECT
-        m.medicament_id,
-        m.medicament_name,
-        m.mode_of_application,
-        m.medicament_type,
-        m.availability_of_prescription,
-        m.manufacturability
+        SELECT *
         FROM medicament m
         WHERE m.medicament_type = #{type}
     </select>
 
     <select id="findByAvailabilityOfPrescription" parameterType="java.lang.String" resultMap="Medicament">
-        SELECT
-        m.medicament_id,
-        m.medicament_name,
-        m.mode_of_application,
-        m.medicament_type,
-        m.availability_of_prescription,
-        m.manufacturability
+        SELECT *
         FROM medicament m
         WHERE m.availability_of_prescription = #{availabilityOfPrescription}
     </select>
 
     <select id="findByManufacturability" parameterType="java.lang.String" resultMap="Medicament">
-        SELECT
-        m.medicament_id,
-        m.medicament_name,
-        m.mode_of_application,
-        m.medicament_type,
-        m.availability_of_prescription,
-        m.manufacturability
+        SELECT *
         FROM medicament m
         WHERE m.manufacturability = #{manufacturability}
     </select>

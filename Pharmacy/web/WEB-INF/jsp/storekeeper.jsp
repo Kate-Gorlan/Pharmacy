@@ -10,7 +10,7 @@
     <a href="stockMedicaments.html">
     <button type="button" class="btn btn-success">Перейти к складу медикаментов</button>
     </a>
-    <a href="medicaments.html?view=all&typeTopMed=not">
+    <a href="medicaments.html?view=all&typeTopMed=not&page=2">
     <button type="button" class="btn btn-success">Перейти к медикаментам</button>
     </a>
     <h5> Медикаменты, которые закончились </h5> 
@@ -121,7 +121,7 @@
     <a href="stockProducts.html">
     <button type="button" class="btn btn-success">Перейти к складу продуктов</button>
     </a>
-    <a href="products.html?view=all&prodNumByPeriod=not&name=not">
+    <a href="products.html?view=all&prodNumByPeriod=not&name=not&page=2">
     <button type="button" class="btn btn-success">Перейти к продуктам</button>
     </a>
         <h5> Продукты, которые закончились </h5> 

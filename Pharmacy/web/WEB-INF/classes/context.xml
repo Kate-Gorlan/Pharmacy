@@ -117,6 +117,8 @@
     <bean id="recipeMedicamentDao" class="pharmacy.dao.mybatis.RecipeMedicamentMapper" parent="dao2" />
     <bean id="recipeMedicamentService" class="pharmacy.service.RecipeMedicamentService">
         <property name="recipeMedicamentDao" ref="recipeMedicamentDao" />
+        <property name="ingredientDao" ref="ingredientDao" />
+        <property name="medicamentDao" ref="medicamentDao" />
     </bean>
 
     <bean id="ingredientService" class="pharmacy.service.IngredientService">

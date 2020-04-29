@@ -26,6 +26,18 @@ public class IngredientService {
         }
     }
     
+/*    public void save(Ingredient obj, String name) {
+        RecipeMedicament rec = recipeMedicamentDao.findByMedName(recipe.getMedicament().getName());
+        for (Ingredient ing : recipe.getIngredients()) {
+            //if (ing.getProduct() != null && ing.getMoney() != null && ing.getQuantity() != null
+             //       && ing.getTimeForPreparing() != null) {
+                Ingredient ingred = ing;
+                ingred.setRecipeMedicament(rec);
+                ingredientDao.add(ingred);
+            //}
+        }
+    }*/
+    
     public Ingredient getById(Long id) {
         return ingredientDao.read(id);
     }

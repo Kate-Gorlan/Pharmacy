@@ -44,7 +44,7 @@
     </resultMap>
 
     <insert id="create">
-        INSERT INTO recipe_medicament (medicament_id, technology, settling_time) VALUES (
+        INSERT INTO recipe_medicament (medicament_id, technology, settling_time, quantity) VALUES (
             (SELECT medicament_id FROM medicament WHERE medicament_id = #{medicament.id}),
             #{technology}, #{settlingTime}, #{quantity}
             )
@@ -57,18 +57,18 @@
             i.*,
             p.*
         FROM recipe_medicament r
-        JOIN medicament m ON r.medicament_id = m.medicament_id
-        JOIN ingredient i ON i.recipe_medicament_id = r.recipe_medicament_id
-        JOIN product p ON p.product_id = i.product_id
+        LEFT JOIN medicament m ON r.medicament_id = m.medicament_id
+        LEFT JOIN ingredient i ON r.recipe_medicament_id = i.recipe_medicament_id
+        LEFT JOIN product p ON p.product_id = i.product_id
         WHERE r.recipe_medicament_id = #{id}
-        ORDER BY p.product_name
     </select>
+<!-- ORDER BY p.product_name -->
 
     <update id="update" parameterType="pharmacy.entity.RecipeMedicament">
         UPDATE recipe_medicament SET 
         medicament_id = (SELECT medicament_id FROM medicament WHERE medicament_id = #{medicament.id}),
         technology = #{technology},
-        settling_time = #{settlingTime}
+        settling_time = #{settlingTime},
         quantity = #{quantity}
         WHERE recipe_medicament_id = #{id}
     </update>
@@ -84,9 +84,22 @@
             i.*,
             p.*
         FROM recipe_medicament r
+        LEFT JOIN medicament m ON r.medicament_id = m.medicament_id
+        LEFT JOIN ingredient i ON r.recipe_medicament_id = i.recipe_medicament_id
+        LEFT JOIN product p ON p.product_id = i.product_id
+    </select>
+    
+    <select id="findByName" parameterType="java.lang.String" resultMap = "RecipeMedicament" >
+        SELECT
+            r.*,
+            m.*,
+            i.*,
+            p.*
+        FROM recipe_medicament r
         JOIN medicament m ON r.medicament_id = m.medicament_id
-        JOIN ingredient i ON i.recipe_medicament_id = r.recipe_medicament_id
+        LEFT JOIN ingredient i ON r.recipe_medicament_id = i.recipe_medicament_id
         JOIN product p ON p.product_id = i.product_id
+        where m.medicament_name = #{name}
     </select>
     
     <select id="getPrice" parameterType="java.lang.String" resultType = "java.math.BigDecimal" >

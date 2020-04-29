@@ -8,6 +8,8 @@ public interface IngredientDao extends CrudDao<Long, Ingredient>{
 
     Ingredient findIngredient(Long id);
     
+    void add(Ingredient obj);
+    
     List<Ingredient> findAll();
 
 }

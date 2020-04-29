@@ -38,4 +38,13 @@ public class IngredientMapper extends SqlSessionDaoSupport implements Ingredient
     public List<Ingredient> findAll() {
         return getSqlSession().selectList("pharmacy.dao.IngredientDao.findAll");
     }
+
+    @Override
+    public void add(Ingredient obj) {
+        if (obj.getId() == null) {
+            this.create(obj);
+        } else {
+            this.update(obj);
+        }
+    }
 } 

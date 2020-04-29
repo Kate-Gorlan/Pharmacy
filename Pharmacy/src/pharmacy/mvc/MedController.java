@@ -26,7 +26,9 @@ public class MedController {
     private MedicamentService medicamentService;
 
     @GetMapping("/medicaments.html")
-    public String storekeeper(Model model, @RequestParam("typeTopMed") String typeMed,
+    public String storekeeper(Model model, 
+            @RequestParam("page") Long page,
+            @RequestParam("typeTopMed") String typeMed,
             @RequestParam("view") String view) {
 
         if ("all".equals(view)) {
@@ -44,6 +46,7 @@ public class MedController {
             model.addAttribute("typeTopMed", typeMed);
             model.addAttribute("view", "top");
         }
+        model.addAttribute("page", page);
 
         return "medicaments";
     }
@@ -54,23 +57,24 @@ public class MedController {
     }
 
     @GetMapping("/deleteMedicament.html")
-    public String delete(@RequestParam("id") Long id) {
+    public String delete(@RequestParam("id") Long id, @RequestParam("page") Long page) {
         if (id != null) {
             medicamentService.deleteById(id);
         }
-        return "redirect:/medicaments.html?view=all&typeTopMed=not";
+        return "redirect:/medicaments.html?view=all&typeTopMed=not&page="+page;
     }
     
     @GetMapping("/goAddMedicament.html")
-    public String goToAddMedicament(@RequestParam("id") Long id, Model model) {
+    public String goToAddMedicament(@RequestParam("id") Long id, @RequestParam("page") Long page, Model model) {
         if (id != -1) {
             model.addAttribute("medicaments", medicamentService.getById(id));
         }
+        model.addAttribute("page", page);
         return "editMedicament";
     }
 
     @RequestMapping(value = "/medicamentAdd.html", method = {RequestMethod.GET, RequestMethod.POST})
-    public String edit(@ModelAttribute Medicament medicament, Model model) throws UnsupportedEncodingException{
+    public String edit(@ModelAttribute Medicament medicament, @RequestParam("page") Long page, Model model) throws UnsupportedEncodingException{
         ArrayList<String> errors = new ArrayList<String>();
         medicamentService.decoding(medicament);
             try {
@@ -86,9 +90,10 @@ public class MedController {
                 }
                 model.addAttribute("errors", errors);
                 model.addAttribute("medicaments", medicament);
+                model.addAttribute("page", page);
                 return "editMedicament";
             }
         
-        return "redirect:/medicaments.html?view=all&typeTopMed=not";
+        return "redirect:/medicaments.html?view=all&typeTopMed=not&page="+page;
     }
 }
