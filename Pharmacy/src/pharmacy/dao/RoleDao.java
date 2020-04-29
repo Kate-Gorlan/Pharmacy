@@ -6,8 +6,6 @@ import pharmacy.entity.Role;
 
 public interface RoleDao extends Dao<Role>{
 
-    Role findRole(Long id);
-
     List<Role> findAll();
 
     void deleteUsersRoles(Long uid);

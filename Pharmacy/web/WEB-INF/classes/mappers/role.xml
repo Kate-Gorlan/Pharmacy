@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pharmacy.dao.RoleDao">
+    
+     <resultMap id="role" type="pharmacy.entity.Role">
+        <id column="role_id" property="id" />
+        <result column="role" property="roleName" />
+    </resultMap>
+
+    <select id="findAll" resultMap="role">
+        SELECT r.* FROM roles r WHERE r.role_id &lt;&gt; 0 ORDER BY r.role_id
+    </select>
+
+    <delete id="deleteAll" parameterType="long">
+        DELETE FROM users_roles WHERE user_id = #{id}
+    </delete>
+
+    <insert id="addRole" parameterType="map">
+        INSERT INTO users_roles (user_id, role_id) VALUES (#{uid}, #{rid})
+    </insert>
+
+</mapper>
