@@ -42,7 +42,7 @@
                 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <div class="input-group-text" style="width: 100%; background-color: #F7819F;">Медикамент</div>
+                        <div class="input-group-text" style="width: 100%; background-color: #F7819F; color:black;">Медикамент</div>
                     </div>
                     
                     <div style="border: 10px solid white; width: 80%;">
@@ -71,7 +71,7 @@
                 <!-- quantity -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" style="background-color: #F7819F;">Количество готового медикамента</span>
+                        <span class="input-group-text" style="background-color: #F7819F; color:black;">Количество готового медикамента</span>
                     </div>
                     <c:choose>
                         <c:when test="${empty recipes}">
@@ -86,7 +86,7 @@
                 <!-- settlingTime -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <div class="input-group-text" style="background-color: #F7819F;">Время изготовления</div>
+                        <div class="input-group-text" style="background-color: #F7819F; color:black;">Время изготовления</div>
                     </div>
                     <c:choose>
                         <c:when test="${empty recipes}">
@@ -101,7 +101,7 @@
                 <!-- technology -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <div class="input-group-text" style="background-color: #F7819F;">Технология изготовления</div>
+                        <div class="input-group-text" style="background-color: #F7819F; color:black;">Технология изготовления</div>
                     </div>
                     <c:choose>
                         <c:when test="${empty recipes}">

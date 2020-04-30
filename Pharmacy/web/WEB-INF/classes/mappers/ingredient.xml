@@ -10,7 +10,7 @@
             <result column="time_for_preparing"  property="timeForPreparing" />
             <result column="price_of_work"  property="money" />
             <association property="recipeMedicament" resultMap="RecipeMedicament" />
-            <association property="product" resultMap="Position" />
+            <association property="product" resultMap="Product" />
     </resultMap>
 
     <resultMap id="Product" type="pharmacy.entity.Product">
@@ -63,9 +63,9 @@
             m.*
         FROM ingredient i
         JOIN product p ON p.product_id = i.product_id 
-        JOIN recipe_medicament rc ON p.recipe_medicament_id = rc.recipe_medicament_id 
+        JOIN recipe_medicament rc ON i.recipe_medicament_id = rc.recipe_medicament_id 
         JOIN medicament m ON rc.medicament_id = m.medicament_id 
-        WHERE p.prescription_id = #{id}
+        WHERE i.ingredient_id = #{id}
     </select>
 
     <update id="update" parameterType="pharmacy.entity.Ingredient">

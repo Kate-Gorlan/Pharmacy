@@ -123,6 +123,7 @@
 
     <bean id="ingredientService" class="pharmacy.service.IngredientService">
         <property name="ingredientDao" ref="ingredientDao" />
+        <property name="productDao" ref="productDao" />
     </bean>
     <bean id="doctorService" class="pharmacy.service.DoctorService">
         <property name="doctorDao" ref="doctorDao" />
