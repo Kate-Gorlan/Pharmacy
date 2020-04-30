@@ -34,7 +34,7 @@
                 <!-- name -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" style="background-color: #F7819F;">Название</span>
+                        <span class="input-group-text" style="background-color: #F7819F; color:black;">Название</span>
                     </div>
                     <c:choose>
                         <c:when test="${empty medicaments}">
@@ -91,7 +91,7 @@
                 <!-- type -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <div class="input-group-text" style="background-color: #F7819F;">Тип медикамента</div>
+                        <div class="input-group-text" style="background-color: #F7819F; color:black;">Тип медикамента</div>
                     </div>
                     <c:choose>
                         <c:when test="${empty medicaments}">
@@ -106,7 +106,7 @@
                 <!-- availabilityOfPrescription -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <div class="input-group-text" style="background-color: #F7819F;">Необходимость рецепта от врача</div>
+                        <div class="input-group-text" style="background-color: #F7819F; color:black;">Необходимость рецепта от врача</div>
                     </div>
                     <c:choose>
                         <c:when test="${empty medicaments}">

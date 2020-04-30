@@ -9,6 +9,11 @@
     <a href="recipes.html">
     <button type="button" class="btn btn-info" style="width: 100%; height: 50px; font-size: 150%;">
     Назад</button></a>
+    <h5 style="border: 10px solid white;"> 
+    Добавить ингредиент </h5>
+    <a href="goAddIngredient.html?id=-1&recipeId=${recipe.getId()}">
+    <button type="button" class="btn btn-outline-info" style="width: 100%; height: 100px; font-size: 300%;">
+    +</button></a>
 </div>
 <div style="width: 2%; height: 100vh; overflow:auto; float:left;"></div>
 <div style="width: 83%; overflow:auto;">
@@ -27,6 +32,7 @@
                 <th scope="col">Продукт</th>
                 <th scope="col">Количество</th>
                 <th scope="col">Время изготовления</th>
+                <th scope="col">Цена изготовления</th>
             </tr>
             </thead>
             <tbody>
@@ -35,6 +41,18 @@
                     <td>${ingredient.product.name}</td>
                     <td>${ingredient.quantity} мг/мл</td>
                     <td>${ingredient.timeForPreparing} мин</td>
+                    <td>${ingredient.money}</td>
+                    
+                    <td>
+                    <a href="goAddIngredient.html?id=${ingredient.getId()}&recipeId=${recipe.getId()}">
+                    <button type="button" class="btn btn-warning">Изменить</button>
+                    </a>
+                    </td>
+                    <td>
+                    <a href="deleteIngredient.html?id=${ingredient.getId()}&recipeId=${recipe.getId()}">
+                    <button type="button" class="btn btn-danger">Удалить</button></a>
+                    </td>
+                    
                 </tr>
                 </c:forEach>
             </tbody>

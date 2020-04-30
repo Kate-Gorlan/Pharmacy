@@ -42,7 +42,7 @@
                     </c:choose>
                 </div> -->
                 <div class="input-group-prepend">
-                        <div class="input-group-text" style="background-color: #F7819F;">Продукт</div>
+                        <div class="input-group-text" style="background-color: #F7819F; color:black;">Продукт</div>
                     </div>
                     
                     <div style="border: 10px solid white; width: 80%;">
@@ -69,7 +69,7 @@
                 <!-- fd -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" style="background-color: #F7819F;">Дата начала периода</span>
+                        <span class="input-group-text" style="background-color: #F7819F; color:black;">Дата начала периода</span>
                     </div>
                     <c:choose>
                         <c:when test="${empty fd}">
@@ -83,7 +83,7 @@
                 <!-- sd -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <div class="input-group-text" style="background-color: #F7819F;">Дата конца периода</div>
+                        <div class="input-group-text" style="background-color: #F7819F; color:black;">Дата конца периода</div>
                     </div>
                     <c:choose>
                         <c:when test="${empty sd}">

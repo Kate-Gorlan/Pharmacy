@@ -36,7 +36,7 @@
                 <!-- fullName -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <div class="input-group-text" style="background-color: #F7819F;">ФИО</div>
+                        <div class="input-group-text" style="background-color: #F7819F; color:black;">ФИО</div>
                     </div>
                     <c:choose>
                         <c:when test="${empty clients}">
@@ -51,7 +51,7 @@
                 <!-- age -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" style="background-color: #F7819F;">Возраст</span>
+                        <span class="input-group-text" style="background-color: #F7819F; color:black;">Возраст</span>
                     </div>
                     <c:choose>
                         <c:when test="${empty clients}">
@@ -66,7 +66,7 @@
                 <!-- address -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <div class="input-group-text" style="background-color: #F7819F;">Адрес</div>
+                        <div class="input-group-text" style="background-color: #F7819F; color:black;">Адрес</div>
                     </div>
                     <c:choose>
                         <c:when test="${empty clients}">
@@ -81,7 +81,7 @@
                 <!-- phone -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <div class="input-group-text" style="background-color: #F7819F;">Телефон  +375...</div>
+                        <div class="input-group-text" style="background-color: #F7819F; color:black;">Телефон  +375...</div>
                     </div>
                     <c:choose>
                         <c:when test="${empty clients}">

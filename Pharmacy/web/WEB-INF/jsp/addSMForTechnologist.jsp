@@ -29,7 +29,7 @@
                 <!-- medicament.id -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <div class="input-group-text" style="background-color: #F7819F;">ID медикамента</div>
+                        <div class="input-group-text" style="background-color: #F7819F; color:black;">ID медикамента</div>
                     </div>
                     
                         <input required type="text" name="medicament.id" value="${medicamentId}" class="form-control" placeholder="Введите ID медикамента">
@@ -38,7 +38,7 @@
                 <!-- quantity -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" style="background-color: #F7819F;">Количество (штук)</span>
+                        <span class="input-group-text" style="background-color: #F7819F; color:black;">Количество (штук)</span>
                     </div>
 
                         <input required type="text" name="quantity" value="1" class="form-control" placeholder="Введите количество"/>
@@ -47,7 +47,7 @@
                 <!-- price -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <div class="input-group-text" style="background-color: #F7819F;">Цена за поставку</div>
+                        <div class="input-group-text" style="background-color: #F7819F; color:black;">Цена за поставку</div>
                     </div>
 
                         <input required type="text" name="price" value="${price}" class="form-control" placeholder="Введите цену за поставку">
@@ -56,7 +56,7 @@
                 <!-- shelfLife -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <div class="input-group-text" style="background-color: #F7819F;">Срок годности в днях</div>
+                        <div class="input-group-text" style="background-color: #F7819F; color:black;">Срок годности в днях</div>
                     </div>
 
                             <input required type="text" name="shelfLife" class="form-control" placeholder="Введите срок годности в днях">
@@ -65,7 +65,7 @@
                 <!-- dateOfArrival -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <div class="input-group-text" style="background-color: #F7819F;">Дата поставки</div>
+                        <div class="input-group-text" style="background-color: #F7819F; color:black;">Дата поставки</div>
                     </div>
 
                             <input required maxlength="10" type="text" name="dateOfArrival" class="form-control" placeholder="Введите дату поставки">
@@ -74,7 +74,7 @@
                 <!-- criticalNorm -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <div class="input-group-text" style="background-color: #F7819F;">Критическая норма</div>
+                        <div class="input-group-text" style="background-color: #F7819F; color:black;">Критическая норма</div>
                     </div>
 
                             <input required type="text" name="criticalNorm" class="form-control" placeholder="Введите количество дней">

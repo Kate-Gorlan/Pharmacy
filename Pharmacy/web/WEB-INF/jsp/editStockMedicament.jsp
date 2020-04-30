@@ -37,7 +37,7 @@
                 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <div class="input-group-text" style="width: 100%; background-color: #F7819F;">Медикамент</div>
+                        <div class="input-group-text" style="width: 100%; background-color: #F7819F; color:black;">Медикамент</div>
                     </div>
                     <!--  
                     <c:choose>
@@ -76,7 +76,7 @@
                 <!-- quantity -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" style="background-color: #F7819F;">Количество (штук)</span>
+                        <span class="input-group-text" style="background-color: #F7819F; color:black;">Количество (штук)</span>
                     </div>
                     <c:choose>
                         <c:when test="${empty medicamentStocks}">
@@ -91,7 +91,7 @@
                 <!-- price -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <div class="input-group-text" style="background-color: #F7819F;">Цена за поставку</div>
+                        <div class="input-group-text" style="background-color: #F7819F; color:black;">Цена за поставку</div>
                     </div>
                     <c:choose>
                         <c:when test="${empty medicamentStocks}">
@@ -106,7 +106,7 @@
                 <!-- shelfLife -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <div class="input-group-text" style="background-color: #F7819F;">Срок годности в днях</div>
+                        <div class="input-group-text" style="background-color: #F7819F; color:black;">Срок годности в днях</div>
                     </div>
                     <c:choose>
                         <c:when test="${empty medicamentStocks}">
@@ -121,7 +121,7 @@
                 <!-- dateOfArrival -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <div class="input-group-text" style="background-color: #F7819F;">Дата поставки</div>
+                        <div class="input-group-text" style="background-color: #F7819F; color:black;">Дата поставки</div>
                     </div>
                     <c:choose>
                         <c:when test="${empty medicamentStocks}">
@@ -136,7 +136,7 @@
                 <!-- criticalNorm -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <div class="input-group-text" style="background-color: #F7819F;">Критическая норма</div>
+                        <div class="input-group-text" style="background-color: #F7819F; color:black;">Критическая норма</div>
                     </div>
                     <c:choose>
                         <c:when test="${empty medicamentStocks}">

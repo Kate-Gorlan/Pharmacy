@@ -62,6 +62,10 @@ public class RecipeMedicamentService {
     public RecipeMedicament getById(Long id) {
         return recipeMedicamentDao.read(id);
     }
+    
+    public RecipeMedicament getByName(String name) {
+        return recipeMedicamentDao.findByMedName(name);
+    }
 
     public List<RecipeMedicament> getAll() {
         List<RecipeMedicament> reverse = recipeMedicamentDao.findAll();
