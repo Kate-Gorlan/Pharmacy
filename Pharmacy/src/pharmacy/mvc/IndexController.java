@@ -2,7 +2,6 @@ package pharmacy.mvc;
 
 import static java.util.stream.Collectors.toList;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,19 +9,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import pharmacy.entity.Position;
-import pharmacy.service.PositionService;
+import pharmacy.common.ListMedicamentType;
+import pharmacy.common.TopOverdueMed;
+import pharmacy.service.MedicamentService;
 
 @Controller
 public class IndexController {
     
     @Autowired
-    private PositionService positionService;
+    private MedicamentService medSer;
 
     @GetMapping("/index.html")
     public String index(Model model) {
-        List<Position> listChoose = positionService.getPositions().stream().collect(toList());
-        model.addAttribute("positions", listChoose);
+        List<ListMedicamentType> listMedType = medSer.getTypeMed().stream().collect(toList());
+        List<TopOverdueMed> listOverdueMed = medSer.getOverdueMed().stream().collect(toList());
+        model.addAttribute("medTypes", listMedType);
+        model.addAttribute("topMed", listOverdueMed);
         return "index";
     }
 }
