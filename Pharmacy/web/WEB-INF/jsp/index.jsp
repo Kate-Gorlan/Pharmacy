@@ -4,10 +4,6 @@
 
 <ui:indexTag title="Главная страница" thema="flatly">
     <body style="width: 100%; height: 100%;">
-    </body>
-</ui:indexTag>
-<ui:indexTag title="Главная страница" thema="flatly">
-    <body style="width: 100%; height: 100%;">
         <div class="container">
             <div class="row align-items-center" style="place-content: center">
                 <ul class="list-group list-group-horizontal">
@@ -34,7 +30,7 @@
                             <img src="${empty meds.picUri ? 'resources/mainSite/test.png' : meds.picUri }" class="card-img-top" alt="Картинка">
                         </div>
                         <div class="card-body">
-                            <a class="card-text" href="medicamentifno.html?id=${meds.id}}">${meds.nameMed}</a>
+                            <a class="card-text" href="medicamentinfo.html?id=${meds.id}">${meds.nameMed}</a>
                         </div>
                         <div class="card-footer">
                             <small class="text" style="color: black;">Price: ${meds.priceMed} руб.</small>
