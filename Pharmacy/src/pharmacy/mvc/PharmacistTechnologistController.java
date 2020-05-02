@@ -12,12 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import pharmacy.common.PendingOrderEmployee;
-import pharmacy.entity.Medicament;
-import pharmacy.entity.MedicamentStock;
 import pharmacy.entity.PendingOrder;
-import pharmacy.entity.RecipeMedicament;
 import pharmacy.service.MedicamentService;
-import pharmacy.service.MedicamentStockService;
 import pharmacy.service.PendingOrderService;
 import pharmacy.service.RecipeMedicamentService;
 
@@ -31,13 +27,10 @@ public class PharmacistTechnologistController {
     private MedicamentService medicamentService;
 
     @Autowired
-    private MedicamentStockService medicamentStockService;
-
-    @Autowired
     private RecipeMedicamentService recipeMedicamentService;
 
     @GetMapping("/pharmacistTechnologist.html")
-    public String storekeeper(Model model) {
+    public String pharmacistT(Model model) {
         // ---------
         long id = 4;
         // ---------
@@ -50,7 +43,7 @@ public class PharmacistTechnologistController {
     }
 
     @GetMapping("/doneMed.html")
-    public String goToAddStockProduct(@RequestParam("id") Long id, @RequestParam("recipe") Long recipe,
+    public String goToAddMed(@RequestParam("id") Long id, @RequestParam("recipe") Long recipe,
             @RequestParam("name") String name, Model model) {
         PendingOrder po = pendingOrderService.getById(id);
         po.setTakeStatus("Изготовлено");
