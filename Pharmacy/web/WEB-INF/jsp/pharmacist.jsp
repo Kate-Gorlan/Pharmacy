@@ -11,7 +11,7 @@
             <div class="card-deck">
             
                 <div class="card border-primary mb-4 " style="max-width: 250px;">
-                    <img src="resources/mainSite/order.png" class="card-img-top" alt="Продажа">
+                    <img src="resources/mainSite/sell.png" class="card-img-top" alt="Продажа">
                     <div class="card-body">
                         <h5 class="card-title text-center ">Продажа</h5>
                         <p class="card-text">Оформить продажу</p>
