@@ -3,7 +3,6 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="ui"%>
 
 <ui:html title="Технолог" thema="flatly">
-<body style="width:100%;height:100%;">
 <div style="width: 15%; height: 100vh; overflow:auto; float:left;">
     <a href="recipes.html">
     <button type="button" class="btn btn-info" style="width: 100%; height: 50px; font-size: 150%;">
@@ -49,6 +48,4 @@
 </c:if>
     
 </div>
-
-</body>
 </ui:html>

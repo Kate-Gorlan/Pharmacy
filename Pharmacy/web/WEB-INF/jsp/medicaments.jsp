@@ -46,8 +46,8 @@
     </c:choose>
 
 </div>
-<body style="width:100%;height:100%;">
-<div style="width: 85%; overflow:auto; overflow-x:hidden;">
+<div style="width: 2%; height: 100vh; overflow:auto; float:left;"></div>
+<div style="width: 83%; overflow:auto;">
 
 <c:if test="${view == 'all'}">
   <table class="table table-primary">
@@ -111,5 +111,4 @@
 </c:if>
 
 </div>
-</body>
 </ui:html>

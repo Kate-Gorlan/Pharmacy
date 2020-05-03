@@ -11,6 +11,8 @@ import pharmacy.common.TopClientsMed;
 
 public interface ClientDao extends CrudDao<Long, Client>{
 
+    void createNotUser(Client obj);
+    
     Client findClient(Long id);
     
     List<Client> findAll();

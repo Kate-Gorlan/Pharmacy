@@ -58,6 +58,11 @@
         VALUES (#{fullName}, #{age}, #{address},
         #{phone}, (SELECT user_id FROM user WHERE user_id = #{user.id}))
     </insert>
+    
+    <insert id="createNotUser">
+        INSERT INTO client (client_full_name, client_age, client_address, client_phone)
+        VALUES (#{fullName}, #{age}, #{address}, #{phone})
+    </insert>
 
     <select id="read" parameterType="java.lang.Long" resultMap="Client">
         SELECT *
