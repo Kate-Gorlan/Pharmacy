@@ -30,7 +30,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="card text-center">
-                            <a href="serials.html?view=all&category=to do" class="btn btn-primary">Перейти</a>
+                            <a href="pendingOrders.html" class="btn btn-primary">Перейти</a>
                         </div>
                     </div>
                 </div>

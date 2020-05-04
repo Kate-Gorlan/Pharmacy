@@ -1,0 +1,92 @@
+package pharmacy.mvc;
+
+import static java.util.stream.Collectors.toList;
+
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import pharmacy.entity.Prescription;
+import pharmacy.service.PrescriptionService;
+
+@Controller
+public class PrescriptionController {
+
+    @Autowired
+    private PrescriptionService prescriptionService;
+    
+    @GetMapping("/prescriptions.html")
+    public String prescriptions(Model model) {
+        List<Prescription> prescriptions = prescriptionService.getAll().stream().collect(toList());
+        model.addAttribute("prescriptions", prescriptions);
+        return "prescriptions";
+    }
+    
+    @GetMapping("/prescription.html")
+    public String prescription(@RequestParam("id") Long id, Model model) {
+        model.addAttribute("prescription", prescriptionService.getById(id));
+        return "prescription";
+    }
+    
+    @GetMapping("/deletePrescription.html")
+    public String delete(@RequestParam("id") Long id) {
+        if (id != null) {
+            prescriptionService.deleteById(id);
+        }
+        return "redirect:/prescriptions.html";
+    }
+    
+    @GetMapping("/goAddPrescription.html")
+    public String goToAddPrescription(@RequestParam("id") Long id, Model model) {
+        if (id != -1) {
+            model.addAttribute("prescriptions", prescriptionService.getById(id));
+        }
+        
+        //List<Product> prods = productService.getAll();
+        //List<Medicament> meds = medicamentService.findByManufacturability("1");
+        //model.addAttribute("prods", prods);
+        //model.addAttribute("meds", meds);
+        return "editPrescription";
+    }
+
+    @RequestMapping(value = "/prescriptionAdd.html", method = {RequestMethod.GET, RequestMethod.POST})
+    public String edit(@ModelAttribute Prescription prescription, Model model) throws UnsupportedEncodingException{
+        ArrayList<String> errors = null ;//= pendOrderService.check(pendingOrder);
+        
+        //List<Product> prods = productService.getAll();
+        
+        for(String list: errors) {
+            System.out.println(list);
+        }
+        if (errors.size() != 0)
+        {
+            model.addAttribute("errors", errors);
+            model.addAttribute("prescriptions", prescription);
+            //model.addAttribute("prods", prods);
+            return "editPrescription";
+        } else 
+        {
+            try {
+                prescriptionService.add(prescription);
+            } catch (Exception e) {
+               
+                errors.add("Ошибка: " + e.getMessage());
+                
+                model.addAttribute("errors", errors);
+                model.addAttribute("prescriptions", prescription);
+                //model.addAttribute("prods", prods);
+                return "editPrescription";
+            }
+        }
+        return "redirect:/prescriptions.html";
+    }
+}

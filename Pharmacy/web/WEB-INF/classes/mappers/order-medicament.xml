@@ -84,18 +84,13 @@
 
     <select id="read" parameterType="java.lang.Long" resultMap="OrderMedicament">
         SELECT 
-            om.order_medicament_id,
-            om.quantity,
+            om.*,
             m.*,
-            e.employee_id,
-            e.employee_full_name,
-            o.order_id,
-            o.order_date,
-            p*
+            o.*,
+            p.*
         FROM order_medicament om 
         JOIN medicament m ON om.medicament_id = m.medicament_id 
-        JOIN [order] o ON po.order_id = o.order_id 
-        JOIN employee e ON e.employee_id = po.employee_cooking_id 
+        JOIN [order] o ON om.order_id = o.order_id 
         JOIN prescription p ON p.prescription_id = om.prescription_id
         WHERE om.order_medicament_id = #{id}
     </select>
@@ -115,19 +110,27 @@
     
     <select id="findAll" resultMap = "OrderMedicament" >
         SELECT 
-            om.order_medicament_id,
-            om.quantity,
+            om.*,
             m.*,
-            e.employee_id,
-            e.employee_full_name,
-            o.order_id,
-            o.order_date,
-            p*
+            o.*,
+            p.*
         FROM order_medicament om 
         JOIN medicament m ON om.medicament_id = m.medicament_id 
-        JOIN [order] o ON po.order_id = o.order_id 
-        JOIN employee e ON e.employee_id = po.employee_cooking_id 
+        JOIN [order] o ON om.order_id = o.order_id 
         JOIN prescription p ON p.prescription_id = om.prescription_id
+    </select>
+    
+    <select id="findAllByOrder" parameterType="java.lang.Long" resultMap = "OrderMedicament" >
+        SELECT 
+            om.*,
+            m.*,
+            o.*,
+            p.*
+        FROM order_medicament om 
+        JOIN medicament m ON om.medicament_id = m.medicament_id 
+        JOIN [order] o ON om.order_id = o.order_id 
+        JOIN prescription p ON p.prescription_id = om.prescription_id
+        WHERE om.order_id = #{id}
     </select>
     
 </mapper>
