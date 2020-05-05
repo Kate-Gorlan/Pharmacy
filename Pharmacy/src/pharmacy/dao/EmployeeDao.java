@@ -10,5 +10,6 @@ public interface EmployeeDao extends CrudDao<Long, Employee>{
     
     List<Employee> findAll();
 
+    List<Employee> findByPosition(String title);
 
 }

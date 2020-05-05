@@ -51,7 +51,7 @@
                     <td>${orderMed.medicament.name}</td>
                     <td>${orderMed.quantity} шт</td>
                     <c:if test="${orderMed.medicament.availabilityOfPrescription == 1}">
-                    <td><a href="prescription.html?id=${orderMed.prescription.getId()}">Рецепт</a></td>
+                    <td><a href="prescription.html?id=${orderMed.prescription.getId()}&idPO=${pendingOrder.getId()}">Рецепт</a></td>
                     </c:if>
                     <td>
                     <a href="goAddOrderMed.html?id=${orderMed.getId()}&pendingOrderId=${pendingOrder.getId()}">

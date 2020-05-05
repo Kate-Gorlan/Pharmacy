@@ -8,11 +8,9 @@
     <a href="pharmacist.html?idMed=-1">
     <button type="button" class="btn btn-info" style="width: 100%; height: 50px; font-size: 150%;">
     Назад</button></a>
-    <!--  
-    <a href="goAddPendingOrder.html?id=-1">
+    <a href="goAddPO.html">
     <button type="button" class="btn btn-outline-info" style="width: 100%; height: 100px; font-size: 300%;">
     +</button></a>
-    -->
 </div>
 <div style="width: 2%; height: 100vh; overflow:auto; float:left;"></div>
 <div style="width: 83%; overflow:auto;">

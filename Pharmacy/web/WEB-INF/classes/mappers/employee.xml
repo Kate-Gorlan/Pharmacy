@@ -7,7 +7,6 @@
     <resultMap id="Employee" type="pharmacy.entity.Employee">
         <id column="employee_id" property="id" />
         <result column="employee_full_name" property="fullName" />
-        <result column="employee_pass" property="password" />
         <association property="position" resultMap="Position" />
         <association property="user" resultMap="User" />
     </resultMap>
@@ -24,16 +23,15 @@
     </resultMap>
 
     <insert id="create">
-        INSERT INTO employee (user_id, position_id, employee_full_name, employee_pass) VALUES (
+        INSERT INTO employee (user_id, position_id, employee_full_name) VALUES (
             (SELECT position_id FROM position WHERE position_title = #{position.title}),
-            (SELECT user_id FROM user WHERE user_id = #{user.id}), #{fullName}, #{password})
+            (SELECT user_id FROM user WHERE user_id = #{user.id}), #{fullName})
     </insert>
 
     <select id="read" parameterType="java.lang.Long" resultMap="Employee">
         SELECT 
             e.employee_id,
             e.employee_full_name,
-            e.employee_pass,
             p.position_id,
             p.position_title
         FROM employee e JOIN position p ON e.position_id = p.position_id WHERE e.employee_id = #{id}
@@ -42,8 +40,7 @@
     <update id="update" parameterType="pharmacy.entity.Employee">
         UPDATE employee SET 
         position_id = (SELECT position_id FROM position WHERE position_title = #{position.title}),
-        employee_full_name = #{fullName},
-        employee_pass = #{password}
+        employee_full_name = #{fullName}
         WHERE employee_id = #{id}
     </update>
 
@@ -55,17 +52,15 @@
         SELECT 
             e.employee_id,
             e.employee_full_name,
-            e.employee_pass,
             p.position_id,
             p.position_title
         FROM employee e JOIN position p ON e.position_id = p.position_id 
     </select>
     
-    <select id="findByName" parameterType="java.lang.String" resultMap = "Employee">
+    <select id="findByPosition" parameterType="java.lang.String" resultMap = "Employee">
         SELECT 
             e.employee_id,
             e.employee_full_name,
-            e.employee_pass,
             p.position_id,
             p.position_title
         FROM employee e JOIN position p ON e.position_id = p.position_id 

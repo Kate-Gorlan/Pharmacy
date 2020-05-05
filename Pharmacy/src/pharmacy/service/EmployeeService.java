@@ -39,5 +39,10 @@ public class EmployeeService {
     public void deleteById(Long id) {
         employeeDao.delete(id);
     }
+    
+    public List<Employee> getByPosition(String title){
+        List<Employee> list = employeeDao.findByPosition(title);
+        return list;
+    }
 
 }

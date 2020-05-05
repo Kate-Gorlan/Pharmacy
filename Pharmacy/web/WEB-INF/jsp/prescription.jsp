@@ -5,7 +5,16 @@
 <ui:html title="Рецепт от врача" thema="flatly">
 
 <div style="width: 15%; height: 100vh; overflow:auto; float:left;">
-    <a href="pendingOrder.html?id=${idPendOrder}">
+    
+    <c:choose>
+        <c:when test="${idPO != -1}">
+        <c:set var="back" value="pendingOrder.html?id=${idPO}"/>
+        </c:when>
+        <c:otherwise>
+        <c:set var="back" value="prescriptions.html"/>
+        </c:otherwise>
+    </c:choose>
+    <a href="${back}">
     <button type="button" class="btn btn-info" style="width: 100%; height: 50px; font-size: 150%;">
     Назад</button></a>
 

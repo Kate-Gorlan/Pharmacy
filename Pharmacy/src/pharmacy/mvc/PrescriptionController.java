@@ -32,8 +32,11 @@ public class PrescriptionController {
     }
     
     @GetMapping("/prescription.html")
-    public String prescription(@RequestParam("id") Long id, Model model) {
+    public String prescription(@RequestParam("id") Long id, @RequestParam("idPO") Long idPO, Model model) {
         model.addAttribute("prescription", prescriptionService.getById(id));
+        if (idPO != -1) {
+            model.addAttribute("idPO", idPO);
+        }
         return "prescription";
     }
     

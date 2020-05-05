@@ -24,7 +24,7 @@
 
     <insert id="create">
         INSERT INTO [order] (employee_id, order_date) VALUES (
-            (SELECT employee_id FROM employee WHERE employee_full_name = #{employee.fullName}), #{date})
+            (SELECT employee_id FROM employee WHERE employee_id = #{employee.id}), #{date})
     </insert>
 
     <select id="read" parameterType="java.lang.Long" resultMap="Order">
@@ -38,7 +38,7 @@
 
     <update id="update" parameterType="pharmacy.entity.Order">
         UPDATE [order] SET 
-        employee_id = (SELECT employee_id FROM employee WHERE employee_full_name = #{employee.fullName}),
+        employee_id = (SELECT employee_id FROM employee WHERE employee_id = #{employee.id}),
         order_date = #{date}
         WHERE order_id = #{id}
     </update>

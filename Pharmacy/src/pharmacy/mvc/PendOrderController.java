@@ -65,6 +65,13 @@ public class PendOrderController {
         //model.addAttribute("meds", meds);
         return "editPendingOrder";
     }
+    
+    @GetMapping("/goAddPO.html")
+    public String goToAddPO(Model model) {
+        //model.addAttribute("pendingOrder", 1);
+        //return "goAddOrder";
+        return "redirect:/goAddOrder.html?pendingOrder=1&id=-1";
+    }
 
     @RequestMapping(value = "/pendingOrderAdd.html", method = {RequestMethod.GET, RequestMethod.POST})
     public String edit(@ModelAttribute PendingOrder pendingOrder, Model model) throws UnsupportedEncodingException{
