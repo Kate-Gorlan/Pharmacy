@@ -46,7 +46,7 @@ public class RecipeMedicamentMapper extends SqlSessionDaoSupport implements Reci
     }
 
     @Override
-    public RecipeMedicament findByMedName(String name) {
-        return getSqlSession().selectOne("pharmacy.dao.RecipeMedicamentDao.findByName", name);
+    public RecipeMedicament findByMedId(Long id) {
+        return getSqlSession().selectOne("pharmacy.dao.RecipeMedicamentDao.findByIdMed", id);
     }
 } 

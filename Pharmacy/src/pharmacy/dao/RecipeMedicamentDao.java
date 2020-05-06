@@ -9,7 +9,7 @@ public interface RecipeMedicamentDao extends CrudDao<Long, RecipeMedicament>{
 
     RecipeMedicament findRecipeMedicament(Long id);
     
-    RecipeMedicament findByMedName(String name);
+    RecipeMedicament findByMedId(Long id);
     
     List<RecipeMedicament> findAll();
     

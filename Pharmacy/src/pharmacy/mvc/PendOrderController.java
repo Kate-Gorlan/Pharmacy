@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import pharmacy.entity.Employee;
 import pharmacy.entity.OrderMedicament;
 import pharmacy.entity.PendingOrder;
+import pharmacy.service.EmployeeService;
 import pharmacy.service.OrderMedicamentService;
 import pharmacy.service.PendingOrderService;
 
@@ -25,6 +27,9 @@ public class PendOrderController {
 
     @Autowired
     private PendingOrderService pendOrderService;
+    
+    @Autowired
+    private EmployeeService employeeService;
     
     @Autowired
     private OrderMedicamentService orderMedService;
@@ -54,30 +59,26 @@ public class PendOrderController {
     }
     
     @GetMapping("/goAddPendingOrder.html")
-    public String goToAddPendingOrder(@RequestParam("id") Long id, Model model) {
+    public String goToAddPendingOrder(@RequestParam("id") Long id, @RequestParam("idOrder") Long idOrder, Model model) {
         if (id != -1) {
             model.addAttribute("pendingOrders", pendOrderService.getById(id));
         }
-        
-        //List<Product> prods = productService.getAll();
-        //List<Medicament> meds = medicamentService.findByManufacturability("1");
-        //model.addAttribute("prods", prods);
-        //model.addAttribute("meds", meds);
-        return "editPendingOrder";
+        model.addAttribute("idOrder", idOrder);
+        List<Employee> empls = employeeService.getByPosition("Провизор-технолог");
+        model.addAttribute("empls", empls);
+        return "editPendOrder";
     }
     
     @GetMapping("/goAddPO.html")
     public String goToAddPO(Model model) {
-        //model.addAttribute("pendingOrder", 1);
-        //return "goAddOrder";
         return "redirect:/goAddOrder.html?pendingOrder=1&id=-1";
     }
 
     @RequestMapping(value = "/pendingOrderAdd.html", method = {RequestMethod.GET, RequestMethod.POST})
     public String edit(@ModelAttribute PendingOrder pendingOrder, Model model) throws UnsupportedEncodingException{
         ArrayList<String> errors = null ;//= pendOrderService.check(pendingOrder);
+        List<Employee> empls = employeeService.getByPosition("Провизор-технолог");
         
-        //List<Product> prods = productService.getAll();
         
         for(String list: errors) {
             System.out.println(list);
@@ -86,8 +87,8 @@ public class PendOrderController {
         {
             model.addAttribute("errors", errors);
             model.addAttribute("pendingOrders", pendingOrder);
-            //model.addAttribute("prods", prods);
-            return "editPendingOrder";
+            model.addAttribute("empls", empls);
+            return "editPendOrder";
         } else 
         {
             try {
@@ -98,8 +99,8 @@ public class PendOrderController {
                 
                 model.addAttribute("errors", errors);
                 model.addAttribute("pendingOrders", pendingOrder);
-                //model.addAttribute("prods", prods);
-                return "editPendingOrder";
+                model.addAttribute("empls", empls);
+                return "editPendOrder";
             }
         }
         return "redirect:/pendingOrders.html";

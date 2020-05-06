@@ -34,16 +34,36 @@ public class OrderService {
         this.employeeDao = employeeDao;
     }
     
-    public void add(Order obj) {
+    /*public void add(Order obj) {
         if (obj.getId() == null) {
             orderDao.create(obj);
         } else {
             orderDao.update(obj);
         }
+    }*/
+    
+    public void add(Order obj) {
+        if (obj.getId() == null) {
+            if (obj.getClient() != null) {
+                orderDao.createWithClient(obj);
+            } else {
+                orderDao.create(obj);
+            }
+        } else {
+            if (obj.getClient() != null) {
+                orderDao.updateWithClient(obj);
+                } else {
+                    orderDao.update(obj);
+                }
+        }
     }
     
     public Order getById(Long id) {
         return orderDao.read(id);
+    }
+    
+    public Order findByEmpl(Long id) {
+        return orderDao.findByEmpl(id);
     }
     
     public List<Order> getAll(){
@@ -74,7 +94,11 @@ public class OrderService {
         } catch (Exception e) {
             errors.add("Дата введена не в формате yyyy-MM-dd");
         }
-        }
+        } else {
+            String timeStamp = new SimpleDateFormat("yyyy-MM-dd")
+                    .format(Calendar.getInstance().getTime());
+            order.setDate(timeStamp);
+            }
 
         return errors;
     }

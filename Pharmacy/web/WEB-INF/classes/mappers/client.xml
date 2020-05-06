@@ -76,6 +76,17 @@
         client_age = #{age},
         client_address =
         #{address},
+        client_phone = #{phone},
+        user_id = (SELECT user_id FROM user WHERE user_id = #{user.id})
+        WHERE client_id = #{id}
+    </update>
+    
+    <update id="updateNotUser" parameterType="pharmacy.entity.Client">
+        UPDATE client SET
+        client_full_name = #{fullName},
+        client_age = #{age},
+        client_address =
+        #{address},
         client_phone = #{phone}
         WHERE client_id = #{id}
     </update>

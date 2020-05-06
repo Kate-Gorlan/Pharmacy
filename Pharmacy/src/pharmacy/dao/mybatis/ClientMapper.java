@@ -33,6 +33,11 @@ public class ClientMapper extends SqlSessionDaoSupport implements ClientDao{
     public void update(Client obj) {
         getSqlSession().update("pharmacy.dao.ClientDao.update", obj);
     }
+    
+    @Override
+    public void updateNotUser(Client obj) {
+        getSqlSession().update("pharmacy.dao.ClientDao.updateNotUser", obj);
+    }
 
     @Override
     public void delete(Long id) {

@@ -33,7 +33,11 @@ public class ClientService {
             clientDao.create(obj);
             }
         } else {
-            clientDao.update(obj);
+            if (obj.getUser() == null) {
+                clientDao.updateNotUser(obj);
+                } else {
+                clientDao.update(obj);
+                }
         }
     }
     

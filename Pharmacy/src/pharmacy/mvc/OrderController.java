@@ -4,10 +4,7 @@ import static java.util.stream.Collectors.toList;
 
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import pharmacy.entity.Client;
 import pharmacy.entity.Employee;
 import pharmacy.entity.Order;
 import pharmacy.entity.OrderMedicament;
+import pharmacy.service.ClientService;
 import pharmacy.service.EmployeeService;
 import pharmacy.service.OrderMedicamentService;
 import pharmacy.service.OrderService;
@@ -34,6 +33,9 @@ public class OrderController {
     
     @Autowired
     private EmployeeService employeeService;
+    
+    @Autowired
+    private ClientService clientService;
     
     @Autowired
     private OrderMedicamentService orderMedService;
@@ -67,14 +69,12 @@ public class OrderController {
             model.addAttribute("orders", orderService.getById(id));
         }
         
-        //Date date = Calendar.getInstance().getTime();
-        //Date dateNow = new SimpleDateFormat("yyyy-MM-dd").parse(new String(date.toString()));
         List<Employee> empls = employeeService.getByPosition("Фармацевт");
-        //List<Medicament> meds = medicamentService.findByManufacturability("1");
         model.addAttribute("empls", empls);
-        //model.addAttribute("dateNow", dateNow);
+        List<Client> clients = clientService.getClients();
+        model.addAttribute("clients", clients);
+        
         model.addAttribute("pendingOrder", pendingOrder);
-        //model.addAttribute("meds", meds);
         return "editOrder";
     }
 
@@ -83,6 +83,7 @@ public class OrderController {
         ArrayList<String> errors = orderService.check(order);
         
         List<Employee> empls = employeeService.getByPosition("Фармацевт");
+        List<Client> clients = clientService.getClients();
         
         for(String list: errors) {
             System.out.println(list);
@@ -93,6 +94,7 @@ public class OrderController {
             model.addAttribute("orders", order);
             model.addAttribute("pendingOrder", pendingOrder);
             model.addAttribute("empls", empls);
+            model.addAttribute("clients", clients);
             return "editOrder";
         } else 
         {
@@ -106,12 +108,23 @@ public class OrderController {
                 model.addAttribute("orders", order);
                 model.addAttribute("pendingOrder", pendingOrder);
                 model.addAttribute("empls", empls);
+                model.addAttribute("clients", clients);
                 return "editOrder";
             }
         }
         if(pendingOrder == 1) {
-            return "redirect:/goAddPendingOrder.html?id=-1";
+            Long idEmpl = order.getEmployee().getId();
+            return "redirect:/goFindOrder.html?idEmpl="+idEmpl;
+            //return "redirect:/goAddPendingOrder.html?id=-1&idOrder=";
         } 
         else return "redirect:/orders.html";
+    }
+    
+    @GetMapping("/goFindOrder.html")
+    public String goFindOrder(@RequestParam("idEmpl") Long idEmpl,
+            Model model) {
+        Order order = orderService.findByEmpl(idEmpl);
+        Long idOrder = order.getId();
+        return "redirect:/goAddPendingOrder.html?id=-1&idOrder="+idOrder;
     }
 }

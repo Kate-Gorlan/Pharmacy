@@ -36,7 +36,7 @@
       <td>${pendOrder.availabilityDate}</td>
       <td>${pendOrder.takeStatus}</td>
       
-      <td><a href="pendingOrder.html?id=${pendOrder.getId()}">Подробнее</a></td>
+      <td><a href="pendingOrder.html?id=${pendOrder.getId()}&idOrder=${pendOrder.order.id}">Подробнее</a></td>
       <td>
       <a href="goAddPendingOrder.html?id=${pendOrder.getId()}">
         <button type="button" class="btn btn-warning">Изменить</button>
