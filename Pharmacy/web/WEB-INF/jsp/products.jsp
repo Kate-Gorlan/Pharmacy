@@ -39,7 +39,7 @@
     name="name" class="form-control" id="name" placeholder="Введите название"/>
     </div>
     <button style="margin: 0 auto;" type="submit" class="btn btn-primary">
-    Количество продукта, данного названия, которые используются в изготовлении
+    Количество продукта, данного названия, который используется в изготовлении
     </button>
     </form> 
     <c:if test="${not empty prodNumByName}">
@@ -48,7 +48,7 @@
      
     <a href="progressProd.html">
     <button type="button" class="btn btn-primary" style="width: 100%; font-size: 100%;">
-    Количество продуктов, которые используются в изготовлении, по имени и периоду</button></a>
+    Количество продукта, который используется в изготовлении, по имени и периоду</button></a>
     <c:if test="${not empty prodNumByPeriod}">
     <p>Количество: ${prodNumByPeriod} грамм</p>
     </c:if> 

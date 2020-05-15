@@ -1,8 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="ui"%>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.min.css">
 <ui:html title="Фармацевт" thema="flatly">
+
 <div class="container text-center">
 
     <div class="mt-4">
@@ -66,7 +67,7 @@
         </div>
     </div>
     
-    <div style="background-color: white; border-bottom: 10px solid #bed2f7; text-align: left;">
+    <div style="background-color: white; border-bottom: 5px solid #bed2f7; text-align: left;">
     <c:if test="${not empty medInfo}">
     <h5>${medInfo.name}</h5>
     <h6>Количество: ${medInfo.quantity}</h6>
@@ -78,12 +79,12 @@
     </c:if>
     </div>
     
-    <div style="background-color: #bed2f7; border-bottom: 10px solid white;">
+    <div style="background-color: #bed2f7; border-bottom: 5px solid white;">
 
    <h5 style="border: 10px solid #bed2f7;"> Проверить медикамент</h5> 
    <c:url value="/pharmacistInfo.html" var="href" />
    <form action="${href}" accept-charset="UTF-8" method="POST">
-   <div class="input-group mb-3" style="border: 10px solid #bed2f7;">
+   <div class="input-group mb-3" style="border: 5px solid #bed2f7; text-align: left;">
    
         <select class="livesearch" name="idMed" style="width: 100%;">
         <c:forEach items="${meds}" var="med">
@@ -92,9 +93,14 @@
         </select>
                     
    </div>
-   <button style="margin: 0 auto; border: 10px solid #bed2f7;" type="submit" class="btn btn-primary">Проверить</button>
+   <button style="margin: 0 auto; border: 5px solid #bed2f7;" type="submit" class="btn btn-primary">Проверить</button>
    </form>
     
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
+<script type="text/javascript">
+      $(".livesearch").chosen();
+</script>
 </ui:html>

@@ -31,7 +31,7 @@
       <td>${medsFM.orderDate}</td>
       <td>${medsFM.availabilityDate}</td>
       <td>${medsFM.medicamentName}</td>
-      <td>${medsFM.recipeId}</td>
+      <td><a href="recipe.html?id=${medsFM.recipeId}">Открыть рецепт</a></td>
       <td>
           <a href="doneMed.html?name=${medsFM.getMedicamentName()}&id=${medsFM.getId()}&recipe=${medsFM.getRecipeId()}">
         <button type="button" class="btn btn-warning">Изготовлено</button>

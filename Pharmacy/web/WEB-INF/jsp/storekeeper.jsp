@@ -196,7 +196,7 @@
    </div>
    <button style="margin: 0 auto;" type="submit" class="btn btn-primary">Найти</button>
    </form>
-  <c:if test="${not empty typeMed}">
+  <c:if test="${not empty typeProd}">
   <table class="table table-primary">
   <thead>
     <tr>
