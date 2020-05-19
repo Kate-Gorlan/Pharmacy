@@ -38,4 +38,9 @@ public class OrderMedicamentMapper extends SqlSessionDaoSupport implements Order
     public List<OrderMedicament> findAll() {
         return getSqlSession().selectList("pharmacy.dao.OrderMedicamentDao.findAll");
     }
+
+    @Override
+    public List<OrderMedicament> findAllByOrder(Long id) {
+        return getSqlSession().selectList("pharmacy.dao.OrderMedicamentDao.findAllByOrder", id);
+    }
 } 

@@ -6,6 +6,7 @@ import java.util.List;
 
 import pharmacy.common.ListMedicamentType;
 import pharmacy.common.MedCriticalNorm;
+import pharmacy.common.MedInfoAvailability;
 import pharmacy.common.MedTechnology;
 import pharmacy.common.MedTechnologyByName;
 import pharmacy.common.MedTechnologyByType;
@@ -89,6 +90,10 @@ public class MedicamentService {
 
     public Medicament findByName(String name) {
         return medicamentDao.findByName(name);
+    }
+    
+    public MedInfoAvailability getMedInfoAvailability(Long idMed) {
+        return medicamentDao.getMedInfoAvailability(idMed);
     }
 
     public List<Medicament> findByModOfAppl(String param) {

@@ -354,6 +354,6 @@
                 <button style="font-size: 120%; width: 40%; margin: 0 auto;" type="submit" class="btn btn-primary">Добавить</button>
             </form>
         </div>
-
+<div style="height: 50px;"></div>
 </body>
 </html>

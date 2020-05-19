@@ -3,7 +3,6 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="ui"%>
 
 <ui:html title="Главная страница" thema="flatly">
-<body style="width:100%;height:100%;">
 
 <div style="width: 85%; overflow:auto; overflow-x:hidden; margin:0 auto;">
 
@@ -127,5 +126,4 @@
     </form>           
 </div>
 
-</body>
 </ui:html>

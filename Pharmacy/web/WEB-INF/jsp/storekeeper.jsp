@@ -3,7 +3,6 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="ui"%>
 
 <ui:html title="Главная страница" thema="flatly">
-<body style="width:100%;height:100%;">
 
 <div style="width: 50%; float: left; overflow:auto; overflow-x:hidden; overflow-x: scroll; border:5px solid white;">
     <h3 style="align:center"> Медикаменты </h3>
@@ -197,7 +196,7 @@
    </div>
    <button style="margin: 0 auto;" type="submit" class="btn btn-primary">Найти</button>
    </form>
-  <c:if test="${not empty typeMed}">
+  <c:if test="${not empty typeProd}">
   <table class="table table-primary">
   <thead>
     <tr>
@@ -221,5 +220,4 @@
 </c:if> 
 </div>
 
-</body>
 </ui:html>

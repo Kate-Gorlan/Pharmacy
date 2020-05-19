@@ -8,8 +8,6 @@ public class Employee extends Entity {
     
     private String fullName;
     
-    private String password;
-    
     private User user;
 
     public Position getPosition() {
@@ -26,14 +24,6 @@ public class Employee extends Entity {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public User getUser() {

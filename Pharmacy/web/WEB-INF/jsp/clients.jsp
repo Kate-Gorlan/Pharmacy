@@ -5,13 +5,16 @@
 <ui:html title="Клиенты" thema="flatly">
 
 <div style="width: 15%; height: 100vh; overflow:auto; float:left;">
+<a href="pharmacist.html?idMed=-1">
+    <button type="button" class="btn btn-info" style="width: 100%; height: 50px; font-size: 150%;">
+    Назад</button></a>
     <a href="goAddClient.html?id=-1">
     <button type="button" class="btn btn-outline-info" style="width: 100%; height: 100px; font-size: 300%;">
     +</button></a>
 </div>
-<!-- <div class="container"> -->
-<body style="width:100%;height:100%;">
-<div style="width: 85%; overflow:auto; overflow-x:hidden;">
+
+<div style="width: 2%; height: 100vh; overflow:auto; float:left;"></div>
+<div style="width: 83%; overflow:auto;">
     <c:if test="${not empty clients}">
          <div class="card-deck">
             <c:forEach items="${clients}" var="client">
@@ -37,46 +40,6 @@
         </div>   
         </c:if>
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <c:if test="${not empty test}">
-         <div class="card-deck">
-            <c:forEach items="${test}" var="clienttt">
-                <div class="card mb-3" style="max-width: 300px; min-width: 300px;">
-                    <div class="row no-gutters">
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h4>${clienttt.takeStatus}</h4>
-                                <p class="card-text">ВClient: ${clienttt.client}</p>
-                                <p class="card-text">ID: ${clienttt.id}</p>
-                                <p class="card-text">Телефон: +375${clienttt.clientPhone}</p>
-                             </div>
-                        </div>
-                    </div>
-                </div>
-            </c:forEach>
-        </div>   
-        </c:if>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+       
 </div>
-</body>
 </ui:html>

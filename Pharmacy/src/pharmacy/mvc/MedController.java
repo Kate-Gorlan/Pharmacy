@@ -53,7 +53,7 @@ public class MedController {
 
     @RequestMapping(value = "/typeTopMed.html", method = { RequestMethod.GET, RequestMethod.POST })
     public String typeMed(String typeTopMed, Model model) throws UnsupportedEncodingException {
-        return "redirect:/medicaments.html?view=top&typeTopMed=" + typeTopMed;
+        return "redirect:/medicaments.html?view=top&typeTopMed=" + typeTopMed+"&page=2";
     }
 
     @GetMapping("/deleteMedicament.html")

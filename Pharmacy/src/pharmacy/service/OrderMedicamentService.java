@@ -36,6 +36,12 @@ public class OrderMedicamentService {
         return reverse;
     }
     
+    public List<OrderMedicament> findAllByOrder(Long id){
+        List<OrderMedicament> reverse = orderMedicamentDao.findAllByOrder(id);
+        Collections.reverse(reverse);
+        return reverse;
+    }
+    
     public void deleteById(Long id) {
         orderMedicamentDao.delete(id);
     }

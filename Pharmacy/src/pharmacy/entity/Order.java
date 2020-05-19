@@ -6,6 +6,8 @@ public class Order extends Entity {
     
     private Employee employee;
     
+    private Client client;
+    
     private String date;
 
     public Employee getEmployee() {
@@ -22,6 +24,14 @@ public class Order extends Entity {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
 }

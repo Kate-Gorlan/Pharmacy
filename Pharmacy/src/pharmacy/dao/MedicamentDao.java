@@ -7,6 +7,7 @@ import pharmacy.common.TopOverdueMed;
 import pharmacy.entity.Medicament;
 import pharmacy.common.ListMedicamentType;
 import pharmacy.common.MedCriticalNorm;
+import pharmacy.common.MedInfoAvailability;
 import pharmacy.common.MedTechnology;
 import pharmacy.common.MedTechnologyByName;
 import pharmacy.common.MedTechnologyByType;
@@ -18,6 +19,8 @@ public interface MedicamentDao extends CrudDao<Long, Medicament> {
     Medicament findMedicament(Long id);
 
     Medicament findByName(String name);
+    
+    MedInfoAvailability getMedInfoAvailability(Long idMed);
     
     List<Medicament> findByModOfAppl(String modOfAppl);
     

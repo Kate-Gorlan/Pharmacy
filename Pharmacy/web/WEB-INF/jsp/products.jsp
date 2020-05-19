@@ -3,7 +3,6 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="ui"%>
 
 <ui:html title="Продукты" thema="flatly">
-
 <div style="width: 15%; height: 100vh; overflow:auto; float:left;">
     <c:choose>
         <c:when test="${page == 1}">
@@ -40,7 +39,7 @@
     name="name" class="form-control" id="name" placeholder="Введите название"/>
     </div>
     <button style="margin: 0 auto;" type="submit" class="btn btn-primary">
-    Количество продукта, данного названия, которые используются в изготовлении
+    Количество продукта, данного названия, который используется в изготовлении
     </button>
     </form> 
     <c:if test="${not empty prodNumByName}">
@@ -49,7 +48,7 @@
      
     <a href="progressProd.html">
     <button type="button" class="btn btn-primary" style="width: 100%; font-size: 100%;">
-    Количество продуктов, которые используются в изготовлении, по имени и периоду</button></a>
+    Количество продукта, который используется в изготовлении, по имени и периоду</button></a>
     <c:if test="${not empty prodNumByPeriod}">
     <p>Количество: ${prodNumByPeriod} грамм</p>
     </c:if> 
@@ -58,8 +57,8 @@
     </c:choose>
     
 </div>
-<body style="width:100%;height:100%;">
-<div style="width: 85%; overflow:auto; overflow-x:hidden;">
+<div style="width: 2%; height: 100vh; overflow:auto; float:left;"></div>
+<div style="width: 83%; overflow:auto;">
 
 <c:if test="${view == 'all'}">
   <table class="table table-primary">
@@ -115,5 +114,4 @@
 </c:if>
 
 </div>
-</body>
 </ui:html>

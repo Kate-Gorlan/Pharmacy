@@ -62,6 +62,13 @@
         <result column="Medicament" property="deliveryQuantity" />
         <result column="Medicament quantity" property="deliveryPrice" />
     </resultMap>
+    
+    <resultMap id="MedInfoAvailability" type="pharmacy.common.MedInfoAvailability">
+        <result column="medicament_name" property="name" />
+        <result column="medicament_manufacturability" property="manufacturability" />
+        <result column="medicament_quantity" property="quantity" />
+        <result column="medicament_price" property="price" />
+    </resultMap>
 
     <resultMap id="MedicamentIngredients" type="pharmacy.common.MedicamentIngredients">
         <id column="ingr_id" property="id" />
@@ -328,6 +335,10 @@
 
     <select id="getTopOverdueMed" resultMap="ListTopOverdueMed">
        select top 10 * from dbo.getTopOverdueMed()
+    </select>
+    
+    <select id="getMedInfoAvailability" parameterType="java.lang.Long" resultMap="MedInfoAvailability">
+        select * from GetInfoMedicamentById(#{idMed})
     </select>
 
 </mapper>

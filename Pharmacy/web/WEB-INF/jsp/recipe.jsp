@@ -2,8 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="ui"%>
 
-<ui:html title="Рецепты" thema="flatly">
-<body style="width:100%;height:100%;">
+<ui:html title="Рецепт" thema="flatly">
 
 <div style="width: 15%; height: 100vh; overflow:auto; float:left;">
     <a href="recipes.html">
@@ -81,5 +80,4 @@
     
 </div>
 
-</body>
 </ui:html>

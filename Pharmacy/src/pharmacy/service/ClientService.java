@@ -2,12 +2,9 @@ package pharmacy.service;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import pharmacy.dao.ClientDao;
 import pharmacy.entity.Client;
@@ -33,9 +30,17 @@ public class ClientService {
 
     public void add(Client obj) {
         if (obj.getId() == null) {
+            if (obj.getUser() == null) {
+            clientDao.createNotUser(obj);
+            } else {
             clientDao.create(obj);
+            }
         } else {
-            clientDao.update(obj);
+            if (obj.getUser() == null) {
+                clientDao.updateNotUser(obj);
+                } else {
+                clientDao.update(obj);
+                }
         }
     }
 

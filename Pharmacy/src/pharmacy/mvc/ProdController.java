@@ -56,7 +56,7 @@ public class ProdController {
 
     @RequestMapping(value = "/nameProd.html", method = { RequestMethod.GET, RequestMethod.POST })
     public String typeMed(String name, Model model) throws UnsupportedEncodingException {
-        return "redirect:/products.html?view=all&prodNumByPeriod=not&name=" + name;
+        return "redirect:/products.html?view=all&prodNumByPeriod=not&name=" + name+"&page=2";
     }
 
     @GetMapping("/deleteProduct.html")

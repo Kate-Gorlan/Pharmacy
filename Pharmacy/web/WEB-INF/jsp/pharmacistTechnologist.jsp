@@ -3,7 +3,6 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="ui"%>
 
 <ui:html title="Технолог" thema="flatly">
-<body style="width:100%;height:100%;">
 <div style="width: 15%; height: 100vh; overflow:auto; float:left;">
     <a href="recipes.html">
     <button type="button" class="btn btn-info" style="width: 100%; height: 50px; font-size: 150%;">
@@ -32,7 +31,7 @@
       <td>${medsFM.orderDate}</td>
       <td>${medsFM.availabilityDate}</td>
       <td>${medsFM.medicamentName}</td>
-      <td>${medsFM.recipeId}</td>
+      <td><a href="recipe.html?id=${medsFM.recipeId}">Открыть рецепт</a></td>
       <td>
           <a href="doneMed.html?name=${medsFM.getMedicamentName()}&id=${medsFM.getId()}&recipe=${medsFM.getRecipeId()}">
         <button type="button" class="btn btn-warning">Изготовлено</button>
@@ -49,6 +48,4 @@
 </c:if>
     
 </div>
-
-</body>
 </ui:html>

@@ -18,6 +18,11 @@ public class ClientMapper extends SqlSessionDaoSupport implements ClientDao{
     public void create(Client obj) {
         getSqlSession().insert("pharmacy.dao.ClientDao.create", obj);
     }
+    
+    @Override
+    public void createNotUser(Client obj) {
+        getSqlSession().insert("pharmacy.dao.ClientDao.createNotUser", obj);
+    }
 
     @Override
     public Client read(Long id) {
@@ -27,6 +32,11 @@ public class ClientMapper extends SqlSessionDaoSupport implements ClientDao{
     @Override
     public void update(Client obj) {
         getSqlSession().update("pharmacy.dao.ClientDao.update", obj);
+    }
+    
+    @Override
+    public void updateNotUser(Client obj) {
+        getSqlSession().update("pharmacy.dao.ClientDao.updateNotUser", obj);
     }
 
     @Override
@@ -103,4 +113,5 @@ public class ClientMapper extends SqlSessionDaoSupport implements ClientDao{
     public List<TopClientsMed> getClientsMedByType(String type) {
         return getSqlSession().selectList("pharmacy.dao.ClientDao.GetClientsMedByType", type);
     }
+
 }

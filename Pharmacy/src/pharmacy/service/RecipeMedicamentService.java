@@ -63,8 +63,8 @@ public class RecipeMedicamentService {
         return recipeMedicamentDao.read(id);
     }
     
-    public RecipeMedicament getByName(String name) {
-        return recipeMedicamentDao.findByMedName(name);
+    public RecipeMedicament getByIdMed(Long id) {
+        return recipeMedicamentDao.findByMedId(id);
     }
 
     public List<RecipeMedicament> getAll() {

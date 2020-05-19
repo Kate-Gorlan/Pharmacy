@@ -26,11 +26,11 @@ public class PrescriptionService {
         }
     }
 
-    public Prescription getPrescriptionById(Long id) {
+    public Prescription getById(Long id) {
         return prescriptionDao.read(id);
     }
     
-    public List<Prescription> getPrescriptions(){
+    public List<Prescription> getAll(){
         List<Prescription> reversePrescription = prescriptionDao.findAll();
         Collections.reverse(reversePrescription);
         return reversePrescription;

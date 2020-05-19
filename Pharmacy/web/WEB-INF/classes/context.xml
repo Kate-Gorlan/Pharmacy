@@ -83,6 +83,7 @@
     <bean id="orderDao" class="pharmacy.dao.mybatis.OrderMapper" parent="dao2" />
     <bean id="orderService" class="pharmacy.service.OrderService">
         <property name="orderDao" ref="orderDao" />
+        <property name="employeeDao" ref="employeeDao" />
     </bean>
 
     <bean id="pendingOrderDao" class="pharmacy.dao.mybatis.PendingOrderMapper" parent="dao2" />

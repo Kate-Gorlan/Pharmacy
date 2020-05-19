@@ -89,17 +89,17 @@
         LEFT JOIN product p ON p.product_id = i.product_id
     </select>
     
-    <select id="findByName" parameterType="java.lang.String" resultMap = "RecipeMedicament" >
+    <select id="findByIdMed" parameterType="java.lang.Long" resultMap = "RecipeMedicament" >
         SELECT
             r.*,
             m.*,
             i.*,
             p.*
         FROM recipe_medicament r
-        JOIN medicament m ON r.medicament_id = m.medicament_id
+        LEFT JOIN medicament m ON r.medicament_id = m.medicament_id
         LEFT JOIN ingredient i ON r.recipe_medicament_id = i.recipe_medicament_id
-        JOIN product p ON p.product_id = i.product_id
-        where m.medicament_name = #{name}
+        LEFT JOIN product p ON p.product_id = i.product_id
+        where r.medicament_id = #{id}
     </select>
     
     <select id="getPrice" parameterType="java.lang.String" resultType = "java.math.BigDecimal" >

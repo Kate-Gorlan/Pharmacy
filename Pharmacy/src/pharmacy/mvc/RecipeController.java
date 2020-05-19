@@ -45,12 +45,12 @@ public class RecipeController {
         return "recipe";
     }
     
-    /*@GetMapping("/rec.html")
-    public String rec(@RequestParam("name") String name, Model model) {
-         RecipeMedicament rec = recipeMedicamentService.getByName(name);
+    @GetMapping("/rec.html")
+    public String rec(@RequestParam("idMed") Long idMed, Model model) {
+         RecipeMedicament rec = recipeMedicamentService.getByIdMed(idMed);
          Long id = rec.getId();
         return "redirect:/recipe.html?id="+id;
-    }*/
+    }
     
     @GetMapping("/deleteRecipe.html")
     public String delete(@RequestParam("id") Long id) {
@@ -109,8 +109,9 @@ public class RecipeController {
                 return "editRecipe";
             }
         }
-        //String name = recipe.getMedicament().getName();
-        return "redirect:/recipes.html";
-        //return "redirect:/rec.html?name="+name;
+        
+        Long idMed = recipe.getMedicament().getId();
+        //return "redirect:/recipes.html";
+        return "redirect:/rec.html?idMed="+idMed;
     }
 }
