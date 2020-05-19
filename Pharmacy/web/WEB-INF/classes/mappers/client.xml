@@ -56,7 +56,7 @@
         client_address,
         client_phone, user_id)
         VALUES (#{fullName}, #{age}, #{address},
-        #{phone}, (SELECT user_id FROM user WHERE user_id = #{user.id}))
+        #{phone}, (SELECT user_id FROM users WHERE user_id = #{user.id}))
     </insert>
 
     <select id="read" parameterType="java.lang.Long" resultMap="Client">

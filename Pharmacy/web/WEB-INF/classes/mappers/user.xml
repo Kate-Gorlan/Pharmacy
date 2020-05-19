@@ -12,7 +12,7 @@
     </resultMap>
 
     <insert id="create" parameterType="pharmacy.entity.User" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO users (login, password) VALUES (#{name}, #{password})
+        INSERT INTO users (login, password) VALUES (#{login}, #{password})
     </insert>
 
 
@@ -24,7 +24,7 @@
     </select>
 
     <update id="update" parameterType="pharmacy.entity.User">
-        UPDATE user SET
+        UPDATE users SET
         password = #{password},
         WHERE user_id = #{id}
     </update>

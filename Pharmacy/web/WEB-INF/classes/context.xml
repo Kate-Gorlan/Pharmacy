@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:aop="http://www.springframework.org/schema/aop"
-    xmlns:tx="http://www.springframework.org/schema/tx"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
     xmlns:context="http://www.springframework.org/schema/context"
     xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -24,29 +22,23 @@
     </bean>
 
     <bean abstract="true" id="dao2" class="org.mybatis.spring.support.SqlSessionDaoSupport">
-        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
-    </bean> 
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
 
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" 
-            value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
-        <property name="url" 
-            value="${jdbc.url}" />
-            
+        <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+        <property name="url" value="${jdbc.url}" />
+
     </bean>
 
-    <bean id="transactionManager"
-        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>
 
-    <tx:advice id="txAdvice"
-        transaction-manager="transactionManager">
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
-            <tx:method name="*" propagation="REQUIRED"
-                isolation="READ_COMMITTED"
-                rollback-for="java.lang.Throwable" />
+            <tx:method name="*" propagation="REQUIRED" isolation="READ_COMMITTED" rollback-for="java.lang.Throwable" />
         </tx:attributes>
     </tx:advice>
 
@@ -59,17 +51,17 @@
 
 
     <bean id="positionDao" class="pharmacy.dao.mybatis.PositionMapper" parent="dao2" />
-    
+
     <bean id="positionService" class="pharmacy.service.PositionService">
         <property name="positionDao" ref="positionDao" />
     </bean>
-    
+
     <bean id="clientDao" class="pharmacy.dao.mybatis.ClientMapper" parent="dao2" />
-    
+
     <bean id="clientService" class="pharmacy.service.ClientService">
         <property name="clientDao" ref="clientDao" />
     </bean>
-    
+
     <bean id="doctorDao" class="pharmacy.dao.mybatis.DoctorMapper" parent="dao2" />
     <bean id="employeeDao" class="pharmacy.dao.mybatis.EmployeeMapper" parent="dao2" />
     <bean id="ingredientDao" class="pharmacy.dao.mybatis.IngredientMapper" parent="dao2" />
@@ -82,38 +74,38 @@
     <bean id="medicamentService" class="pharmacy.service.MedicamentService">
         <property name="medicamentDao" ref="medicamentDao" />
     </bean>
-    
+
     <bean id="orderMedicamentDao" class="pharmacy.dao.mybatis.OrderMedicamentMapper" parent="dao2" />
     <bean id="orderMedicamentService" class="pharmacy.service.OrderMedicamentService">
         <property name="orderMedicamentDao" ref="orderMedicamentDao" />
     </bean>
-    
+
     <bean id="orderDao" class="pharmacy.dao.mybatis.OrderMapper" parent="dao2" />
     <bean id="orderService" class="pharmacy.service.OrderService">
         <property name="orderDao" ref="orderDao" />
     </bean>
-    
+
     <bean id="pendingOrderDao" class="pharmacy.dao.mybatis.PendingOrderMapper" parent="dao2" />
     <bean id="pendingOrderService" class="pharmacy.service.PendingOrderService">
         <property name="pendingOrderDao" ref="pendingOrderDao" />
     </bean>
-    
+
     <bean id="prescriptionDao" class="pharmacy.dao.mybatis.PrescriptionMapper" parent="dao2" />
     <bean id="prescriptionService" class="pharmacy.service.PrescriptionService">
         <property name="prescriptionDao" ref="prescriptionDao" />
     </bean>
-    
+
     <bean id="productStockDao" class="pharmacy.dao.mybatis.ProductStockMapper" parent="dao2" />
     <bean id="productStockService" class="pharmacy.service.ProductStockService">
         <property name="productStockDao" ref="productStockDao" />
         <property name="productDao" ref="productDao" />
     </bean>
-    
+
     <bean id="productDao" class="pharmacy.dao.mybatis.ProductMapper" parent="dao2" />
     <bean id="productService" class="pharmacy.service.ProductService">
         <property name="productDao" ref="productDao" />
     </bean>
-    
+
     <bean id="recipeMedicamentDao" class="pharmacy.dao.mybatis.RecipeMedicamentMapper" parent="dao2" />
     <bean id="recipeMedicamentService" class="pharmacy.service.RecipeMedicamentService">
         <property name="recipeMedicamentDao" ref="recipeMedicamentDao" />
@@ -132,24 +124,20 @@
         <property name="employeeDao" ref="employeeDao" />
     </bean>
 
+    <bean id="roleDao" class="pharmacy.dao.mybatis.RoleMapper" parent="dao2" />
+
     <bean id="userDao" class="pharmacy.dao.mybatis.UserMapper" parent="dao2" />
     <bean id="userService" class="pharmacy.service.UserService">
-        <property name="userDao" ref="userDao"/>
+        <property name="userDao" ref="userDao" />
+        <property name="roleDao" ref="roleDao" />
     </bean>
 
     <bean id="requestDao" class="pharmacy.dao.mybatis.RequestMapper" parent="dao2" />
     <bean id="requestService" class="pharmacy.service.RequestService">
-        <property name="requestDao" ref="requestDao"/>
+        <property name="requestDao" ref="requestDao" />
     </bean>
 
-    <!--batis 
-    <bean id="save" class="treasureChest.service.Save">
-        <property name="authorDao" ref="authorDao" />
-        <property name="serialDao" ref="serialDao" />
-        <property name="ranobeDao" ref="ranobeDao" />
-        <property name="mangaDao" ref="mangaDao" />
-        <property name="bookDao" ref="bookDao" />
-        <property name="filmDao" ref="filmDao" />
-    </bean>
--->
+    <!--batis <bean id="save" class="treasureChest.service.Save"> <property name="authorDao" ref="authorDao" /> <property name="serialDao" ref="serialDao" 
+        /> <property name="ranobeDao" ref="ranobeDao" /> <property name="mangaDao" ref="mangaDao" /> <property name="bookDao" ref="bookDao" /> <property 
+        name="filmDao" ref="filmDao" /> </bean> -->
 </beans>

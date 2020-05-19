@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/security https://www.springframework.org/schema/security/spring-security.xsd">
+
+    <context:annotation-config />
+
+    <global-method-security pre-post-annotations="enabled" proxy-target-class="true" />
+
+    <!-- global-method-security pre-post-annotations="enabled" proxy-target-class="true"> <expression-handler ref="expressionHandler" /> </global-method-security -->
+
+    <http pattern="/login.html*" security="none" />
+
+    <http auto-config="true" use-expressions="true">
+        <intercept-url pattern="/index.html" access="permitAll" />
+        <intercept-url pattern="/login.html" access="permitAll" />
+        <intercept-url pattern="/logout.html" access="permitAll" />
+        <intercept-url pattern="/medicamentinfo.html" access="permitAll" />
+        <intercept-url pattern="/registration.html" access="permitAll" />
+        <intercept-url pattern="/resetpass.html" access="permitAll" />
+        <intercept-url pattern="/reg.html" access="permitAll" />
+        <intercept-url pattern="/category.html" access="permitAll" />
+        <intercept-url pattern="/user/*.html" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/**/*.html" access="hasRole('ROLE_PHARMACIST')" />
+
+        <form-login login-page="/login.html" default-target-url="/index.html" login-processing-url="/j_spring_security_check"
+            username-parameter="j_username" password-parameter="j_password" authentication-failure-url="/login.html?error"
+            authentication-failure-handler-ref="authenticationFailureHandler" />
+
+        <logout logout-url="/logout.html" logout-success-url="/index.html" />
+
+        <csrf disabled="true" />
+
+        <!--expression-handler ref="defWebSecExp" / -->
+
+        <!-- <anonymous enabled="true" /> -->
+    </http>
+
+    <!--beans:bean id="defWebSecExp" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"> <beans:property 
+        name="defaultRolePrefix" value="ROLE_" /> </beans:bean -->
+
+    <!--beans:bean id="grantedAuthorityDefaults" class="org.springframework.security.config.core.GrantedAuthorityDefaults"> <beans:constructor-arg 
+        value="" /> </beans:bean -->
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="userDetailsService">
+            <password-encoder hash="bcrypt" />
+        </authentication-provider>
+    </authentication-manager>
+
+    <beans:bean id="userDetailsService" class="pharmacy.security.UserDetailsServiceImpl">
+        <beans:property name="userService" ref="userService" />
+    </beans:bean>
+
+    <beans:bean id="authenticationFailureHandler" class="pharmacy.security.UsernameAuthenticationFailureHandler">
+        <beans:property name="defaultFailureUrl" value="/login.html?error" />
+    </beans:bean>
+
+</beans:beans>

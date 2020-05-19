@@ -5,26 +5,45 @@ import static java.util.stream.Collectors.toList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import pharmacy.common.ListMedicamentType;
 import pharmacy.common.TopOverdueMed;
+import pharmacy.entity.Medicament;
 import pharmacy.service.MedicamentService;
 
 @Controller
 public class IndexController {
-    
+
     @Autowired
     private MedicamentService medSer;
 
     @GetMapping("/index.html")
-    public String index(Model model) {
+    public String index(Model model, Authentication authentication) {
         List<ListMedicamentType> listMedType = medSer.getTypeMed().stream().collect(toList());
         List<TopOverdueMed> listOverdueMed = medSer.getOverdueMed().stream().collect(toList());
         model.addAttribute("medTypes", listMedType);
         model.addAttribute("topMed", listOverdueMed);
+        if (authentication != null) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            System.out.println(userDetails.getUsername());
+            System.out.println("User has authorities: " + userDetails.getAuthorities());
+        }
         return "index";
+    }
+
+    @GetMapping("/category.html")
+    public String getMedInfoById(@RequestParam("category") String category, Model model) {
+        List<Medicament> med = medSer.findByType(category);
+        model.addAttribute("medicaments", med);
+        return "category";
     }
 }
