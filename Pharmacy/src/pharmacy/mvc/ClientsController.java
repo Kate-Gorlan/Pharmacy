@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.toList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ public class ClientsController {
     @Autowired
     private ClientService clientService;
 
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/clients.html")
     public String clients(Model model) {
         List<Client> listChoose = clientService.getClients().stream().collect(toList());

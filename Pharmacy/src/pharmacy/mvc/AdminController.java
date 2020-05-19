@@ -19,7 +19,7 @@ public class AdminController {
     @Autowired
     private PositionService positionService;
 
-    @GetMapping("/admin.html")
+    @GetMapping("/adm/admin.html")
     public String storekeeper(Model model, 
             @RequestParam("login") String login, 
             @RequestParam("pass") String pass, 
@@ -61,26 +61,26 @@ public class AdminController {
             }
         }
         model.addAttribute("message", message);
-        return "admin";  
+        return "adm/admin";  
     }
     
-    @RequestMapping(value = "/addlogin.html", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/adm/addlogin.html", method = {RequestMethod.GET, RequestMethod.POST})
     public String addlogin(String login, String pass, Model model) throws UnsupportedEncodingException{
-        return "redirect:/admin.html?doBD=add&func=not&table=not&login="+login+"&pass="+pass;
+        return "redirect:/adm/admin.html?doBD=add&func=not&table=not&login="+login+"&pass="+pass;
     }
     
-    @RequestMapping(value = "/deletelogin.html", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/adm/deletelogin.html", method = {RequestMethod.GET, RequestMethod.POST})
     public String deletelogin(String login, Model model) throws UnsupportedEncodingException{
-        return "redirect:/admin.html?doBD=delete&func=not&table=not&login="+login+"&pass=not";
+        return "redirect:/adm/admin.html?doBD=delete&func=not&table=not&login="+login+"&pass=not";
     }
-    @RequestMapping(value = "/grantlogin.html", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/adm/grantlogin.html", method = {RequestMethod.GET, RequestMethod.POST})
     public String grantlogin(String func, String table, String login, Model model) throws UnsupportedEncodingException{
-        return "redirect:/admin.html?doBD=grant&func="+func+"&table="+table+"&login="+login+"&pass=not";
+        return "redirect:/adm/admin.html?doBD=grant&func="+func+"&table="+table+"&login="+login+"&pass=not";
     }
     
-    @RequestMapping(value = "/revokelogin.html", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/adm/revokelogin.html", method = {RequestMethod.GET, RequestMethod.POST})
     public String revokelogin(String func, String table, String login, Model model) throws UnsupportedEncodingException{
-        return "redirect:/admin.html?doBD=revoke&func="+func+"&table="+table+"&login="+login+"&pass=not";
+        return "redirect:/adm/admin.html?doBD=revoke&func="+func+"&table="+table+"&login="+login+"&pass=not";
     }
 
 }

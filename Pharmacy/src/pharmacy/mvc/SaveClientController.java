@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ public class SaveClientController {
     @Autowired
     private ClientService clientService;
 
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/goAddClient.html")
     public String goToAddClient(@RequestParam("id") Long id, Model model) {
         if (id != -1) {
@@ -29,6 +31,7 @@ public class SaveClientController {
         return "editClient";
     }
 
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @RequestMapping(value = "/clientAdd.html", method = {RequestMethod.GET, RequestMethod.POST})
     public String edit(@ModelAttribute Client client, Model model) throws UnsupportedEncodingException{
         clientService.decoding(client);
@@ -47,6 +50,7 @@ public class SaveClientController {
         return "redirect:/clients.html";
     }
 
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/deleteClient.html")
     public String delete(@RequestParam("id") Long id) {
         if (id != null) {

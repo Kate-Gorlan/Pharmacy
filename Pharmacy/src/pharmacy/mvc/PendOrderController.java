@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,7 @@ public class PendOrderController {
     @Autowired
     private OrderMedicamentService orderMedService;
     
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/pendingOrders.html")
     public String pendingOrders(Model model) {
         List<PendingOrder> pendOrders = pendOrderService.getAll().stream().collect(toList());
@@ -41,6 +43,7 @@ public class PendOrderController {
         return "pendingOrders";
     }
     
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/pendingOrder.html")
     public String pendingOrder(@RequestParam("id") Long id, Model model) {
         model.addAttribute("pendingOrder", pendOrderService.getById(id));
@@ -50,6 +53,7 @@ public class PendOrderController {
         return "pendingOrder";
     }
     
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/deletePendingOrder.html")
     public String delete(@RequestParam("id") Long id) {
         if (id != null) {
@@ -58,6 +62,7 @@ public class PendOrderController {
         return "redirect:/pendingOrders.html";
     }
     
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/goAddPendingOrder.html")
     public String goToAddPendingOrder(@RequestParam("id") Long id, @RequestParam("idOrder") Long idOrder, Model model) {
         if (id != -1) {
@@ -69,11 +74,13 @@ public class PendOrderController {
         return "editPendOrder";
     }
     
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/goAddPO.html")
     public String goToAddPO(Model model) {
         return "redirect:/goAddOrder.html?pendingOrder=1&id=-1";
     }
 
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @RequestMapping(value = "/pendingOrderAdd.html", method = {RequestMethod.GET, RequestMethod.POST})
     public String edit(@ModelAttribute PendingOrder pendingOrder, Model model) throws UnsupportedEncodingException{
         ArrayList<String> errors = null ;//= pendOrderService.check(pendingOrder);

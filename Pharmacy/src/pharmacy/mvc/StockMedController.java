@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +30,7 @@ public class StockMedController {
     @Autowired
     private MedicamentService medicamentService;
 
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/stockMedicaments.html")
     public String stockMedicaments(Model model) {
         List<MedicamentStock> listChoose = medicamentStockService.getAll().stream().collect(toList());
@@ -41,6 +43,7 @@ public class StockMedController {
         return "stockMedicaments";
     }
 
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/deleteStockMedicament.html")
     public String delete(@RequestParam("id") Long id) {
         if (id != null) {
@@ -49,6 +52,7 @@ public class StockMedController {
         return "redirect:/stockMedicaments.html";
     }
     
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/goAddStockMedicament.html")
     public String goToAddStockMedicament(@RequestParam("id") Long id, Model model) {
         if (id != -1) {
@@ -60,6 +64,7 @@ public class StockMedController {
         return "editStockMedicament";
     }
 
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @RequestMapping(value = "/stockMedicamentAdd.html", method = {RequestMethod.GET, RequestMethod.POST})
     public String edit(@ModelAttribute MedicamentStock medicamentStock, @RequestParam("page") Long page, Model model) throws UnsupportedEncodingException{
         ArrayList<String> errors = medicamentStockService.check(medicamentStock);

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,14 +24,16 @@ public class PrescriptionController {
 
     @Autowired
     private PrescriptionService prescriptionService;
-    
+
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/prescriptions.html")
     public String prescriptions(Model model) {
         List<Prescription> prescriptions = prescriptionService.getAll().stream().collect(toList());
         model.addAttribute("prescriptions", prescriptions);
         return "prescriptions";
     }
-    
+
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/prescription.html")
     public String prescription(@RequestParam("id") Long id, @RequestParam("idPO") Long idPO, Model model) {
         model.addAttribute("prescription", prescriptionService.getById(id));
@@ -39,7 +42,8 @@ public class PrescriptionController {
         }
         return "prescription";
     }
-    
+
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/deletePrescription.html")
     public String delete(@RequestParam("id") Long id) {
         if (id != null) {
@@ -47,46 +51,46 @@ public class PrescriptionController {
         }
         return "redirect:/prescriptions.html";
     }
-    
+
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/goAddPrescription.html")
     public String goToAddPrescription(@RequestParam("id") Long id, Model model) {
         if (id != -1) {
             model.addAttribute("prescriptions", prescriptionService.getById(id));
         }
-        
-        //List<Product> prods = productService.getAll();
-        //List<Medicament> meds = medicamentService.findByManufacturability("1");
-        //model.addAttribute("prods", prods);
-        //model.addAttribute("meds", meds);
+
+        // List<Product> prods = productService.getAll();
+        // List<Medicament> meds = medicamentService.findByManufacturability("1");
+        // model.addAttribute("prods", prods);
+        // model.addAttribute("meds", meds);
         return "editPrescription";
     }
 
-    @RequestMapping(value = "/prescriptionAdd.html", method = {RequestMethod.GET, RequestMethod.POST})
-    public String edit(@ModelAttribute Prescription prescription, Model model) throws UnsupportedEncodingException{
-        ArrayList<String> errors = null ;//= pendOrderService.check(pendingOrder);
-        
-        //List<Product> prods = productService.getAll();
-        
-        for(String list: errors) {
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @RequestMapping(value = "/prescriptionAdd.html", method = { RequestMethod.GET, RequestMethod.POST })
+    public String edit(@ModelAttribute Prescription prescription, Model model) throws UnsupportedEncodingException {
+        ArrayList<String> errors = null;// = pendOrderService.check(pendingOrder);
+
+        // List<Product> prods = productService.getAll();
+
+        for (String list : errors) {
             System.out.println(list);
         }
-        if (errors.size() != 0)
-        {
+        if (errors.size() != 0) {
             model.addAttribute("errors", errors);
             model.addAttribute("prescriptions", prescription);
-            //model.addAttribute("prods", prods);
+            // model.addAttribute("prods", prods);
             return "editPrescription";
-        } else 
-        {
+        } else {
             try {
                 prescriptionService.add(prescription);
             } catch (Exception e) {
-               
+
                 errors.add("Ошибка: " + e.getMessage());
-                
+
                 model.addAttribute("errors", errors);
                 model.addAttribute("prescriptions", prescription);
-                //model.addAttribute("prods", prods);
+                // model.addAttribute("prods", prods);
                 return "editPrescription";
             }
         }

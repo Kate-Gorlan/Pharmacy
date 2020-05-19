@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,10 +20,11 @@ import pharmacy.service.MedicamentService;
 
 @Controller
 public class PharmacistController {
-    
+
     @Autowired
     private MedicamentService medicamentService;
 
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/pharmacist.html")
     public String pharmacist(Model model, @RequestParam("idMed") Long idMed) {
         if (idMed > 0) {
@@ -33,10 +35,11 @@ public class PharmacistController {
         model.addAttribute("meds", medAll);
         return "pharmacist";
     }
-    
-    @RequestMapping(value = "/pharmacistInfo.html", method = {RequestMethod.GET, RequestMethod.POST})
-    public String pharmacistInfo(Long idMed, Model model) throws UnsupportedEncodingException{
-        return "redirect:/pharmacist.html?idMed="+idMed;
+
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @RequestMapping(value = "/pharmacistInfo.html", method = { RequestMethod.GET, RequestMethod.POST })
+    public String pharmacistInfo(Long idMed, Model model) throws UnsupportedEncodingException {
+        return "redirect:/pharmacist.html?idMed=" + idMed;
     }
 
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,7 @@ public class MedController {
     @Autowired
     private MedicamentService medicamentService;
 
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/medicaments.html")
     public String storekeeper(Model model, 
             @RequestParam("page") Long page,
@@ -51,11 +53,13 @@ public class MedController {
         return "medicaments";
     }
 
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @RequestMapping(value = "/typeTopMed.html", method = { RequestMethod.GET, RequestMethod.POST })
     public String typeMed(String typeTopMed, Model model) throws UnsupportedEncodingException {
         return "redirect:/medicaments.html?view=top&typeTopMed=" + typeTopMed+"&page=2";
     }
 
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/deleteMedicament.html")
     public String delete(@RequestParam("id") Long id, @RequestParam("page") Long page) {
         if (id != null) {
@@ -64,6 +68,7 @@ public class MedController {
         return "redirect:/medicaments.html?view=all&typeTopMed=not&page="+page;
     }
     
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/goAddMedicament.html")
     public String goToAddMedicament(@RequestParam("id") Long id, @RequestParam("page") Long page, Model model) {
         if (id != -1) {
@@ -73,6 +78,7 @@ public class MedController {
         return "editMedicament";
     }
 
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @RequestMapping(value = "/medicamentAdd.html", method = {RequestMethod.GET, RequestMethod.POST})
     public String edit(@ModelAttribute Medicament medicament, @RequestParam("page") Long page, Model model) throws UnsupportedEncodingException{
         ArrayList<String> errors = new ArrayList<String>();

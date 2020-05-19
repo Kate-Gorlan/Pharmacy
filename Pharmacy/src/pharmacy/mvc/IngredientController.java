@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +34,7 @@ public class IngredientController {
     @Autowired
     private ProductService productService;
 
-    
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/deleteIngredient.html")
     public String delete(@RequestParam("id") Long id, @RequestParam("recipeId") Long recipeId) {
         if (id != null) {
@@ -42,6 +43,7 @@ public class IngredientController {
         return "redirect:/recipe.html?id="+recipeId;
     }
     
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/goAddIngredient.html")
     public String goToAddRecipe(@RequestParam("id") Long id, Model model, @RequestParam("recipeId") Long recipeId) {
         if (id != -1) {
@@ -54,6 +56,7 @@ public class IngredientController {
         return "editIngredient";
     }
 
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @RequestMapping(value = "/ingredientAdd.html", method = {RequestMethod.GET, RequestMethod.POST})
     public String edit(@ModelAttribute Ingredient ingr, Model model, @RequestParam("recipeId") Long recipeId) throws UnsupportedEncodingException{
         ArrayList<String> errors = ingredientService.check(ingr);

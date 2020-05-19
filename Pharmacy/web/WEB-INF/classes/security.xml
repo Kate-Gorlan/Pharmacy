@@ -23,8 +23,11 @@
         <intercept-url pattern="/resetpass.html" access="permitAll" />
         <intercept-url pattern="/reg.html" access="permitAll" />
         <intercept-url pattern="/category.html" access="permitAll" />
-        <intercept-url pattern="/user/*.html" access="hasRole('ROLE_USER')" />
-        <intercept-url pattern="/**/*.html" access="hasRole('ROLE_PHARMACIST')" />
+        <!-- intercept-url pattern="/indexEmp.html" access="hasRole('ROLE_PHARMACIST')" />
+        
+        <intercept-url pattern="/**/*.html" access="hasRole('ROLE_ADMIN')" /> 
+        <intercept-url pattern="/**/*.html" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/**/*.html" access="hasRole('ROLE_PHARMACIST')" / -->
 
         <form-login login-page="/login.html" default-target-url="/index.html" login-processing-url="/j_spring_security_check"
             username-parameter="j_username" password-parameter="j_password" authentication-failure-url="/login.html?error"

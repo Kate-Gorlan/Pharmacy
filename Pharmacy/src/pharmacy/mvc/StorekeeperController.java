@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,18 +23,17 @@ import pharmacy.service.ProductService;
 
 @Controller
 public class StorekeeperController {
-    
+
     @Autowired
     private ProductService productService;
-    
+
     @Autowired
     private MedicamentService medicamentService;
 
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/storekeeper.html")
-    public String storekeeper(Model model, 
-            @RequestParam("typeMed") String typeMed, 
-            @RequestParam("typeProd") String typeProd) {
-        
+    public String storekeeper(Model model, @RequestParam("typeMed") String typeMed, @RequestParam("typeProd") String typeProd) {
+
         List<Product> prodOver = productService.getProdOver().stream().collect(toList());
         model.addAttribute("prodOver", prodOver);
         List<ProductCriticalNorm> criticalNormProduct = productService.getReachedCriticalNormProduct().stream().collect(toList());
@@ -45,7 +45,7 @@ public class StorekeeperController {
             model.addAttribute("minProductByType", minProductInStockByType);
             model.addAttribute("typeProd", typeProd);
         }
-        
+
         List<Medicament> medOver = medicamentService.getMedOver().stream().collect(toList());
         model.addAttribute("medOver", medOver);
         List<MedCriticalNorm> criticalNormMedicament = medicamentService.getReachedCriticalNorm().stream().collect(toList());
@@ -57,18 +57,20 @@ public class StorekeeperController {
             model.addAttribute("minMedicamentByType", minMedicamentInStockByType);
             model.addAttribute("typeMed", typeMed);
         }
-        
-        return "storekeeper";  
+
+        return "storekeeper";
     }
-    
-    @RequestMapping(value = "/typeMed.html", method = {RequestMethod.GET, RequestMethod.POST})
-    public String typeMed(String typeMed, Model model) throws UnsupportedEncodingException{
-        return "redirect:/storekeeper.html?typeProd=not&typeMed="+typeMed;
+
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @RequestMapping(value = "/typeMed.html", method = { RequestMethod.GET, RequestMethod.POST })
+    public String typeMed(String typeMed, Model model) throws UnsupportedEncodingException {
+        return "redirect:/storekeeper.html?typeProd=not&typeMed=" + typeMed;
     }
-    
-    @RequestMapping(value = "/typeProd.html", method = {RequestMethod.GET, RequestMethod.POST})
-    public String typeProd(String typeProd, Model model) throws UnsupportedEncodingException{
-        return "redirect:/storekeeper.html?typeMed=not&typeProd="+typeProd;
+
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @RequestMapping(value = "/typeProd.html", method = { RequestMethod.GET, RequestMethod.POST })
+    public String typeProd(String typeProd, Model model) throws UnsupportedEncodingException {
+        return "redirect:/storekeeper.html?typeMed=not&typeProd=" + typeProd;
     }
 
 }

@@ -5,15 +5,13 @@ import static java.util.stream.Collectors.toList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import pharmacy.common.ListMedicamentType;
 import pharmacy.common.TopOverdueMed;
@@ -52,7 +50,7 @@ public class IndexController {
         return "category";
     }
 
-    
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/indexEmp.html")
     public String indexEmp(Model model) {
         List<Position> listPositions = positionService.getPositions().stream().collect(toList());

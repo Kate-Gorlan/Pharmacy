@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,7 @@ public class ProdController {
     @Autowired
     private ProductService productService;
 
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/products.html")
     public String storekeeper(Model model,
             @RequestParam("page") Long page,
@@ -54,11 +56,13 @@ public class ProdController {
         return "products";
     }
 
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @RequestMapping(value = "/nameProd.html", method = { RequestMethod.GET, RequestMethod.POST })
     public String typeMed(String name, Model model) throws UnsupportedEncodingException {
         return "redirect:/products.html?view=all&prodNumByPeriod=not&name=" + name+"&page=2";
     }
 
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/deleteProduct.html")
     public String delete(@RequestParam("id") Long id, @RequestParam("page") Long page) {
         if (id != null) {
@@ -67,6 +71,7 @@ public class ProdController {
         return "redirect:/products.html?view=all&prodNumByPeriod=not&name=not&page="+page;
     }
     
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/goAddProduct.html")
     public String goToAddProduct(@RequestParam("id") Long id, @RequestParam("page") Long page, Model model) {
         if (id != -1) {
@@ -76,6 +81,7 @@ public class ProdController {
         return "editProduct";
     }
 
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @RequestMapping(value = "/productAdd.html", method = {RequestMethod.GET, RequestMethod.POST})
     public String edit(@ModelAttribute Product product, @RequestParam("page") Long page, Model model) throws UnsupportedEncodingException{
         ArrayList<String> errors = new ArrayList<String>();
@@ -93,6 +99,7 @@ public class ProdController {
         return "redirect:/products.html?view=all&prodNumByPeriod=not&name=not&page="+page;
     }
     
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/progressProd.html")
     public String goProgressProd(Model model) {
         List<Product> prods = productService.getAll();
@@ -100,6 +107,7 @@ public class ProdController {
         return "VolumeOfPUForThePeriod";
     }
     
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @RequestMapping(value = "/productProgress.html", method = {RequestMethod.GET, RequestMethod.POST})
     public String progressProd(String name, String fd, String sd, Model model) throws UnsupportedEncodingException{
         String name2 = new String(name.getBytes("iso-8859-1"), "utf-8");
