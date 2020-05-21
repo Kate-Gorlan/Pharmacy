@@ -69,7 +69,7 @@
         SELECT * from dbo.GetProductThatWillSoonExpire();
     </select>
     
-    <select id = "delProds" resultType="java.lang.Long" parameterType = "java.lang.String" statementType = "CALLABLE">
+    <select id = "delProds" resultType="java.lang.Integer" parameterType = "java.lang.String" statementType = "CALLABLE">
       {call dbo.delProd(#{medicament_name, jdbcType = VARCHAR, mode = IN})}
    </select>
 

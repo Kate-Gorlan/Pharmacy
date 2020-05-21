@@ -82,24 +82,28 @@ public class StockMedController {
             model.addAttribute("medicamentStocks", medicamentStock);
             List<Medicament> meds = medicamentService.getAll();
             model.addAttribute("meds", meds);
-            return "editStockMedicament";
+            if (page == 1) return "editStockMedicament";
+            else return "addSMForTechnologist";
         } else 
         {
             try {
             medicamentStockService.add(medicamentStock);
-            
-            String medName = medicamentStock.getMedicament().getName();
+            if (page == 2) {
+            Long idM = medicamentStock.getMedicament().getId();
+            String medName = medicamentService.getById(idM).getName();
             productStockService.delProds(medName);
             
+            }
             } catch (Exception e) {
-                
+   
                 errors.add("Ошибка: " + e.getMessage());
                 
                 model.addAttribute("errors", errors);
                 model.addAttribute("medicamentStocks", medicamentStock);
                 List<Medicament> meds = medicamentService.getAll();
                 model.addAttribute("meds", meds);
-                return "editStockMedicament";
+                if (page == 1) return "editStockMedicament";
+                else return "addSMForTechnologist";
             }
         }
         if (page == 1)

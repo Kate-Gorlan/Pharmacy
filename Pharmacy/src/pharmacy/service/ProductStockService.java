@@ -97,8 +97,7 @@ public class ProductStockService {
         return list;
     }
     
-    public Integer delProds(String medName) {
-        Integer res = productStockDao.delProds(medName);
-        return res;
+    public void delProds(String medName) {
+        productStockDao.delProds(medName);
     }
 }

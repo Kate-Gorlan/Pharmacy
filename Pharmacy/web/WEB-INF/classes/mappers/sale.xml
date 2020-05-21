@@ -22,7 +22,7 @@
         #{cost})
     </insert>
 
-    <select id="read" parameterType="java.lang.Long" resultMap="PendingOrder">
+    <select id="read" parameterType="java.lang.Long" resultMap="Sale">
         SELECT
         s.*, o.*
         FROM sale s
@@ -30,7 +30,7 @@
         WHERE s.sale_id = #{id}
     </select>
 
-    <update id="update" parameterType="pharmacy.entity.PendingOrder">
+    <update id="update" parameterType="pharmacy.entity.Sale">
         UPDATE sale SET
         order_id = (SELECT order_id FROM [order] WHERE order_id = #{order.id}),
         cost = #{cost}
@@ -41,7 +41,7 @@
         DELETE FROM sale WHERE sale_id = #{id}
     </delete>
 
-    <select id="findAll" resultMap="PendingOrder">
+    <select id="findAll" resultMap="Sale">
         SELECT
         s.*, o.*
         FROM sale s
