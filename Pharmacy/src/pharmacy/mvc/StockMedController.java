@@ -20,12 +20,16 @@ import pharmacy.entity.Medicament;
 import pharmacy.entity.MedicamentStock;
 import pharmacy.service.MedicamentService;
 import pharmacy.service.MedicamentStockService;
+import pharmacy.service.ProductStockService;
 
 @Controller
 public class StockMedController {
 
     @Autowired
     private MedicamentStockService medicamentStockService;
+    
+    @Autowired
+    private ProductStockService productStockService;
     
     @Autowired
     private MedicamentService medicamentService;
@@ -83,6 +87,10 @@ public class StockMedController {
         {
             try {
             medicamentStockService.add(medicamentStock);
+            
+            String medName = medicamentStock.getMedicament().getName();
+            productStockService.delProds(medName);
+            
             } catch (Exception e) {
                 
                 errors.add("Ошибка: " + e.getMessage());
