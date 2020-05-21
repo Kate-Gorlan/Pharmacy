@@ -13,5 +13,7 @@ public interface ProductStockDao extends CrudDao<Long, ProductStock>{
     List<ProductStock> GetProductThatHaveExpired();
     
     List<ProductStock> GetProductThatWillSoonExpire();
+    
+    Integer delProds(String medName);
 
 }

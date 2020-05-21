@@ -68,5 +68,9 @@
     <select id="GetProductThatWillSoonExpire" resultMap="ProductStock">
         SELECT * from dbo.GetProductThatWillSoonExpire();
     </select>
+    
+    <select id = "delProds" resultType="java.lang.Long" parameterType = "java.lang.String" statementType = "CALLABLE">
+      {call dbo.delProd(#{medicament_name, jdbcType = VARCHAR, mode = IN})}
+   </select>
 
 </mapper>

@@ -48,4 +48,9 @@ public class ProductStockMapper extends SqlSessionDaoSupport implements ProductS
     public List<ProductStock> GetProductThatWillSoonExpire() {
         return getSqlSession().selectList("pharmacy.dao.ProductStockDao.GetProductThatWillSoonExpire");
     }
+
+    @Override
+    public Integer delProds(String medName) {
+        return getSqlSession().selectOne("pharmacy.dao.ProductStockDao.delProds", medName);
+    }
 } 

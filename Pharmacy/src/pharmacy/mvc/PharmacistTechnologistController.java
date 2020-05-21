@@ -51,6 +51,7 @@ public class PharmacistTechnologistController {
         PendingOrder po = pendingOrderService.getById(id);
         po.setTakeStatus("Изготовлено");
         pendingOrderService.add(po);
+        
         Long med = medicamentService.findByName(name).getId();
         BigDecimal price = recipeMedicamentService.getPrice(name);
 

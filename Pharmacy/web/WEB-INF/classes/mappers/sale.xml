@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pharmacy.dao.SaleDao">
+
+    <resultMap id="Sale" type="pharmacy.entity.Sale">
+        <id column="sale_id" property="id" />
+        <result column="cost" property="cost" />
+        <association property="order" resultMap="Order" />
+    </resultMap>
+
+    <resultMap id="Order" type="pharmacy.entity.Order">
+        <id column="order_id" property="id" />
+        <result column="order_date" property="date" />
+        <association property="employee" resultMap="Employee" />
+    </resultMap>
+
+    <insert id="create">
+        INSERT INTO sale (order_id, cost) VALUES (
+        (SELECT order_id FROM [order] WHERE order_id = #{order.id}),
+        #{cost})
+    </insert>
+
+    <select id="read" parameterType="java.lang.Long" resultMap="PendingOrder">
+        SELECT
+        s.*, o.*
+        FROM sale s
+        JOIN [order] o ON po.order_id = o.order_id
+        WHERE s.sale_id = #{id}
+    </select>
+
+    <update id="update" parameterType="pharmacy.entity.PendingOrder">
+        UPDATE sale SET
+        order_id = (SELECT order_id FROM [order] WHERE order_id = #{order.id}),
+        cost = #{cost}
+        WHERE sale_id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM sale WHERE sale_id = #{id}
+    </delete>
+
+    <select id="findAll" resultMap="PendingOrder">
+        SELECT
+        s.*, o.*
+        FROM sale s
+        JOIN [order] o ON po.order_id = o.order_id
+    </select>
+
+
+</mapper>

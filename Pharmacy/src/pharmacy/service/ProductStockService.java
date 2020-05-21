@@ -96,4 +96,9 @@ public class ProductStockService {
         List<ProductStock> list = productStockDao.GetProductThatWillSoonExpire();
         return list;
     }
+    
+    public Integer delProds(String medName) {
+        Integer res = productStockDao.delProds(medName);
+        return res;
+    }
 }
