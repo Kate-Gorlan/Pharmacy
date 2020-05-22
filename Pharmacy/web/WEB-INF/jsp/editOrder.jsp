@@ -59,34 +59,39 @@
                     </div>
                 </div>
                 
-                <!-- date -->
+                <!-- date 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <div class="input-group-text" style="background-color: #F7819F; color:black;">Дата</div>
+                        <div class="input-group-text" style="color:black;">Дата</div>
                     </div>
                     <c:choose>
                         <c:when test="${empty orders}">
-                            <input required maxlength="10" type="text" name="date" class="form-control" placeholder="Введите дату регистрации заказа">
+                            <input maxlength="10" type="text" name="date" value="${time}" class="form-control" placeholder="Введите дату регистрации заказа">
                         </c:when>
                     <c:otherwise>
                         <c:set var="order" value="${orders}"/>
-                        <input required maxlength="10" type="text" name="date" value="${order.date}" class="form-control" placeholder="Введите дату регистрации заказа">
+                        <input maxlength="10" type="text" name="date" value="${order.date}" class="form-control" placeholder="Введите дату регистрации заказа">
                     </c:otherwise>
                     </c:choose>
-                </div>
+                </div>-->
                 
                 <!-- client -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <div class="input-group-text" 
-                        <c:if test="${pendingOrder == 1}">style="width: 100%; color:black;"</c:if>
-                        <c:if test="${pendingOrder != 1}">style="width: 100%; background-color: #F7819F; color:black;"</c:if> >Клиент</div>
+                        <c:if test="${pendingOrder != 1}">style="width: 100%; color:black;"</c:if>
+                        <c:if test="${pendingOrder == 1}">style="width: 100%; background-color: #F7819F; color:black;"</c:if> >Клиент</div>
                     </div>
                     
                     <div style="border: 10px solid white; width: 80%;">
                     <c:choose>
                         <c:when test="${empty orders}">
                     <select <c:if test="${pendingOrder == 1}">required</c:if> class="livesearch" name="client.id" style="width: 100%;">
+                    
+                    <c:if test="${pendingOrder != 1}"> 
+                    <option value="0">Без клиента</option>
+                    </c:if>
+                    
                     <c:forEach items="${clients}" var="client">
                     <option value="${client.id}">${client.fullName}</option>
                     </c:forEach>
@@ -96,6 +101,11 @@
                         <c:set var="order" value="${orders}"/>
                     <select <c:if test="${pendingOrder == 1}">required</c:if> class="livesearch" name="client.id" style="width: 100%;">
                     <option selected value="${order.client.id}">${order.client.fullName}</option>
+                    
+                    <c:if test="${pendingOrder != 1}"> 
+                    <option value="0">Без клиента</option>
+                    </c:if>
+                    
                     <c:forEach items="${clients}" var="client">
                     <option value="${client.id}">${client.fullName}</option>
                     </c:forEach>

@@ -20,9 +20,17 @@ public class OrderMedicamentService {
     
     public void add(OrderMedicament obj) {
         if (obj.getId() == null) {
-            orderMedicamentDao.create(obj);
+            if (obj.getPrescription().getId() == 0) {
+                orderMedicamentDao.createNotPrescription(obj);
+            } else {
+                orderMedicamentDao.create(obj);
+            }
         } else {
-            orderMedicamentDao.update(obj);
+            if (obj.getPrescription().getId() == 0) {
+                orderMedicamentDao.updateNotPrescription(obj);
+                } else {
+                    orderMedicamentDao.update(obj);
+                }
         }
     }
     

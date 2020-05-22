@@ -11,5 +11,9 @@ public interface OrderMedicamentDao extends CrudDao<Long, OrderMedicament>{
     List<OrderMedicament> findAll();
     
     List<OrderMedicament> findAllByOrder(Long id);
+    
+    void createNotPrescription(OrderMedicament obj);
+    
+    void updateNotPrescription(OrderMedicament obj);
 
 }

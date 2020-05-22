@@ -83,7 +83,7 @@ public class PendOrderController {
     @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @RequestMapping(value = "/pendingOrderAdd.html", method = {RequestMethod.GET, RequestMethod.POST})
     public String edit(@ModelAttribute PendingOrder pendingOrder, Model model) throws UnsupportedEncodingException{
-        ArrayList<String> errors = null ;//= pendOrderService.check(pendingOrder);
+        ArrayList<String> errors = pendOrderService.check(pendingOrder);
         List<Employee> empls = employeeService.getByPosition("Провизор-технолог");
         
         
@@ -110,6 +110,17 @@ public class PendOrderController {
                 return "editPendOrder";
             }
         }
-        return "redirect:/pendingOrders.html";
+        
+        Long idO = pendingOrder.getOrder().getId();
+        //return "redirect:/pendingOrders.html";
+        return "redirect:/po.html?idO="+idO;
+    }
+    
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @GetMapping("/po.html")
+    public String po(@RequestParam("idO") Long idO, Model model) {
+         PendingOrder po = pendOrderService.getByIdOrder(idO);
+         Long id = po.getId();
+        return "redirect:/pendingOrder.html?id="+id+"&idOrder="+idO;
     }
 }

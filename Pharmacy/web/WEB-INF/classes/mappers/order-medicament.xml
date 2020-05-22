@@ -81,6 +81,13 @@
             (SELECT prescription_id FROM prescription WHERE prescription_id = #{prescription.id})
             )
     </insert>
+    
+    <insert id="createNotPrescription">
+        INSERT INTO order_medicament (medicament_id, order_id, quantity) VALUES (
+            (SELECT medicament_id FROM medicament WHERE medicament_id = #{medicament.id}),
+            (SELECT order_id FROM [order] WHERE order_id = #{order.id}) , #{quantity}
+            )
+    </insert>
 
     <select id="read" parameterType="java.lang.Long" resultMap="OrderMedicament">
         SELECT 
@@ -91,7 +98,7 @@
         FROM order_medicament om 
         JOIN medicament m ON om.medicament_id = m.medicament_id 
         JOIN [order] o ON om.order_id = o.order_id 
-        JOIN prescription p ON p.prescription_id = om.prescription_id
+        LEFT JOIN prescription p ON p.prescription_id = om.prescription_id
         WHERE om.order_medicament_id = #{id}
     </select>
 
@@ -101,6 +108,14 @@
         order_id = (SELECT order_id FROM [order] WHERE order_id = #{order.id}),
         quantity = #{quantity},
         prescription_id = (SELECT prescription_id FROM prescription WHERE prescription_id = #{prescription.id})
+        WHERE order_medicament_id = #{id}
+    </update>
+    
+    <update id="updateNotPrescription" parameterType="pharmacy.entity.OrderMedicament">
+        UPDATE order_medicament SET 
+        medicament_id = (SELECT medicament_id FROM medicament WHERE medicament_id = #{medicament.id}),
+        order_id = (SELECT order_id FROM [order] WHERE order_id = #{order.id}),
+        quantity = #{quantity}
         WHERE order_medicament_id = #{id}
     </update>
 
@@ -117,7 +132,7 @@
         FROM order_medicament om 
         JOIN medicament m ON om.medicament_id = m.medicament_id 
         JOIN [order] o ON om.order_id = o.order_id 
-        JOIN prescription p ON p.prescription_id = om.prescription_id
+        LEFT JOIN prescription p ON p.prescription_id = om.prescription_id
     </select>
     
     <select id="findAllByOrder" parameterType="java.lang.Long" resultMap = "OrderMedicament" >
@@ -129,7 +144,7 @@
         FROM order_medicament om 
         JOIN medicament m ON om.medicament_id = m.medicament_id 
         JOIN [order] o ON om.order_id = o.order_id 
-        JOIN prescription p ON p.prescription_id = om.prescription_id
+        LEFT JOIN prescription p ON p.prescription_id = om.prescription_id
         WHERE om.order_id = #{id}
     </select>
     

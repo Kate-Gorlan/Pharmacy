@@ -90,11 +90,13 @@
     <bean id="orderService" class="pharmacy.service.OrderService">
         <property name="orderDao" ref="orderDao" />
         <property name="employeeDao" ref="employeeDao" />
+        <property name="clientDao" ref="clientDao" />
     </bean>
 
     <bean id="pendingOrderDao" class="pharmacy.dao.mybatis.PendingOrderMapper" parent="dao2" />
     <bean id="pendingOrderService" class="pharmacy.service.PendingOrderService">
         <property name="pendingOrderDao" ref="pendingOrderDao" />
+        <property name="employeeDao" ref="employeeDao" />
     </bean>
 
     <bean id="prescriptionDao" class="pharmacy.dao.mybatis.PrescriptionMapper" parent="dao2" />

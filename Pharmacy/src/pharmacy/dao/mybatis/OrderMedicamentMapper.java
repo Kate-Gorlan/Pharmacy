@@ -43,4 +43,14 @@ public class OrderMedicamentMapper extends SqlSessionDaoSupport implements Order
     public List<OrderMedicament> findAllByOrder(Long id) {
         return getSqlSession().selectList("pharmacy.dao.OrderMedicamentDao.findAllByOrder", id);
     }
+
+    @Override
+    public void createNotPrescription(OrderMedicament obj) {
+        getSqlSession().insert("pharmacy.dao.OrderMedicamentDao.createNotPrescription", obj);
+    }
+
+    @Override
+    public void updateNotPrescription(OrderMedicament obj) {
+        getSqlSession().update("pharmacy.dao.OrderMedicamentDao.updateNotPrescription", obj);
+    }
 } 

@@ -9,13 +9,15 @@
     <button type="button" class="btn btn-info" style="width: 100%; height: 50px; font-size: 150%;">
     Назад</button></a>
     
-    <c:if test="${empty pendingOrder.employee}">
+    <c:choose>
+    <c:when test="${empty pendingOrder.employee}">
     <h5 style="border: 10px solid white;"> 
     Добавить медикамент </h5>
     <a href="goAddOrderMed.html?id=-1&pendOrderId=${pendingOrder.getId()}">
     <button type="button" class="btn btn-outline-info" style="width: 100%; height: 100px; font-size: 300%;">
     +</button></a>
-    </c:if>
+    </c:when>
+    <c:otherwise>
     <c:if test="${empty orderMeds}">
     <h5 style="border: 10px solid white;"> 
     Добавить медикамент </h5>
@@ -23,6 +25,8 @@
     <button type="button" class="btn btn-outline-info" style="width: 100%; height: 100px; font-size: 300%;">
     +</button></a>
     </c:if>
+    </c:otherwise>
+    </c:choose>
     
 </div>
 <div style="width: 2%; height: 100vh; overflow:auto; float:left;"></div>

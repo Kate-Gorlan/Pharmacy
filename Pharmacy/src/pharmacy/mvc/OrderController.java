@@ -74,7 +74,6 @@ public class OrderController {
         if (id != -1) {
             model.addAttribute("orders", orderService.getById(id));
         }
-
         List<Employee> empls = employeeService.getByPosition("Фармацевт");
         model.addAttribute("empls", empls);
         List<Client> clients = clientService.getClients();

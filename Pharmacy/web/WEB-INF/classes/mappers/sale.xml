@@ -48,5 +48,8 @@
         JOIN [order] o ON po.order_id = o.order_id
     </select>
 
+    <select id = "addSale" resultType="java.lang.Integer" parameterType = "java.lang.Integer" statementType = "CALLABLE">
+      {call dbo.addSale(#{id, jdbcType = INTEGER, mode = IN})}
+   </select>
 
 </mapper>
