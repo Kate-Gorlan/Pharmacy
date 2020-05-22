@@ -6,13 +6,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import pharmacy.dao.ClientDao;
-import pharmacy.entity.Client;
 import pharmacy.common.ClientMed;
 import pharmacy.common.ClientNotTakenOrder;
 import pharmacy.common.ClientsPendingOrder;
-import pharmacy.mvc.formvalidation.FormClient;
 import pharmacy.common.TopClientsMed;
+import pharmacy.dao.ClientDao;
+import pharmacy.entity.Client;
+import pharmacy.mvc.formvalidation.FormClient;
 
 public class ClientService {
 
@@ -141,4 +141,7 @@ public class ClientService {
         add(client);
     }
 
+    public Client getClientByUserId(Long id) {
+        return clientDao.getClientByUserId(id);
+    }
 }

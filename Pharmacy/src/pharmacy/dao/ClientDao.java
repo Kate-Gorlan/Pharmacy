@@ -42,4 +42,6 @@ public interface ClientDao extends CrudDao<Long, Client>{
     List<TopClientsMed> getClientsMedByName(String name);
     
     List<TopClientsMed> getClientsMedByType(String type);
+    
+    Client getClientByUserId(Long id);
 }

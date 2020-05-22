@@ -55,13 +55,15 @@
         INSERT INTO client (client_full_name, client_age,
         client_address,
         client_phone, user_id)
-        VALUES (#{fullName}, #{age}, #{address},
+        VALUES (#{fullName}, #{age},
+        #{address},
         #{phone}, (SELECT user_id FROM users WHERE user_id = #{user.id}))
     </insert>
-    
+
     <insert id="createNotUser">
         INSERT INTO client (client_full_name, client_age, client_address, client_phone)
-        VALUES (#{fullName}, #{age}, #{address}, #{phone})
+        VALUES (#{fullName}, #{age}, #{address},
+        #{phone})
     </insert>
 
     <select id="read" parameterType="java.lang.Long" resultMap="Client">
@@ -80,7 +82,7 @@
         user_id = (SELECT user_id FROM user WHERE user_id = #{user.id})
         WHERE client_id = #{id}
     </update>
-    
+
     <update id="updateNotUser" parameterType="pharmacy.entity.Client">
         UPDATE client SET
         client_full_name = #{fullName},
@@ -110,22 +112,26 @@
         po.take_status AS [Take Status],
         o.order_date AS
         [Date],
-        m.medicament_name AS [Medicament name],
+        m.medicament_name AS
+        [Medicament name],
         c.client_id AS [Client
         id],
         c.client_full_name AS [Client],
         c.client_phone AS [Client phone]
         FROM [pending_order] po
-        JOIN [order] o ON o.order_id = po.order_id
+        JOIN
+        [order] o ON o.order_id = po.order_id
         JOIN
         [order_medicament] om ON o.order_id = om.order_id
         JOIN [medicament] m
-        ON om.medicament_id = m.medicament_id
+        ON om.medicament_id =
+        m.medicament_id
         JOIN [prescription] pres ON
         pres.prescription_id = om.prescription_id
         JOIN [client] c ON
         pres.client_id = c.client_id
-        WHERE po.take_status = 'Не взято' OR
+        WHERE
+        po.take_status = 'Не взято' OR
         po.take_status = 'Взято с опозданием'
     </select>
 
@@ -150,11 +156,13 @@
         po.order_id
         JOIN [order_medicament] om ON o.order_id = om.order_id
         JOIN
-        [medicament] m ON m.medicament_id = om.medicament_id
+        [medicament] m
+        ON m.medicament_id = om.medicament_id
         JOIN
         [prescription] pres ON pres.prescription_id = om.prescription_id
         JOIN
-        [client] c ON pres.client_id = c.client_id
+        [client] c ON
+        pres.client_id = c.client_id
         WHERE
         po.employeee_cooking_id IS NULL AND po.take_status = 'В ожидании'
     </select>
@@ -175,7 +183,8 @@
         select
         m.medicament_name AS [Medicament],
         o.order_date AS
-        [Order date],
+        [Order
+        date],
         c.client_id AS [Client id],
         c.client_full_name AS
         [Client],
@@ -183,11 +192,13 @@
 
         FROM [order] o
         JOIN
-        [order_medicament] om ON o.order_id = om.order_id
+        [order_medicament] om
+        ON o.order_id = om.order_id
         JOIN [medicament] m
         ON m.medicament_id = om.medicament_id
         JOIN [prescription] pres ON
-        pres.prescription_id = om.prescription_id
+        pres.prescription_id =
+        om.prescription_id
         JOIN [client] c ON
         pres.client_id = c.client_id
 
@@ -201,7 +212,8 @@
         select
         m.medicament_name AS [Medicament],
         o.order_date AS
-        [Order date],
+        [Order
+        date],
         c.client_id AS [Client id],
         c.client_full_name AS
         [Client],
@@ -209,11 +221,13 @@
 
         FROM [order] o
         JOIN
-        [order_medicament] om ON o.order_id = om.order_id
+        [order_medicament] om
+        ON o.order_id = om.order_id
         JOIN [medicament] m
         ON m.medicament_id = om.medicament_id
         JOIN [prescription] pres ON
-        pres.prescription_id = om.prescription_id
+        pres.prescription_id =
+        om.prescription_id
         JOIN [client] c ON
         pres.client_id = c.client_id
 
@@ -224,28 +238,34 @@
     </select>
 
     <select id="GetNumberOfClientMedTypePeriod" parameterType="hashmap" resultType="java.lang.Integer">
-        select dbo.GetNumberOfClientMedTypePeriod (#{type}, #{firstDate},
+        select dbo.GetNumberOfClientMedTypePeriod (#{type},
+        #{firstDate},
         #{secondDate});
     </select>
 
     <select id="GetNumberOfClientMedPeriod" parameterType="hashmap" resultType="java.lang.Integer">
-        select dbo.GetNumberOfClientMedPeriod (#{name}, #{firstDate},
+        select dbo.GetNumberOfClientMedPeriod (#{name},
+        #{firstDate},
         #{secondDate});
     </select>
 
     <select id="GetClientsMedByName" parameterType="java.lang.String" resultMap="TopClientsMed">
         SELECT top 10
         res.Quantity as [Quantity],
-        cl.client_id AS [Client id],
+        cl.client_id AS
+        [Client id],
         cl.client_full_name AS [Client]
         from (select COUNT(c.client_id) as [Quantity], c.client_id AS [Client]
-        FROM [order_medicament] om
+        FROM [order_medicament]
+        om
         JOIN [medicament] m ON m.medicament_id = om.medicament_id
         JOIN [prescription] pres ON pres.prescription_id = om.prescription_id
-        JOIN [client] c ON pres.client_id = c.client_id
+        JOIN
+        [client] c ON pres.client_id = c.client_id
 
         WHERE LOWER(m.medicament_name) = LOWER(dbo.DeleteDoublуSpace(#{name}))
-        group by c.client_id ) as res
+        group by c.client_id )
+        as res
         JOIN [client] cl ON res.Client = cl.client_id
         ORDER BY res.Quantity DESC
     </select>
@@ -269,6 +289,10 @@
         as res
         JOIN [client] cl ON res.Client = cl.client_id
         ORDER BY res.Quantity DESC
+    </select>
+
+    <select id="getClientByUserId" parameterType="java.lang.Long" resultMap="Client">
+        Select * from client where user_id = #{id}
     </select>
 
 </mapper>

@@ -30,7 +30,7 @@
         <result column="pregnancy_and_breastfeeding" property="pregnancyAndBreastfeeding" />
         <result column="influence_on_transport_management" property="influenceTM" />
         <result column="side_effect" property="sideEffect" />
-        <result column="overdose" property="overdose" />     
+        <result column="overdose" property="overdose" />
     </resultMap>
 
     <resultMap id="Client" type="pharmacy.entity.Client">

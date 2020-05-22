@@ -114,4 +114,9 @@ public class ClientMapper extends SqlSessionDaoSupport implements ClientDao{
         return getSqlSession().selectList("pharmacy.dao.ClientDao.GetClientsMedByType", type);
     }
 
+    @Override
+    public Client getClientByUserId(Long id) {
+        return getSqlSession().selectOne("pharmacy.dao.ClientDao.getClientByUserId", id);
+    }
+
 }

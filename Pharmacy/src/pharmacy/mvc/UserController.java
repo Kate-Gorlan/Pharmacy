@@ -3,10 +3,13 @@ package pharmacy.mvc;
 import static java.util.stream.Collectors.toList;
 
 import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,8 +24,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import pharmacy.mvc.formvalidation.FormClient;
+import pharmacy.entity.Client;
 import pharmacy.entity.User;
+import pharmacy.mvc.formvalidation.FormClient;
 import pharmacy.service.ClientService;
 import pharmacy.service.UserService;
 
@@ -52,7 +56,7 @@ public class UserController {
         model.addAttribute("users", listChoose);
         return "users";
     }
-    
+
     @ModelAttribute("form")
     public FormClient requestClient(@RequestParam(value = "id", required = false) final Long id) {
         form.clear();
@@ -60,6 +64,23 @@ public class UserController {
             form.setClient(clientService.getClientById(id));
         }
         return form;
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/user.html")
+    public String userProfile(@RequestParam("l") String login, Model model, Authentication authentication) {
+        if (authentication != null) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            if (!login.equals(userDetails.getUsername())) {
+                return "login";
+            }
+
+            User user = userService.getUserByLogin(login);
+            Client client = clientService.getClientByUserId(user.getId());
+            model.addAttribute("client", client);
+            return "user";
+        }
+        return "login";
     }
 
     /*
@@ -76,7 +97,7 @@ public class UserController {
     public String save(@Valid @ModelAttribute("form") final FormClient form, final BindingResult result,
             final RedirectAttributes redirectAttributes) {
         // validator.validate(form, result);
-        
+
         if (result.hasErrors()) {
             redirectAttributes.addFlashAttribute("form", form);
             redirectAttributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "form", result);
@@ -127,8 +148,7 @@ public class UserController {
             }
 
             if (form.getUser().getId() == null && userService.getUserByLogin(form.getUser().getLogin()) != null) {
-                errors.rejectValue("user.login", "error.user.duplicate.name", new Object[] { form.getUser().getLogin() },
-                        "User exist!");
+                errors.rejectValue("user.login", "error.user.duplicate.name", new Object[] { form.getUser().getLogin() }, "User exist!");
             }
 
             if (!form.getPassword().trim().equals(form.getUser().getPassword().trim())) {
