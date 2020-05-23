@@ -54,14 +54,14 @@
         <result column="Technology" property="technology" />
     </resultMap>
 
-    <resultMap id="MedicamentInfo" type="pharmacy.common.MedicamentInfo">
+   <!--  <resultMap id="MedicamentInfo" type="pharmacy.common.MedicamentInfo">
         <result column="Medicament type" property="medicamentType" />
         <result column="Medicament" property="technology" />
         <result column="Medicament quantity" property="ingredient" />
         <result column="Medicament type" property="productName" />
         <result column="Medicament" property="deliveryQuantity" />
         <result column="Medicament quantity" property="deliveryPrice" />
-    </resultMap>
+    </resultMap> -->
     
     <resultMap id="MedInfoAvailability" type="pharmacy.common.MedInfoAvailability">
         <result column="medicament_name" property="name" />

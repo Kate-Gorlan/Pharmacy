@@ -1,8 +1,10 @@
 package pharmacy.service;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 
+import pharmacy.common.OrderCostInfo;
 import pharmacy.dao.OrderMedicamentDao;
 import pharmacy.entity.OrderMedicament;
 
@@ -52,5 +54,17 @@ public class OrderMedicamentService {
     
     public void deleteById(Long id) {
         orderMedicamentDao.delete(id);
+    }
+    
+    public List<OrderCostInfo> getOrderCostInfo(Long id){
+        return orderMedicamentDao.getOrderCostInfo(id);
+    }
+    
+    public BigDecimal getCostByInfo(List<OrderCostInfo> list) {
+        BigDecimal cost = new BigDecimal(0);
+        for (OrderCostInfo info : list) {
+            cost = cost.add(info.getCost());
+        }
+        return cost;
     }
 }

@@ -3,6 +3,7 @@ package pharmacy.mvc;
 import static java.util.stream.Collectors.toList;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import pharmacy.common.OrderCostInfo;
 import pharmacy.entity.Employee;
 import pharmacy.entity.OrderMedicament;
 import pharmacy.entity.PendingOrder;
@@ -49,7 +51,11 @@ public class PendOrderController {
         model.addAttribute("pendingOrder", pendOrderService.getById(id));
         Long idOrder = pendOrderService.getById(id).getOrder().getId();
         List<OrderMedicament> meds = orderMedService.findAllByOrder(idOrder).stream().collect(toList());
+        List<OrderCostInfo> medCost = orderMedService.getOrderCostInfo(idOrder).stream().collect(toList());
+        BigDecimal cost = orderMedService.getCostByInfo(medCost);
+        model.addAttribute("costAll", cost);
         model.addAttribute("orderMeds", meds);
+        model.addAttribute("medCosts", medCost);
         return "pendingOrder";
     }
     

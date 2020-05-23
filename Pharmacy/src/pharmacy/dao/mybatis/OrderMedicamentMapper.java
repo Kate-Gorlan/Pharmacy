@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
+import pharmacy.common.OrderCostInfo;
 import pharmacy.dao.OrderMedicamentDao;
 import pharmacy.entity.OrderMedicament;
 
@@ -52,5 +53,10 @@ public class OrderMedicamentMapper extends SqlSessionDaoSupport implements Order
     @Override
     public void updateNotPrescription(OrderMedicament obj) {
         getSqlSession().update("pharmacy.dao.OrderMedicamentDao.updateNotPrescription", obj);
+    }
+
+    @Override
+    public List<OrderCostInfo> getOrderCostInfo(Long id) {
+        return getSqlSession().selectList("pharmacy.dao.OrderMedicamentDao.getOrderCostInfo", id);
     }
 } 

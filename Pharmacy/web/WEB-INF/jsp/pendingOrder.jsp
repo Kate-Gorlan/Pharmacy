@@ -53,6 +53,7 @@
             <tr>
                 <th scope="col">Медикамент</th>
                 <th scope="col">Количество</th>
+                <th scope="col">Цена</th>
                 <th scope="col">Рецепт от врача</th>
             </tr>
             </thead>
@@ -61,9 +62,20 @@
                 <tr class="table-light" style="color:black;">
                     <td>${orderMed.medicament.name}</td>
                     <td>${orderMed.quantity} шт</td>
-                    <c:if test="${orderMed.medicament.availabilityOfPrescription == 1}">
-                    <td><a href="prescription.html?id=${orderMed.prescription.getId()}&idPO=${pendingOrder.getId()}">Рецепт</a></td>
+                    <c:if test="${not empty medCosts}">
+                    <td>
+                    <c:forEach items="${medCosts}" var="medCost">
+                        <c:if test="${medCost.getId()==orderMed.getId()}">
+                        ${medCost.cost}
+                        </c:if>
+                    </c:forEach>
+                    </td>
                     </c:if>
+                    <td>
+                    <c:if test="${orderMed.medicament.availabilityOfPrescription == 1}">
+                    <a href="prescription.html?id=${orderMed.prescription.getId()}&idPO=${pendingOrder.getId()}">Рецепт</a>
+                    </c:if>
+                    </td>
                     <td>
                     <a href="goAddOrderMed.html?id=${orderMed.getId()}&pendingOrderId=${pendingOrder.getId()}">
                     <button type="button" class="btn btn-warning">Изменить</button>
@@ -80,6 +92,9 @@
             </table>
             </c:if>
 
+            <c:if test="${not empty costAll}">
+            <h5>Итоговая цена: ${costAll}</h5>
+            </c:if>
             
             <p class="card-text" style="color: #800000;">Заказ: ID <span style="color: black;">${pendingOrder.order.getId()}</span></p>
             

@@ -1,5 +1,7 @@
 package pharmacy.service;
 
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,6 +40,19 @@ public class DoctorService {
     
     public void deleteById(Long id) {
         doctorDao.delete(id);
+    }
+    
+    public void decoding(Doctor doctor) throws UnsupportedEncodingException {
+        String name = new String(doctor.getDoctorFullName().getBytes("iso-8859-1"), "utf-8");
+        doctor.setDoctorFullName(name);
+    }
+    
+    public ArrayList<String> check(Doctor doctor) {
+        ArrayList<String> errors = new ArrayList<String>();
+        if (doctor.getDoctorFullName().length() > 80) {
+            errors.add("Длина ФИО не может быть больше 80 символов");
+        }
+        return errors;
     }
 
 }

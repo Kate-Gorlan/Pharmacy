@@ -14,7 +14,7 @@
                     <img src="resources/mainSite/sell.png" class="card-img-top" alt="Продажа">
                     <div class="card-body">
                         <h5 class="card-title text-center ">Продажа</h5>
-                        <p class="card-text">Оформить продажу</p>
+                        <p class="card-text">Оформить\Оплатить продажу</p>
                     </div>
                     <div class="card-footer">
                         <div class="card text-center">
@@ -27,7 +27,7 @@
                     <img src="resources/mainSite/pendingOrder.png" class="card-img-top" alt="Заказ">
                     <div class="card-body">
                         <h5 class="card-title text-center">Заказ</h5>
-                        <p class="card-text">Оформить отложенный заказ</p>
+                        <p class="card-text">Оформить\Оплатить отложенный заказ</p>
                     </div>
                     <div class="card-footer">
                         <div class="card text-center">
