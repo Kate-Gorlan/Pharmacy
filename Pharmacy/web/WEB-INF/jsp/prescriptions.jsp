@@ -10,6 +10,11 @@
     <button type="button" class="btn btn-info" style="width: 100%; height: 50px; font-size: 150%;">
     Назад</button></a>
 </c:if>-->
+
+    <a href="doctors.html">
+    <button type="button" class="btn btn-info" style="width: 100%; height: 50px; font-size: 150%;">
+    Врачи</button></a>
+
     <a href="goAddPrescription.html?id=-1">
     <button type="button" class="btn btn-outline-info" style="width: 100%; height: 100px; font-size: 300%;">
     +</button></a>
@@ -34,10 +39,10 @@
     <c:forEach items="${prescriptionsNew}" var="prescriptionNew">
     <tr class="table-light" style="color:black;">
 
-      <td>${prescription.client.fullName}</td>
-      <td>${prescription.medicament.name}</td>
-      <td>${prescription.doctor.doctorFullName}</td>
-      <td>${prescription.amountOfMedicine}</td>
+      <td>${prescriptionNew.client.fullName}</td>
+      <td>${prescriptionNew.medicament.name}</td>
+      <td>${prescriptionNew.doctor.doctorFullName}</td>
+      <td>${prescriptionNew.amountOfMedicine}</td>
       
       <td><a href="prescription.html?id=${prescriptionNew.id}">Подробнее</a></td>
       

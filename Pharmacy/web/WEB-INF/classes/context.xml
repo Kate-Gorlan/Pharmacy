@@ -84,6 +84,8 @@
     <bean id="orderMedicamentDao" class="pharmacy.dao.mybatis.OrderMedicamentMapper" parent="dao2" />
     <bean id="orderMedicamentService" class="pharmacy.service.OrderMedicamentService">
         <property name="orderMedicamentDao" ref="orderMedicamentDao" />
+        <property name="medicamentDao" ref="medicamentDao" />
+        <property name="prescriptionDao" ref="prescriptionDao" />
     </bean>
 
     <bean id="orderDao" class="pharmacy.dao.mybatis.OrderMapper" parent="dao2" />
@@ -102,6 +104,9 @@
     <bean id="prescriptionDao" class="pharmacy.dao.mybatis.PrescriptionMapper" parent="dao2" />
     <bean id="prescriptionService" class="pharmacy.service.PrescriptionService">
         <property name="prescriptionDao" ref="prescriptionDao" />
+        <property name="clientDao" ref="clientDao" />
+        <property name="medicamentDao" ref="medicamentDao" />
+        <property name="doctorDao" ref="doctorDao" />
     </bean>
 
     <bean id="productStockDao" class="pharmacy.dao.mybatis.ProductStockMapper" parent="dao2" />

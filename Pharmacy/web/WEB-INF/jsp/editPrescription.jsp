@@ -159,8 +159,9 @@
                 <!-- signature -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Роспись врача</div>
+                        <div class="input-group-text" style="background-color: #F7819F; color:black;">Роспись врача</div>
                     </div>
+                    <div style="border: 10px solid white; width: 80%;">
                     <c:choose>
                         <c:when test="${empty prescriptions}">
                             <p><input type="checkbox" name="signature" value="1"/> Присутствует</p>
@@ -178,13 +179,15 @@
                         </c:choose>
                     </c:otherwise>
                     </c:choose>
+                    </div>
                 </div>
                 
                 <!-- seal -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Печать</div>
+                        <div class="input-group-text" style="background-color: #F7819F; color:black;">Печать</div>
                     </div>
+                    <div style="border: 10px solid white; width: 80%;">
                     <c:choose>
                         <c:when test="${empty prescriptions}">
                             <p><input type="checkbox" name="seal" value="1"/> Присутствует</p>
@@ -194,14 +197,15 @@
                         
                         <c:choose>
                         <c:when test="${prescription.seal == 1}">
-                            <p><input type="checkbox" name="manufacturability" checked="checked" value="1" /> Присутствует</p>
+                            <p><input type="checkbox" name="seal" checked="checked" value="1" /> Присутствует</p>
                         </c:when>
                         <c:otherwise>
-                            <p><input type="checkbox" name="manufacturability" value="1"/> Присутствует</p>
+                            <p><input type="checkbox" name="seal" value="1"/> Присутствует</p>
                         </c:otherwise>
                         </c:choose>
                     </c:otherwise>
                     </c:choose>
+                    </div>
                 </div>   
                 
                 <button style="font-size: 120%; width: 40%; margin: 0 auto;" type="submit" class="btn btn-primary">Добавить</button>

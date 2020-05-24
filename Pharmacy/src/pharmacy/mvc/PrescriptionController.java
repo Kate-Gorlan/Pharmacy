@@ -16,7 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import pharmacy.entity.Client;
+import pharmacy.entity.Doctor;
+import pharmacy.entity.Medicament;
 import pharmacy.entity.Prescription;
+import pharmacy.service.ClientService;
+import pharmacy.service.DoctorService;
+import pharmacy.service.MedicamentService;
 import pharmacy.service.PrescriptionService;
 
 @Controller
@@ -24,12 +30,23 @@ public class PrescriptionController {
 
     @Autowired
     private PrescriptionService prescriptionService;
+    
+    @Autowired
+    private MedicamentService medicamentService;
+    
+    @Autowired
+    private ClientService clientService;
+    
+    @Autowired
+    private DoctorService doctorService;
 
     @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/prescriptions.html")
     public String prescriptions(Model model) {
         List<Prescription> prescriptions = prescriptionService.getAll().stream().collect(toList());
         model.addAttribute("prescriptions", prescriptions);
+        List<Prescription> prescriptionsNew = prescriptionService.getNew().stream().collect(toList());
+        model.addAttribute("prescriptionsNew", prescriptionsNew);
         return "prescriptions";
     }
 
@@ -59,19 +76,23 @@ public class PrescriptionController {
             model.addAttribute("prescriptions", prescriptionService.getById(id));
         }
 
-        // List<Product> prods = productService.getAll();
-        // List<Medicament> meds = medicamentService.findByManufacturability("1");
-        // model.addAttribute("prods", prods);
-        // model.addAttribute("meds", meds);
+        List<Client> cls = clientService.getClients();
+        List<Doctor> dcs = doctorService.getAll();
+        List<Medicament> meds = medicamentService.getAll();
+        model.addAttribute("cls", cls);
+        model.addAttribute("dcs", dcs);
+        model.addAttribute("meds", meds);
         return "editPrescription";
     }
 
     @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @RequestMapping(value = "/prescriptionAdd.html", method = { RequestMethod.GET, RequestMethod.POST })
     public String edit(@ModelAttribute Prescription prescription, Model model) throws UnsupportedEncodingException {
-        ArrayList<String> errors = null;// = pendOrderService.check(pendingOrder);
+        ArrayList<String> errors = prescriptionService.check(prescription);
 
-        // List<Product> prods = productService.getAll();
+        List<Client> cls = clientService.getClients();
+        List<Doctor> dcs = doctorService.getAll();
+        List<Medicament> meds = medicamentService.getAll();
 
         for (String list : errors) {
             System.out.println(list);
@@ -79,7 +100,9 @@ public class PrescriptionController {
         if (errors.size() != 0) {
             model.addAttribute("errors", errors);
             model.addAttribute("prescriptions", prescription);
-            // model.addAttribute("prods", prods);
+            model.addAttribute("cls", cls);
+            model.addAttribute("dcs", dcs);
+            model.addAttribute("meds", meds);
             return "editPrescription";
         } else {
             try {
@@ -90,7 +113,9 @@ public class PrescriptionController {
 
                 model.addAttribute("errors", errors);
                 model.addAttribute("prescriptions", prescription);
-                // model.addAttribute("prods", prods);
+                model.addAttribute("cls", cls);
+                model.addAttribute("dcs", dcs);
+                model.addAttribute("meds", meds);
                 return "editPrescription";
             }
         }

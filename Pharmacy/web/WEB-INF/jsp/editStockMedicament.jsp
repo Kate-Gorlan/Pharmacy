@@ -62,7 +62,7 @@
                     <c:otherwise>
                         <c:set var="medicamentStock" value="${medicamentStocks}"/>
                     <select class="livesearch" name="medicament.id" style="width: 100%;">
-                    <option selected value="${medicamentStock.medicament.id}">${medicamentStock.medicament.name}"</option>
+                    <option selected value="${medicamentStock.medicament.id}">${medicamentStock.medicament.name}</option>
                     <c:forEach items="${meds}" var="med">
                     <option value="${med.id}">${med.name}</option>
                     </c:forEach>

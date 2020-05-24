@@ -1,16 +1,25 @@
 package pharmacy.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import pharmacy.common.OrderCostInfo;
+import pharmacy.dao.MedicamentDao;
 import pharmacy.dao.OrderMedicamentDao;
+import pharmacy.dao.PrescriptionDao;
+import pharmacy.entity.Medicament;
 import pharmacy.entity.OrderMedicament;
+import pharmacy.entity.Prescription;
 
 public class OrderMedicamentService {
 
     private OrderMedicamentDao orderMedicamentDao;
+    
+    private MedicamentDao medicamentDao;
+    
+    private PrescriptionDao prescriptionDao;
 
     public OrderMedicamentDao getOrderMedicamentDao() {
         return orderMedicamentDao;
@@ -20,6 +29,22 @@ public class OrderMedicamentService {
         this.orderMedicamentDao = orderMedicamentDao;
     }
     
+    public MedicamentDao getMedicamentDao() {
+        return medicamentDao;
+    }
+
+    public void setMedicamentDao(MedicamentDao medicamentDao) {
+        this.medicamentDao = medicamentDao;
+    }
+
+    public PrescriptionDao getPrescriptionDao() {
+        return prescriptionDao;
+    }
+
+    public void setPrescriptionDao(PrescriptionDao prescriptionDao) {
+        this.prescriptionDao = prescriptionDao;
+    }
+
     public void add(OrderMedicament obj) {
         if (obj.getId() == null) {
             if (obj.getPrescription().getId() == 0) {
@@ -66,5 +91,22 @@ public class OrderMedicamentService {
             cost = cost.add(info.getCost());
         }
         return cost;
+    }
+    
+    public ArrayList<String> check(OrderMedicament om) {
+        ArrayList<String> errors = new ArrayList<String>();
+        Long id = om.getMedicament().getId();
+        Medicament med = medicamentDao.read(id);
+        if (med == null) {
+            errors.add("Запись о медикаменте не найдена");
+        }
+        Long idP = om.getPrescription().getId();
+        Prescription pr = prescriptionDao.read(idP);
+        if (pr == null) {
+            errors.add("Запись о рецепте не найдена");
+        }
+        
+
+        return errors;
     }
 }

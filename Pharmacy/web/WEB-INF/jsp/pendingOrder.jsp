@@ -13,17 +13,31 @@
     <c:when test="${empty pendingOrder.employee}">
     <h5 style="border: 10px solid white;"> 
     Добавить медикамент </h5>
-    <a href="goAddOrderMed.html?id=-1&pendOrderId=${pendingOrder.getId()}">
+    <a href="goAddOrderMed.html?id=-1&pendingOrderId=${pendingOrder.getId()}">
     <button type="button" class="btn btn-outline-info" style="width: 100%; height: 100px; font-size: 300%;">
     +</button></a>
+    
+    <h5 style="border: 10px solid white;"> 
+    Перейти к рецептам на медикаменты </h5>
+    <a href="prescriptions.html" target="_blank">
+    <button type="button" class="btn btn-info" style="width: 100%; height: 50px; font-size: 150%;">
+    К рецептам</button></a>
+    
     </c:when>
     <c:otherwise>
     <c:if test="${empty orderMeds}">
     <h5 style="border: 10px solid white;"> 
     Добавить медикамент </h5>
-    <a href="goAddOrderMed.html?id=-1&pendOrderId=${pendingOrder.getId()}">
+    <a href="goAddOrderMed.html?id=-1&pendingOrderId=${pendingOrder.getId()}">
     <button type="button" class="btn btn-outline-info" style="width: 100%; height: 100px; font-size: 300%;">
     +</button></a>
+    
+    <h5 style="border: 10px solid white;"> 
+    Перейти к рецептам на медикаменты </h5>
+    <a href="prescriptions.html" target="_blank">
+    <button type="button" class="btn btn-info" style="width: 100%; height: 50px; font-size: 150%;">
+    К рецептам</button></a>
+    
     </c:if>
     </c:otherwise>
     </c:choose>
@@ -97,6 +111,8 @@
             </c:if>
             
             <p class="card-text" style="color: #800000;">Заказ: ID <span style="color: black;">${pendingOrder.order.getId()}</span></p>
+            
+            <p class="card-text" style="color: #800000;">Клиент: <span style="color: black;">${fullName}</span></p>
             
             <p class="card-text" style="color: #800000;">Дата регистрации: <span style="color: black;">${pendingOrder.order.date}</span></p>
 

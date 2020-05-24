@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pharmacy.common.OrderCostInfo;
 import pharmacy.entity.Employee;
+import pharmacy.entity.Order;
 import pharmacy.entity.OrderMedicament;
 import pharmacy.entity.PendingOrder;
 import pharmacy.service.EmployeeService;
 import pharmacy.service.OrderMedicamentService;
+import pharmacy.service.OrderService;
 import pharmacy.service.PendingOrderService;
 
 @Controller
@@ -36,6 +38,9 @@ public class PendOrderController {
     
     @Autowired
     private OrderMedicamentService orderMedService;
+    
+    @Autowired
+    private OrderService orderService;
     
     @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/pendingOrders.html")
@@ -56,6 +61,9 @@ public class PendOrderController {
         model.addAttribute("costAll", cost);
         model.addAttribute("orderMeds", meds);
         model.addAttribute("medCosts", medCost);
+        Order order = orderService.getById(idOrder);
+        String fullName = order.getClient().getFullName(); 
+        model.addAttribute("fullName", fullName);
         return "pendingOrder";
     }
     

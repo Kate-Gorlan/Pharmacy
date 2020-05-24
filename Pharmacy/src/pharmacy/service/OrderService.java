@@ -100,7 +100,7 @@ public class OrderService {
             if (cl == null) {
                 errors.add("Запись о клиенте не найдена");
             }
-        }
+        } 
 
         return errors;
     }
