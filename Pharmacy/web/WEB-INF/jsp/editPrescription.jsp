@@ -53,7 +53,14 @@
                     <c:otherwise>
                         <c:set var="prescription" value="${prescriptions}"/>
                     <select class="livesearch" name="medicament.id" style="width: 100%;">
-                    <option selected value="${prescription.medicament.id}">${prescription.medicament.name}</option>
+                    
+                    <option selected value="${prescription.medicament.id}">
+                    
+                    <c:forEach items="${meds}" var="med">
+                    <c:if test="${med.id == prescription.medicament.id}">${med.name}</c:if>
+                    </c:forEach>
+                    
+                    </option>
                     <c:forEach items="${meds}" var="med">
                     <option value="${med.id}">${med.name}</option>
                     </c:forEach>
@@ -83,7 +90,14 @@
                     <c:otherwise>
                         <c:set var="prescription" value="${prescriptions}"/>
                     <select class="livesearch" name="client.id" style="width: 100%;">
-                    <option selected value="${prescription.client.id}">${prescription.client.fullName}</option>
+                    
+                    <option selected value="${prescription.client.id}">
+                    
+                    <c:forEach items="${cls}" var="cl">
+                    <c:if test="${cl.id == prescription.client.id}">${cl.fullName}</c:if>
+                    </c:forEach>
+                    
+                    </option>
                     <c:forEach items="${cls}" var="cl">
                     <option value="${cl.id}">${cl.fullName}</option>
                     </c:forEach>
@@ -113,7 +127,13 @@
                     <c:otherwise>
                         <c:set var="prescription" value="${prescriptions}"/>
                     <select class="livesearch" name="doctor.id" style="width: 100%;">
-                    <option selected value="${prescription.doctor.id}">${prescription.doctor.doctorFullName}</option>
+                    <option selected value="${prescription.doctor.id}">
+                    
+                    <c:forEach items="${dcs}" var="dc">
+                    <c:if test="${dc.id == prescription.doctor.id}">${dc.doctorFullName}</c:if>
+                    </c:forEach>
+                    
+                    </option>
                     <c:forEach items="${dcs}" var="dc">
                     <option value="${dc.id}">${dc.doctorFullName}</option>
                     </c:forEach>

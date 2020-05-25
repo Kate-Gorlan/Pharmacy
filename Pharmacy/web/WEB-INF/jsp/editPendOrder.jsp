@@ -52,7 +52,14 @@
                     <c:otherwise>
                         <c:set var="pendingOrder" value="${pendingOrders}"/>
                     <select class="livesearch" name="employee.id" style="width: 100%;">
-                    <option selected value="${pendingOrder.employee.id}">${pendingOrder.employee.fullName}</option>
+                    
+                    <option selected value="${pendingOrder.employee.id}">
+                    
+                    <c:forEach items="${empls}" var="employee">
+                    <c:if test="${employee.id == pendingOrder.employee.id}">${employee.fullName}</c:if>
+                    </c:forEach>
+                    
+                    </option>
                     
                     <option value="0">Без изготовителя</option>
                     

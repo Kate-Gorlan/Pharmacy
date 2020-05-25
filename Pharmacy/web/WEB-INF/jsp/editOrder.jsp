@@ -49,7 +49,13 @@
                     <c:otherwise>
                         <c:set var="order" value="${orders}"/>
                     <select class="livesearch" name="employee.id" style="width: 100%;">
-                    <option selected value="${order.employee.id}">${order.employee.fullName}</option>
+                    <option selected value="${order.employee.id}">
+                    
+                    <c:forEach items="${empls}" var="employee">
+                    <c:if test="${employee.id == order.employee.id}">${employee.fullName}</c:if>
+                    </c:forEach>
+                    
+                    </option>
                     <c:forEach items="${empls}" var="employee">
                     <option value="${employee.id}">${employee.fullName}</option>
                     </c:forEach>
@@ -100,7 +106,14 @@
                     <c:otherwise>
                         <c:set var="order" value="${orders}"/>
                     <select <c:if test="${pendingOrder == 1}">required</c:if> class="livesearch" name="client.id" style="width: 100%;">
-                    <option selected value="${order.client.id}">${order.client.fullName}</option>
+                    
+                    <option selected value="${order.client.id}">
+                    
+                    <c:forEach items="${clients}" var="client">
+                    <c:if test="${client.id == order.client.id}">${client.fullName}</c:if>
+                    </c:forEach>
+                    
+                    </option>
                     
                     <c:if test="${pendingOrder != 1}"> 
                     <option value="0">Без клиента</option>

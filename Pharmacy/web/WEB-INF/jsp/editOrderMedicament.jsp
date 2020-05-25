@@ -51,7 +51,13 @@
                     <c:otherwise>
                         <c:set var="orderMed" value="${oms}"/>
                     <select class="livesearch" name="medicament.id" style="width: 100%;">
-                    <option selected value="${orderMed.medicament.id}">${orderMed.medicament.name}</option>
+                    <option selected value="${orderMed.medicament.id}">
+                    
+                    <c:forEach items="${meds}" var="med">
+                    <c:if test="${med.id == orderMed.medicament.id}">${med.name}</c:if>
+                    </c:forEach>
+                    
+                    </option>
                     <c:forEach items="${meds}" var="med">
                     <option value="${med.id}">${med.name}</option>
                     </c:forEach>
@@ -81,7 +87,19 @@
                     <c:otherwise>
                         <c:set var="orderMed" value="${oms}"/>
                     <select class="livesearch" name="prescription.id" style="width: 100%;">
-                    <option selected value="${orderMed.prescription.id}">Медикамент: ${orderMed.prescription.medicament.name} Клиент: ${orderMed.prescription.client.fullName}</option>
+                    
+                    <!-- option selected value="${orderMed.prescription.id}">
+                    Медикамент: ${orderMed.prescription.medicament.name}
+                     Клиент: ${orderMed.prescription.client.fullName}</option>-->
+                    
+                    <option selected value="${orderMed.prescription.id}">
+                    
+                    <c:forEach items="${prs}" var="pr">
+                    <c:if test="${pr.id == orderMed.prescription.id}">Медикамент: ${pr.medicament.name} Клиент: ${pr.client.fullName}</c:if>
+                    </c:forEach>
+                    
+                    </option>
+                    
                     <option value="0">Без рецепта</option>
                     <c:forEach items="${prs}" var="pr">
                     <option value="${pr.id}">Медикамент: ${pr.medicament.name} Клиент: ${pr.client.fullName}</option>
