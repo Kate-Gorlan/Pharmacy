@@ -82,6 +82,14 @@
         LEFT JOIN client c ON c.client_id = o.client_id
     </select>
     
+    <select id="findNotSale" resultMap = "Order" >
+        SELECT *
+        FROM [order] o JOIN employee e ON e.employee_id = o.employee_id
+        LEFT JOIN client c ON c.client_id = o.client_id
+        LEFT JOIN sale s ON s.order_id = o.order_id
+        WHERE s.order_id IS NULL
+    </select>
+    
     <select id="findByDate" parameterType="java.lang.String" resultMap = "Order">
         SELECT *
         FROM [order] o JOIN employee e ON e.employee_id = o.employee_id

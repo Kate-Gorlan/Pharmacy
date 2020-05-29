@@ -81,6 +81,12 @@ public class OrderService {
         return reverse;
     }
     
+    public List<Order> getNotSale(){
+        List<Order> reverse = orderDao.findNotSale();
+        Collections.reverse(reverse);
+        return reverse;
+    }
+    
     public void deleteById(Long id) {
         orderDao.delete(id);
     }

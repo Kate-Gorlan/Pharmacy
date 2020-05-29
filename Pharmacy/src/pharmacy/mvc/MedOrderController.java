@@ -41,20 +41,22 @@ public class MedOrderController {
     
     @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/deleteOrderMed.html")
-    public String delete(@RequestParam("id") Long id, @RequestParam("pendingOrderId") Long pendingOrderId) {
+    public String delete(@RequestParam("id") Long id, @RequestParam("pendingOrderId") Long pendingOrderId, @RequestParam("orderId") Long orderId) {
         if (id != null) {
             orderMedService.deleteById(id);
         }
         Long idOrder = (long) 0;
-        if (pendingOrderId != null) {
+        if (pendingOrderId != 0) {
         idOrder = pendingOrderService.getById(pendingOrderId).getOrder().getId();
+        } else {
+            return "redirect:/order.html?id="+ orderId +"&pendingOrder=0";
         }
         return "redirect:/pendingOrder.html?id="+pendingOrderId+"&idOrder="+idOrder;
     }
     
     @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/goAddOrderMed.html")
-    public String goToAddOrderMed(@RequestParam("id") Long id, @RequestParam("pendingOrderId") Long pendingOrderId, Model model) {
+    public String goToAddOrderMed(@RequestParam("id") Long id, @RequestParam("pendingOrderId") Long pendingOrderId, Model model, @RequestParam("orderId") Long orderId) {
         List<Prescription> prs = prescriptionService.getNew();
         if (id != -1) {
             prs = prescriptionService.getAll();
@@ -62,12 +64,17 @@ public class MedOrderController {
         }
         model.addAttribute("pendingOrderId", pendingOrderId);
         
-        List<Medicament> meds = medicamentService.getAll();
+        List<Medicament> meds = medicamentService.getForOrderMed(pendingOrderId);
         
         model.addAttribute("meds", meds);
         model.addAttribute("prs", prs);
         
-        Long idOrder = pendingOrderService.getById(pendingOrderId).getOrder().getId();
+        Long idOrder = (long) 0;
+        if(orderId == 0) {
+            idOrder = pendingOrderService.getById(pendingOrderId).getOrder().getId();
+        } else {
+            idOrder = orderId;
+        }
         model.addAttribute("orderID", idOrder);
         
         return "editOrderMedicament";
@@ -76,14 +83,19 @@ public class MedOrderController {
     @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @RequestMapping(value = "/orderMedAdd.html", method = {RequestMethod.GET, RequestMethod.POST})
     public String edit(@ModelAttribute OrderMedicament om, Model model, 
-            @RequestParam("pendingOrderId") Long pendingOrderId) throws UnsupportedEncodingException{
+            @RequestParam("pendingOrderId") Long pendingOrderId, @RequestParam("orderId") Long orderId) throws UnsupportedEncodingException{
         
         ArrayList<String> errors = orderMedService.check(om);
         
-        List<Medicament> meds = medicamentService.getAll();
+        List<Medicament> meds = medicamentService.getForOrderMed(pendingOrderId);
         List<Prescription> prs = prescriptionService.getAll();
-        Long idOrder = pendingOrderService.getById(pendingOrderId).getOrder().getId();
         
+        Long idOrder = (long) 0;
+        if(orderId == 0) {
+            idOrder = pendingOrderService.getById(pendingOrderId).getOrder().getId();
+        } else {
+            idOrder = orderId;
+        }
         
         for(String list: errors) {
             System.out.println(list);
@@ -116,11 +128,15 @@ public class MedOrderController {
         }
         
         //return "redirect:/pendingOrders.html";
+        if(orderId == 0) {
         Long Order = (long) 0;
         if (pendingOrderId != null) {
             Order = pendingOrderService.getById(pendingOrderId).getOrder().getId();
             }
             return "redirect:/pendingOrder.html?id="+pendingOrderId+"&idOrder="+Order;
+        } else {
+            return "redirect:/order.html?id="+ orderId + "&pendingOrder=0";
+        }
     }
 
 }

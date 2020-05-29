@@ -5,15 +5,13 @@
 <ui:html title="Заказ" thema="flatly">
 
 <div style="width: 15%; height: 100vh; overflow:auto; float:left;">
-    <a href="pendingOrders.html">
+    <a href="orders.html">
     <button type="button" class="btn btn-info" style="width: 100%; height: 50px; font-size: 150%;">
     Назад</button></a>
     
-    <c:choose>
-    <c:when test="${empty pendingOrder.employee}">
     <h5 style="border: 10px solid white;"> 
     Добавить медикамент </h5>
-    <a href="goAddOrderMed.html?id=-1&pendingOrderId=${pendingOrder.getId()}&orderId=${pendingOrder.order.getId()}">
+    <a href="goAddOrderMed.html?id=-1&pendingOrderId=0&orderId=${order.getId()}">
     <button type="button" class="btn btn-outline-info" style="width: 100%; height: 100px; font-size: 300%;">
     +</button></a>
     
@@ -22,26 +20,9 @@
     <a href="prescriptions.html" target="_blank">
     <button type="button" class="btn btn-info" style="width: 100%; height: 50px; font-size: 150%;">
     К рецептам</button></a>
-    
-    </c:when>
-    <c:otherwise>
-    <c:if test="${empty orderMeds}">
-    <h5 style="border: 10px solid white;"> 
-    Добавить медикамент </h5>
-    <a href="goAddOrderMed.html?id=-1&pendingOrderId=${pendingOrder.getId()}&orderId=${pendingOrder.order.getId()}">
-    <button type="button" class="btn btn-outline-info" style="width: 100%; height: 100px; font-size: 300%;">
-    +</button></a>
-    
-    <h5 style="border: 10px solid white;"> 
-    Перейти к рецептам на медикаменты </h5>
-    <a href="prescriptions.html" target="_blank">
-    <button type="button" class="btn btn-info" style="width: 100%; height: 50px; font-size: 150%;">
-    К рецептам</button></a>
-    
-    </c:if>
-    </c:otherwise>
-    </c:choose>
-    
+
+
+    <!-- 90909099090909090909009090 -->
 </div>
 <div style="width: 2%; height: 100vh; overflow:auto; float:left;"></div>
 <div style="width: 83%; overflow:auto;">
@@ -91,12 +72,12 @@
                     </c:if>
                     </td>
                     <td>
-                    <a href="goAddOrderMed.html?id=${orderMed.getId()}&pendingOrderId=${pendingOrder.getId()}&orderId=${pendingOrder.order.getId()}">
+                    <a href="goAddOrderMed.html?id=${orderMed.getId()}&pendingOrderId=${pendingOrder.getId()}">
                     <button type="button" class="btn btn-warning">Изменить</button>
                     </a>
                     </td>
                     <td>
-                    <a href="deleteOrderMed.html?id=${orderMed.getId()}&pendingOrderId=${pendingOrder.getId()}&orderId=${pendingOrder.order.getId()}">
+                    <a href="deleteOrderMed.html?id=${orderMed.getId()}&pendingOrderId=${pendingOrder.getId()}">
                     <button type="button" class="btn btn-danger">Удалить</button></a>
                     </td>
                     

@@ -21,16 +21,21 @@ import pharmacy.entity.Client;
 import pharmacy.entity.Employee;
 import pharmacy.entity.Order;
 import pharmacy.entity.OrderMedicament;
+import pharmacy.entity.PendingOrder;
 import pharmacy.service.ClientService;
 import pharmacy.service.EmployeeService;
 import pharmacy.service.OrderMedicamentService;
 import pharmacy.service.OrderService;
+import pharmacy.service.PendingOrderService;
 
 @Controller
 public class OrderController {
 
     @Autowired
     private OrderService orderService;
+    
+    @Autowired
+    private PendingOrderService pendingOrderService;
 
     @Autowired
     private EmployeeService employeeService;
@@ -45,7 +50,11 @@ public class OrderController {
     @GetMapping("/orders.html")
     public String orders(Model model) {
         List<Order> orders = orderService.getAll().stream().collect(toList());
+        List<Order> ordersNotSale = orderService.getNotSale().stream().collect(toList());
+        List<PendingOrder> pendOrders = pendingOrderService.getAll().stream().collect(toList());
         model.addAttribute("orders", orders);
+        model.addAttribute("ordersNotSale", ordersNotSale);
+        model.addAttribute("pendOrders", pendOrders);
         return "orders";
     }
 
@@ -118,9 +127,12 @@ public class OrderController {
             }
         }
         if (pendingOrder == 1) {
-            Long idEmpl = order.getEmployee().getId();
+            if (order.getId()!=null) {
+                return "redirect:/goAddPendingOrder.html?id=-1&idOrder=" + order.getId();
+            } else {
+                Long idEmpl = order.getEmployee().getId();
             return "redirect:/goFindOrder.html?idEmpl=" + idEmpl;
-            // return "redirect:/goAddPendingOrder.html?id=-1&idOrder=";
+            }
         } else
             return "redirect:/orders.html";
     }

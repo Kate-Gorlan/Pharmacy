@@ -8,8 +8,6 @@ import pharmacy.common.PendingOrderEmployee;
 
 public interface PendingOrderDao extends CrudDao<Long, PendingOrder>{
 
-    PendingOrder findPendingOrder(Long id);
-    
     List<PendingOrder> findAll();
     
     List<OrderInProduction> getOrderInProduction();

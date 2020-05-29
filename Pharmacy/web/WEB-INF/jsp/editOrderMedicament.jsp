@@ -23,7 +23,7 @@
         </c:otherwise>
         </c:choose>
         
-            <c:url value="/orderMedAdd.html?pendingOrderId=${pendingOrderId}" var="href" />
+            <c:url value="/orderMedAdd.html?pendingOrderId=${pendingOrderId}&orderId=${orderID}" var="href" />
             <form action="${href}" accept-charset="UTF-8" method="POST">
                 <div class="input-group mb-3">
                         <c:if test="${not empty oms}">

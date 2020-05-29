@@ -192,10 +192,10 @@ public class MedicamentService {
     
     public List<Medicament> getForOrderMed(Long pendingOrderId) {
         List<Medicament> meds = null;
-            if (pendingOrderId==0) {
+        if (pendingOrderId==0) {
         meds = medicamentDao.findAll();
         } else {
-            PendingOrder po = pendingOrderDao.findPendingOrder(pendingOrderId);
+            PendingOrder po = pendingOrderDao.read(pendingOrderId);
             if(po.getEmployee()==null) {
                 meds = medicamentDao.findByManufacturability("False");
             } else {
