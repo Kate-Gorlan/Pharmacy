@@ -63,8 +63,12 @@ public class MedOrderController {
         model.addAttribute("pendingOrderId", pendingOrderId);
         
         List<Medicament> meds = medicamentService.getAll();
+        
         model.addAttribute("meds", meds);
         model.addAttribute("prs", prs);
+        
+        Long idOrder = pendingOrderService.getById(pendingOrderId).getOrder().getId();
+        model.addAttribute("orderID", idOrder);
         
         return "editOrderMedicament";
     }
@@ -78,6 +82,8 @@ public class MedOrderController {
         
         List<Medicament> meds = medicamentService.getAll();
         List<Prescription> prs = prescriptionService.getAll();
+        Long idOrder = pendingOrderService.getById(pendingOrderId).getOrder().getId();
+        
         
         for(String list: errors) {
             System.out.println(list);
@@ -88,6 +94,7 @@ public class MedOrderController {
             model.addAttribute("oms", om);
             model.addAttribute("meds", meds);
             model.addAttribute("prs", prs);
+            model.addAttribute("orderID", idOrder);
             model.addAttribute("pendingOrderId", pendingOrderId);
             return "editOrderMedicament";
         } else 
@@ -102,17 +109,18 @@ public class MedOrderController {
                 model.addAttribute("oms", om);
                 model.addAttribute("meds", meds);
                 model.addAttribute("prs", prs);
+                model.addAttribute("orderID", idOrder);
                 model.addAttribute("pendingOrderId", pendingOrderId);
                 return "editOrderMedicament";
             }
         }
         
         //return "redirect:/pendingOrders.html";
-        Long idOrder = (long) 0;
+        Long Order = (long) 0;
         if (pendingOrderId != null) {
-            idOrder = pendingOrderService.getById(pendingOrderId).getOrder().getId();
+            Order = pendingOrderService.getById(pendingOrderId).getOrder().getId();
             }
-            return "redirect:/pendingOrder.html?id="+pendingOrderId+"&idOrder="+idOrder;
+            return "redirect:/pendingOrder.html?id="+pendingOrderId+"&idOrder="+Order;
     }
 
 }

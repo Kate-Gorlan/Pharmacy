@@ -18,7 +18,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="card text-center">
-                            <a href="books.html?view=all&category=to do" class="btn btn-primary">Перейти</a>
+                            <a href="orders.html" class="btn btn-primary">Перейти</a>
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                         </div>
                         <div class="card-footer">
                             <div class="card text-center">
-                                <a href="authors.html?view=all" class="btn btn-primary">Перейти</a>
+                                <a href="vladik.html" class="btn btn-primary">Перейти</a>
                             </div>
 
                     </div>

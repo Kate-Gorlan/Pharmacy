@@ -125,10 +125,10 @@
             </c:if>
             
         </div>
-    <a href="goAddPendingOrder.html?id=${pendingOrder.getId()}">
+    <a href="goAddPendingOrder.html?id=${pendingOrder.getId()}&idOrder=${pendingOrder.order.getId()}">
         <button type="button" class="btn btn-warning">Изменить</button>
     </a>
-    <a href="deletePendingOrder.html?id=${pendingOrder.getId()}">
+    <a href="deletePendingOrder.html?id=${pendingOrder.getId()}&idOrder=${pendingOrder.order.getId()}">
         <button type="button" class="btn btn-danger">Удалить</button>
     </a>
     </div>

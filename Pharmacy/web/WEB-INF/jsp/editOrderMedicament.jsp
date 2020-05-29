@@ -30,6 +30,11 @@
                         <c:set var="orderMed" value="${oms}"/>
                         <input type="hidden" name="id" value="${orderMed.id}" />
                         </c:if>
+                        
+                        <c:if test="${not empty orderID}">
+                        <c:set var="orderId" value="${orderID}"/>
+                        <input type="hidden" name="order.id" value="${orderId}" />
+                        </c:if>
                 </div>
                 
                 <!-- medicament.id -->
@@ -65,6 +70,22 @@
                         </c:otherwise>
                     </c:choose>
                     </div>
+                </div>
+                
+                <!-- quantity -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" style="background-color: #F7819F; color:black;">Количество</span>
+                    </div>
+                    <c:choose>
+                        <c:when test="${empty oms}">
+                            <input required type="text" name="quantity" class="form-control" placeholder="Введите количество"/>
+                        </c:when>
+                    <c:otherwise>
+                        <c:set var="om" value="${oms}"/>
+                        <input required type="text" name="quantity" value="${om.quantity}" class="form-control" placeholder="Введите количество"/>
+                    </c:otherwise>
+                    </c:choose>
                 </div>
                 
                 <!-- prescription.id -->

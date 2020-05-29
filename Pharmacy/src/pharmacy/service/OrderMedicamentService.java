@@ -101,11 +101,16 @@ public class OrderMedicamentService {
             errors.add("Запись о медикаменте не найдена");
         }
         Long idP = om.getPrescription().getId();
-        Prescription pr = prescriptionDao.read(idP);
-        if (pr == null) {
-            errors.add("Запись о рецепте не найдена");
+        if (idP != 0) {
+            Prescription pr = prescriptionDao.read(idP);
+            if (pr == null) {
+                errors.add("Запись о рецепте не найдена");
+            }
         }
         
+        if (om.getQuantity()<=0) {
+            errors.add("Количество медикамента не может быть нулем или меньше нуля");
+        }
 
         return errors;
     }
