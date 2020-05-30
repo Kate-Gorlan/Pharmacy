@@ -109,17 +109,18 @@
                         <c:set var="orderMed" value="${oms}"/>
                     <select class="livesearch" name="prescription.id" style="width: 100%;">
                     
-                    <!-- option selected value="${orderMed.prescription.id}">
-                    Медикамент: ${orderMed.prescription.medicament.name}
-                     Клиент: ${orderMed.prescription.client.fullName}</option>-->
-                    
+                    <c:choose>
+                    <c:when test="${empty orderMed.prescription.id}">
+                    <option selected value="0">Без рецепта</option>
+                    </c:when>
+                    <c:otherwise>
                     <option selected value="${orderMed.prescription.id}">
-                    
                     <c:forEach items="${prs}" var="pr">
                     <c:if test="${pr.id == orderMed.prescription.id}">Медикамент: ${pr.medicament.name} Клиент: ${pr.client.fullName}</c:if>
                     </c:forEach>
-                    
                     </option>
+                    </c:otherwise>
+                    </c:choose>
                     
                     <option value="0">Без рецепта</option>
                     <c:forEach items="${prs}" var="pr">

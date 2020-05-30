@@ -340,5 +340,9 @@
     <select id="getMedInfoAvailability" parameterType="java.lang.Long" resultMap="MedInfoAvailability">
         select * from GetInfoMedicamentById(#{idMed})
     </select>
+    
+    <select id="getQuantityMedPending" parameterType="java.lang.Long" resultType="java.lang.Integer">
+    select dbo.getQuantityMedPending(#{id})
+    </select>
 
 </mapper>

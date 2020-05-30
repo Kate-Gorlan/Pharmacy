@@ -143,4 +143,9 @@ public class MedicamentMapper extends SqlSessionDaoSupport implements Medicament
     public MedInfoAvailability getMedInfoAvailability(Long idMed) {
         return getSqlSession().selectOne("pharmacy.dao.MedicamentDao.getMedInfoAvailability", idMed);
     }
+
+    @Override
+    public Integer getQuantityMedPending(Long id) {
+        return getSqlSession().selectOne("pharmacy.dao.MedicamentDao.getQuantityMedPending", id);
+    }
 } 

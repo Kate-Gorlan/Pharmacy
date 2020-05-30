@@ -190,6 +190,10 @@ public class MedicamentService {
         return medicamentDao.overdueList();
     }
     
+    public Integer getQuantityMedPending(Long id) {
+        return medicamentDao.getQuantityMedPending(id);
+    }
+    
     public List<Medicament> getForOrderMed(Long pendingOrderId) {
         List<Medicament> meds = null;
         if (pendingOrderId==0) {

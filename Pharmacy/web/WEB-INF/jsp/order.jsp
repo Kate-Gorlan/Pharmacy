@@ -27,18 +27,9 @@
 <div style="width: 2%; height: 100vh; overflow:auto; float:left;"></div>
 <div style="width: 83%; overflow:auto;">
 
-<c:if test="${not empty pendingOrder}">
+<c:if test="${not empty order}">
     <div class="col-md-8">
         <div class="card-body">
-        
-        <c:if test="${empty pendingOrder.employee}">
-        <h3>Отложенный заказ</h3>
-        </c:if>
-        
-        <c:if test="${not empty pendingOrder.employee}">
-        <h3>Заказ на изготовление</h3>
-        </c:if>
-
 
             <p class="card-text" style="color: #800000;">Медикаменты</p>
             <c:if test="${not empty orderMeds}">
@@ -68,16 +59,16 @@
                     </c:if>
                     <td>
                     <c:if test="${orderMed.medicament.availabilityOfPrescription == 1}">
-                    <a href="prescription.html?id=${orderMed.prescription.getId()}&idPO=${pendingOrder.getId()}">Рецепт</a>
+                    <a href="prescription.html?id=${orderMed.prescription.getId()}&idPO=-1" target="_blank">Рецепт</a>
                     </c:if>
                     </td>
                     <td>
-                    <a href="goAddOrderMed.html?id=${orderMed.getId()}&pendingOrderId=${pendingOrder.getId()}">
+                    <a href="goAddOrderMed.html?id=${orderMed.getId()}&pendingOrderId=0&orderId=${order.getId()}">
                     <button type="button" class="btn btn-warning">Изменить</button>
                     </a>
                     </td>
                     <td>
-                    <a href="deleteOrderMed.html?id=${orderMed.getId()}&pendingOrderId=${pendingOrder.getId()}">
+                    <a href="deleteOrderMed.html?id=${orderMed.getId()}&pendingOrderId=0&orderId=${order.getId()}">
                     <button type="button" class="btn btn-danger">Удалить</button></a>
                     </td>
                     
@@ -91,31 +82,24 @@
             <h5>Итоговая цена: ${costAll}</h5>
             </c:if>
             
-            <p class="card-text" style="color: #800000;">Заказ: ID <span style="color: black;">${pendingOrder.order.getId()}</span></p>
+            <p class="card-text" style="color: #800000;">Заказ: ID <span style="color: black;">${order.getId()}</span></p>
             
             <p class="card-text" style="color: #800000;">Клиент: <span style="color: black;">${fullName}</span></p>
             
-            <p class="card-text" style="color: #800000;">Дата регистрации: <span style="color: black;">${pendingOrder.order.date}</span></p>
+            <p class="card-text" style="color: #800000;">Дата регистрации: <span style="color: black;">${order.date}</span></p>
 
-            <p class="card-text" style="color: #800000;">Дата взятия: <span style="color: black;">${pendingOrder.availabilityDate}</span></p>
-
-            <p class="card-text" style="color: #800000;">Статус взятия: <span style="color: black;">${pendingOrder.takeStatus}</span></p>
-            
-            <c:if test="${not empty pendingOrder.employee}">
-            <p class="card-text" style="color: #800000;">ФИО изготовителя: <span style="color: black;">${pendingOrder.employee.fullName}</span></p>
-            </c:if>
             
         </div>
-    <a href="goAddPendingOrder.html?id=${pendingOrder.getId()}&idOrder=${pendingOrder.order.getId()}">
+    <a href="goAddOrder.html?id=${order.getId()}&pendingOrder=0">
         <button type="button" class="btn btn-warning">Изменить</button>
     </a>
-    <a href="deletePendingOrder.html?id=${pendingOrder.getId()}&idOrder=${pendingOrder.order.getId()}">
+    <a href="deleteOrder.html?id=${order.getId()}&pendingOrder=0">
         <button type="button" class="btn btn-danger">Удалить</button>
     </a>
     </div>
 </c:if>
 
-<c:if test="${empty pendingOrder}">
+<c:if test="${empty order}">
 <h4> Заказ не найден. </h4>
 </c:if>
     

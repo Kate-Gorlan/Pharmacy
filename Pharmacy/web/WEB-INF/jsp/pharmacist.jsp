@@ -70,7 +70,7 @@
     <div style="background-color: white; border-bottom: 5px solid #bed2f7; text-align: left;">
     <c:if test="${not empty medInfo}">
     <h5>${medInfo.name}</h5>
-    <h6>Количество: ${medInfo.quantity}</h6>
+    <h6>Количество: ${medInfo.quantity} (Отложено: ${medPend})</h6>
     <h6>Цена: ${medInfo.price}</h6>
     <h6>Изготовляемость: 
     <c:if test="${medInfo.manufacturability == 1}">Изготовляется</c:if>

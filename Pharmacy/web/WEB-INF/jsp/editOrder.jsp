@@ -107,13 +107,20 @@
                         <c:set var="order" value="${orders}"/>
                     <select <c:if test="${pendingOrder == 1}">required</c:if> class="livesearch" name="client.id" style="width: 100%;">
                     
-                    <option selected value="${order.client.id}">
                     
+                    <c:choose>
+                    <c:when test="${empty order.client.id}">
+                    <option selected value="0">Без клиента</option>
+                    </c:when>
+                    <c:otherwise>
+                    <option selected value="${order.client.id}">
                     <c:forEach items="${clients}" var="client">
                     <c:if test="${client.id == order.client.id}">${client.fullName}</c:if>
                     </c:forEach>
-                    
                     </option>
+                    </c:otherwise>
+                    </c:choose>
+                    
                     
                     <c:if test="${pendingOrder != 1}"> 
                     <option value="0">Без клиента</option>
