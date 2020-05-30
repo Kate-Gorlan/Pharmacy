@@ -37,6 +37,10 @@
                         </c:if>
                 </div>
                 
+                <div style="border-bottom: 10px solid white; border-top: 10px solid white;">
+                <a href="pharmacist.html?idMed=-1" target="_blank" class="btn btn-info">Проверить медикамент на главной странице</a>
+                </div>
+                
                 <!-- medicament.id -->
                 
                 <div class="input-group mb-3">
@@ -70,6 +74,8 @@
                         </c:otherwise>
                     </c:choose>
                     </div>
+                    
+                    
                 </div>
                 
                 <!-- quantity -->

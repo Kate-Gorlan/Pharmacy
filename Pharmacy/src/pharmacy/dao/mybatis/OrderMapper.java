@@ -58,4 +58,9 @@ public class OrderMapper extends SqlSessionDaoSupport implements OrderDao{
     public List<Order> findNotSale() {
         return getSqlSession().selectList("pharmacy.dao.OrderDao.findNotSale");
     }
+
+    @Override
+    public List<Order> findSale() {
+        return getSqlSession().selectList("pharmacy.dao.OrderDao.findSale");
+    }
 } 

@@ -43,6 +43,10 @@ public class SaleService {
     public void deleteById(Long id) {
         saleDao.delete(id);
     }
+    
+    public Sale getByOrderId(Long id) {
+        return saleDao.findByOrder(id);
+    }
 
 
 }

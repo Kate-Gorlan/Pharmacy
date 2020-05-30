@@ -9,5 +9,7 @@ public interface SaleDao extends CrudDao<Long, Sale>{
     List<Sale> findAll();
     
     Integer addSale(Long id);
+    
+    Sale findByOrder(Long id);
 
 }

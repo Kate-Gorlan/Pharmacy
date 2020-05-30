@@ -51,7 +51,7 @@ public class OrderController {
     @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/orders.html")
     public String orders(Model model) {
-        List<Order> orders = orderService.getAll().stream().collect(toList());
+        List<Order> orders = orderService.getSale().stream().collect(toList());
         List<Order> ordersNotSale = orderService.getNotSale().stream().collect(toList());
         List<PendingOrder> pendOrders = pendingOrderService.getAll().stream().collect(toList());
         model.addAttribute("orders", orders);
@@ -70,6 +70,10 @@ public class OrderController {
         BigDecimal cost = orderMedService.getCostByInfo(medCost);
         model.addAttribute("costAll", cost);
         model.addAttribute("medCosts", medCost);
+        if (orderService.buttonSale(id)) {
+            int sale = 1;
+            model.addAttribute("sale", sale);
+        }
         return "order";
     }
 

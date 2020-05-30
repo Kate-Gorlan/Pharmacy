@@ -17,4 +17,6 @@ public interface OrderDao extends CrudDao<Long, Order>{
     List<Order> findAll();
     
     List<Order> findNotSale();
+    
+    List<Order> findSale();
 }

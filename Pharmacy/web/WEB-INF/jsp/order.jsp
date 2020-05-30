@@ -90,12 +90,28 @@
 
             
         </div>
+
     <a href="goAddOrder.html?id=${order.getId()}&pendingOrder=0">
         <button type="button" class="btn btn-warning">Изменить</button>
     </a>
     <a href="deleteOrder.html?id=${order.getId()}&pendingOrder=0">
         <button type="button" class="btn btn-danger">Удалить</button>
     </a>
+    
+        
+        <c:if test="${not empty sale}">
+        <a href="goSaleOrder.html?id=${order.getId()}">
+        <button type="button" class="btn btn-success">Изменить</button>
+        </a>
+        </c:if>
+        
+        <!--  
+        <c:if test="${not empty sale}">
+        <a href="goSaleOrder.html?id=${order.getId()}">
+        <button type="button" class="btn btn-success">Изменить</button>
+        </a>
+        </c:if>
+        -->
     </div>
 </c:if>
 

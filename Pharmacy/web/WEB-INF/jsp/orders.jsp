@@ -69,7 +69,7 @@
 </c:if>
 
 <c:if test="${not empty orders}">
-<h4> Все продажи </h4>
+<h4> Оплаченные продажи </h4>
 <table class="table table-info">
   <thead>
     <tr>
@@ -90,7 +90,7 @@
       <td>${order.employee.fullName}</td>
       <td>${order.client.fullName}</td>
       
-      <td><a href="order.html?id=${order.getId()}&pendingOrder=0">Подробнее</a></td>
+      <td><a href="order.html?id=${order.getId()}">Подробнее</a></td>
       <td> 
         <c:if test="${not empty pendOrders}">
         <c:forEach items="${pendOrders}" var="po">
@@ -117,7 +117,7 @@
 </c:if>
 
 <c:if test="${empty orders}">
-<h4> Нет продаж в базе данных аптеки. </h4>
+<h4> Нет оплаченных продаж в базе данных аптеки. </h4>
 </c:if>
 
 </div>

@@ -92,7 +92,11 @@
     <bean id="orderDao" class="pharmacy.dao.mybatis.OrderMapper" parent="dao2" />
     <bean id="orderService" class="pharmacy.service.OrderService">
         <property name="orderDao" ref="orderDao" />
+        <property name="pendingOrderDao" ref="pendingOrderDao" />
         <property name="employeeDao" ref="employeeDao" />
+        <property name="saleDao" ref="saleDao" />
+        <property name="orderMedicamentDao" ref="orderMedicamentDao" />
+        <property name="medicamentDao" ref="medicamentDao" />
         <property name="clientDao" ref="clientDao" />
     </bean>
 

@@ -39,4 +39,9 @@ public class SaleMapper extends SqlSessionDaoSupport implements SaleDao{
         return getSqlSession().selectOne("pharmacy.dao.SaleDao.addSale", id);
     }
 
+    @Override
+    public Sale findByOrder(Long id) {
+        return getSqlSession().selectOne("pharmacy.dao.SaleDao.findByOrder", id);
+    }
+
 } 
