@@ -3,6 +3,7 @@ package pharmacy.mvc;
 import static java.util.stream.Collectors.toList;
 
 import java.math.BigDecimal;
+import org.springframework.security.core.Authentication;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +14,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import pharmacy.common.PendingOrderEmployee;
+import pharmacy.entity.Employee;
 import pharmacy.entity.PendingOrder;
+import pharmacy.entity.User;
+import pharmacy.service.EmployeeService;
 import pharmacy.service.MedicamentService;
 import pharmacy.service.PendingOrderService;
 import pharmacy.service.RecipeMedicamentService;
+import pharmacy.service.UserService;
 
 @Controller
 public class PharmacistTechnologistController {
 
     @Autowired
     private PendingOrderService pendingOrderService;
+    
+    @Autowired
+    private UserService userService;
+    
+    @Autowired
+    private EmployeeService employeeService;
 
     @Autowired
     private MedicamentService medicamentService;
@@ -32,10 +43,11 @@ public class PharmacistTechnologistController {
 
     @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/pharmacistTechnologist.html")
-    public String pharmacistT(Model model) {
-        // ---------
-        long id = 4;
-        // ---------
+    public String pharmacistT(Model model, Authentication auth) {
+        String userLogin = auth.getName(); 
+        User user = userService.getUserByLogin(userLogin);
+        Employee empl = employeeService.getByUser(user.getId());
+        long id = empl.getId();
 
         List<PendingOrderEmployee> medsForManufacture = pendingOrderService.findByEmployee(id).stream()
                 .collect(toList());

@@ -66,5 +66,15 @@
         FROM employee e JOIN position p ON e.position_id = p.position_id 
         WHERE p.position_title = #{title}
     </select>
+    
+    <select id="getByUser" parameterType="java.lang.Long" resultMap="Employee">
+        SELECT 
+            e.employee_id,
+            e.employee_full_name,
+            p.position_id,
+            p.position_title
+        FROM employee e JOIN position p ON e.position_id = p.position_id 
+        WHERE e.user_id = #{id}
+    </select>
 
 </mapper>
