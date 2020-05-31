@@ -29,12 +29,16 @@ import pharmacy.service.EmployeeService;
 import pharmacy.service.OrderMedicamentService;
 import pharmacy.service.OrderService;
 import pharmacy.service.PendingOrderService;
+import pharmacy.service.SaleService;
 
 @Controller
 public class OrderController {
 
     @Autowired
     private OrderService orderService;
+    
+    @Autowired
+    private SaleService saleService;
     
     @Autowired
     private PendingOrderService pendingOrderService;
@@ -153,5 +157,26 @@ public class OrderController {
         Order order = orderService.findByEmpl(idEmpl);
         Long idOrder = order.getId();
         return "redirect:/goAddPendingOrder.html?id=-1&idOrder=" + idOrder;
+    }
+    
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @GetMapping("/goSaleOrder.html")
+    public String goSaleOrder(@RequestParam("id") Long id, Model model) {
+        model.addAttribute("order", orderService.getById(id));
+        List<OrderMedicament> meds = orderMedService.findAllByOrder(id).stream().collect(toList());
+        model.addAttribute("orderMeds", meds);
+        List<OrderCostInfo> medCost = orderMedService.getOrderCostInfo(id).stream().collect(toList());
+        BigDecimal cost = orderMedService.getCostByInfo(medCost);
+        
+        model.addAttribute("costAll", cost);
+        model.addAttribute("medCosts", medCost);
+        return "sale";
+    }
+    
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @GetMapping("/goAddSale.html")
+    public String goAddSale(@RequestParam("id") Long id, Model model) {
+        saleService.add(id);
+        return "redirect:/order.html?id="+id+"&pendingOrder=0";
     }
 }

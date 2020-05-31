@@ -1,6 +1,7 @@
 package pharmacy.service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -82,7 +83,11 @@ public class OrderMedicamentService {
     }
     
     public List<OrderCostInfo> getOrderCostInfo(Long id){
-        return orderMedicamentDao.getOrderCostInfo(id);
+        List<OrderCostInfo> list = orderMedicamentDao.getOrderCostInfo(id);
+        for (OrderCostInfo info : list) {
+            info.setCost(info.getCost().setScale(2, RoundingMode.UP));
+        }
+        return list;
     }
     
     public BigDecimal getCostByInfo(List<OrderCostInfo> list) {
@@ -90,6 +95,7 @@ public class OrderMedicamentService {
         for (OrderCostInfo info : list) {
             cost = cost.add(info.getCost());
         }
+        cost = cost.setScale(2, RoundingMode.UP);
         return cost;
     }
     

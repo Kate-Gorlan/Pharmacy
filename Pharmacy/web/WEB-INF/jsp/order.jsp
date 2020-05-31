@@ -101,7 +101,7 @@
         
         <c:if test="${not empty sale}">
         <a href="goSaleOrder.html?id=${order.getId()}">
-        <button type="button" class="btn btn-success">Изменить</button>
+        <button type="button" class="btn btn-success">Оплатить</button>
         </a>
         </c:if>
         

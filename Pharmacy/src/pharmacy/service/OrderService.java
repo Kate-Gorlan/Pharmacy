@@ -16,7 +16,6 @@ import pharmacy.entity.Client;
 import pharmacy.entity.Employee;
 import pharmacy.entity.Order;
 import pharmacy.entity.OrderMedicament;
-import pharmacy.entity.Sale;
 
 public class OrderService {
 
