@@ -67,13 +67,16 @@ public class OrderController {
     @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/order.html")
     public String order(@RequestParam("id") Long id, Model model) {
-        model.addAttribute("order", orderService.getById(id));
+        Order order = orderService.getById(id);
+        model.addAttribute("order", order);
         List<OrderMedicament> meds = orderMedService.findAllByOrder(id).stream().collect(toList());
         model.addAttribute("orderMeds", meds);
         List<OrderCostInfo> medCost = orderMedService.getOrderCostInfo(id).stream().collect(toList());
         BigDecimal cost = orderMedService.getCostByInfo(medCost);
         model.addAttribute("costAll", cost);
         model.addAttribute("medCosts", medCost);
+        String fullName = order.getClient().getFullName(); 
+        model.addAttribute("fullName", fullName);
         if (orderService.buttonSale(id)) {
             int sale = 1;
             model.addAttribute("sale", sale);
@@ -144,8 +147,7 @@ public class OrderController {
             if (order.getId()!=null) {
                 return "redirect:/goAddPendingOrder.html?id=-1&idOrder=" + order.getId();
             } else {
-                Long idEmpl = order.getEmployee().getId();
-            return "redirect:/goFindOrder.html?idEmpl=" + idEmpl;
+                return "redirect:/pendingOrders.html";
             }
         } else
             return "redirect:/orders.html";

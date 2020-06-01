@@ -111,7 +111,7 @@
         influence_on_transport_management, side_effect, overdose)
         VALUES (
         #{name}, #{modeOfApplication}, #{type},
-        #{availabilityOfPrescription}, #{manufacturability}
+        #{availabilityOfPrescription}, #{manufacturability},
         #{picture}, #{description},
         #{indications}, #{dosesAndMethodOfAppl},
         #{contraindications}, #{precautions},

@@ -34,7 +34,15 @@
     <c:forEach items="${medExpired}" var="medicamentExpired">
     <tr class="table-light" style="color:black;">
       <th scope="row">${medicamentExpired.id}</th>
-      <td>${medicamentExpired.medicament.name}</td>
+        <td>
+        <c:if test="${not empty medStock}">
+        <c:forEach items="${medStock}" var="ms">
+        <c:if test="${ms.getId()==medicamentExpired.getId()}">
+        ${ms.medicament.name}
+        </c:if>
+        </c:forEach> 
+        </c:if>
+        </td>
       <td>${medicamentExpired.quantity}</td>
       <td>${medicamentExpired.price}</td>
       <td>${medicamentExpired.shelfLife} дней</td>
@@ -70,7 +78,15 @@
     <c:forEach items="${medWillSoonExpire}" var="medicamentWillSoonExpire">
     <tr class="table-light" style="color:black;">
       <th scope="row">${medicamentWillSoonExpire.id}</th>
-      <td>${medicamentWillSoonExpire.medicament.name}</td>
+        <td>
+        <c:if test="${not empty medStock}">
+        <c:forEach items="${medStock}" var="ms">
+        <c:if test="${ms.getId()==medicamentWillSoonExpire.getId()}">
+        ${ms.medicament.name}
+        </c:if>
+        </c:forEach> 
+        </c:if>
+        </td>
       <td>${medicamentWillSoonExpire.quantity}</td>
       <td>${medicamentWillSoonExpire.price}</td>
       <td>${medicamentWillSoonExpire.shelfLife} дней</td>

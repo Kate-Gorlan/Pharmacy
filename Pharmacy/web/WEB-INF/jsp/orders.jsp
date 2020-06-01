@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="ui"%>
 
-<ui:html title="Заказы" thema="flatly">
+<ui:html title="Продажи" thema="flatly">
 
 <div style="width: 15%; height: 100vh; overflow:auto; float:left;">
     <a href="pharmacist.html?idMed=-1">

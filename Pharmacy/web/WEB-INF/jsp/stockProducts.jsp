@@ -33,7 +33,17 @@
     <c:forEach items="${prodExpired}" var="productExpired">
     <tr class="table-light" style="color:black;">
       <th scope="row">${productExpired.id}</th>
-      <td>${productExpired.product.name}</td>
+      
+        <td>
+        <c:if test="${not empty prodStock}">
+        <c:forEach items="${prodStock}" var="ps">
+        <c:if test="${ps.getId()==productExpired.getId()}">
+        ${ps.product.name}
+        </c:if>
+        </c:forEach> 
+        </c:if>
+        </td>
+      
       <td>${productExpired.quantity}</td>
       <td>${productExpired.price}</td>
       <td>${productExpired.shelfLife} дней</td>
@@ -67,7 +77,15 @@
     <c:forEach items="${prodWillSoonExpire}" var="productWillSoonExpire">
     <tr class="table-light" style="color:black;">
       <th scope="row">${productWillSoonExpire.id}</th>
-      <td>${productWillSoonExpire.product.name}</td>
+        <td>
+        <c:if test="${not empty prodStock}">
+        <c:forEach items="${prodStock}" var="ps">
+        <c:if test="${ps.getId()==productWillSoonExpire.getId()}">
+        ${ps.product.name}
+        </c:if>
+        </c:forEach> 
+        </c:if>
+        </td>
       <td>${productWillSoonExpire.quantity}</td>
       <td>${productWillSoonExpire.price}</td>
       <td>${productWillSoonExpire.shelfLife} дней</td>
