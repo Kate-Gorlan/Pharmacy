@@ -30,7 +30,7 @@ public class StockProdController {
     @Autowired
     private ProductService productService;
 
-    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @PreAuthorize("hasRole('ROLE_STOREKEEPER')")
     @GetMapping("/stockProducts.html")
     public String stockProducts(Model model) {
         List<ProductStock> listChoose = productStockService.getAll().stream().collect(toList());
@@ -43,7 +43,7 @@ public class StockProdController {
         return "stockProducts";
     }
 
-    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @PreAuthorize("hasRole('ROLE_STOREKEEPER')")
     @GetMapping("/deleteStockProduct.html")
     public String delete(@RequestParam("id") Long id) {
         if (id != null) {
@@ -52,7 +52,7 @@ public class StockProdController {
         return "redirect:/stockProducts.html";
     }
 
-    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @PreAuthorize("hasRole('ROLE_STOREKEEPER')")
     @GetMapping("/goAddStockProduct.html")
     public String goToAddStockProduct(@RequestParam("id") Long id, Model model) {
         if (id != -1) {
@@ -63,7 +63,7 @@ public class StockProdController {
         return "editStockProduct";
     }
 
-    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @PreAuthorize("hasRole('ROLE_STOREKEEPER')")
     @RequestMapping(value = "/stockProductAdd.html", method = { RequestMethod.GET, RequestMethod.POST })
     public String edit(@ModelAttribute ProductStock productStock, Model model) throws UnsupportedEncodingException {
         ArrayList<String> errors = productStockService.check(productStock);

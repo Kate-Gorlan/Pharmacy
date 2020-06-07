@@ -50,7 +50,9 @@ public class IndexController {
         return "category";
     }
 
-    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')"
+            + "|| hasRole('ROLE_TEHNOLOGIST')"
+            + "|| hasRole('ROLE_STOREKEEPER')")
     @GetMapping("/indexEmp.html")
     public String indexEmp(Model model) {
         List<Position> listPositions = positionService.getPositions().stream().collect(toList());

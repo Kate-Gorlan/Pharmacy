@@ -26,7 +26,8 @@ public class MedController {
     @Autowired
     private MedicamentService medicamentService;
 
-    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @PreAuthorize("hasRole('ROLE_TEHNOLOGIST') "
+            + "|| hasRole('ROLE_STOREKEEPER')")
     @GetMapping("/medicaments.html")
     public String storekeeper(Model model, 
             @RequestParam("page") Long page,
@@ -53,13 +54,15 @@ public class MedController {
         return "medicaments";
     }
 
-    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @PreAuthorize("hasRole('ROLE_TEHNOLOGIST') "
+            + "|| hasRole('ROLE_STOREKEEPER')")
     @RequestMapping(value = "/typeTopMed.html", method = { RequestMethod.GET, RequestMethod.POST })
     public String typeMed(String typeTopMed, Model model) throws UnsupportedEncodingException {
         return "redirect:/medicaments.html?view=top&typeTopMed=" + typeTopMed+"&page=2";
     }
 
-    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @PreAuthorize("hasRole('ROLE_TEHNOLOGIST') "
+            + "|| hasRole('ROLE_STOREKEEPER')")
     @GetMapping("/deleteMedicament.html")
     public String delete(@RequestParam("id") Long id, @RequestParam("page") Long page) {
         if (id != null) {
@@ -68,7 +71,8 @@ public class MedController {
         return "redirect:/medicaments.html?view=all&typeTopMed=not&page="+page;
     }
     
-    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @PreAuthorize("hasRole('ROLE_TEHNOLOGIST') "
+            + "|| hasRole('ROLE_STOREKEEPER')")
     @GetMapping("/goAddMedicament.html")
     public String goToAddMedicament(@RequestParam("id") Long id, @RequestParam("page") Long page, Model model) {
         if (id != -1) {
@@ -78,7 +82,8 @@ public class MedController {
         return "editMedicament";
     }
 
-    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @PreAuthorize("hasRole('ROLE_TEHNOLOGIST') "
+            + "|| hasRole('ROLE_STOREKEEPER')")
     @RequestMapping(value = "/medicamentAdd.html", method = {RequestMethod.GET, RequestMethod.POST})
     public String edit(@ModelAttribute Medicament medicament, @RequestParam("page") Long page, Model model) throws UnsupportedEncodingException{
         ArrayList<String> errors = new ArrayList<String>();

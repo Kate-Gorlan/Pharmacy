@@ -41,7 +41,7 @@ public class PharmacistTechnologistController {
     @Autowired
     private RecipeMedicamentService recipeMedicamentService;
 
-    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @PreAuthorize("hasRole('ROLE_TEHNOLOGIST')")
     @GetMapping("/pharmacistTechnologist.html")
     public String pharmacistT(Model model, Authentication auth) {
         String userLogin = auth.getName(); 
@@ -56,7 +56,7 @@ public class PharmacistTechnologistController {
         return "pharmacistTechnologist";
     }
 
-    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @PreAuthorize("hasRole('ROLE_TEHNOLOGIST')")
     @GetMapping("/doneMed.html")
     public String goToAddMed(@RequestParam("id") Long id, @RequestParam("recipe") Long recipe,
             @RequestParam("name") String name, Model model) {

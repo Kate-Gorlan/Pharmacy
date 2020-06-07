@@ -30,7 +30,7 @@ public class StorekeeperController {
     @Autowired
     private MedicamentService medicamentService;
 
-    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @PreAuthorize("hasRole('ROLE_STOREKEEPER')")
     @GetMapping("/storekeeper.html")
     public String storekeeper(Model model, @RequestParam("typeMed") String typeMed, @RequestParam("typeProd") String typeProd) {
 
@@ -61,13 +61,13 @@ public class StorekeeperController {
         return "storekeeper";
     }
 
-    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @PreAuthorize("hasRole('ROLE_STOREKEEPER')")
     @RequestMapping(value = "/typeMed.html", method = { RequestMethod.GET, RequestMethod.POST })
     public String typeMed(String typeMed, Model model) throws UnsupportedEncodingException {
         return "redirect:/storekeeper.html?typeProd=not&typeMed=" + typeMed;
     }
 
-    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @PreAuthorize("hasRole('ROLE_STOREKEEPER')")
     @RequestMapping(value = "/typeProd.html", method = { RequestMethod.GET, RequestMethod.POST })
     public String typeProd(String typeProd, Model model) throws UnsupportedEncodingException {
         return "redirect:/storekeeper.html?typeMed=not&typeProd=" + typeProd;
