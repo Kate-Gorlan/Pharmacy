@@ -40,7 +40,7 @@
 
     <insert id="create">
         INSERT INTO [order] (employee_id) VALUES (
-            (SELECT employee_id FROM employee WHERE employee_id = #{employee.id})
+            (SELECT employee_id FROM employee WHERE employee_id = #{employee.id}))
     </insert>
     
     <insert id="createWithClient">
@@ -111,6 +111,10 @@
         LEFT JOIN client c ON c.client_id = o.client_id
         WHERE o.employee_id = #{id}
         order by o.order_id desc
+    </select>
+    
+    <select id="getPO" parameterType="java.lang.Long" resultType = "java.lang.Integer">
+    select [dbo].[GetPO] (#{id})
     </select>
 
 </mapper>

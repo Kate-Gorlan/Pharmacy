@@ -64,6 +64,10 @@ public class PendOrderController {
         Order order = orderService.getById(idOrder);
         String fullName = order.getClient().getFullName(); 
         model.addAttribute("fullName", fullName);
+        if (orderService.buttonSale(idOrder)) {
+            int sale = 1;
+            model.addAttribute("sale", sale);
+        }
         return "pendingOrder";
     }
     

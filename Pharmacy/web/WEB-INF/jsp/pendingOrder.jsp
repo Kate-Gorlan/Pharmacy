@@ -131,6 +131,13 @@
     <a href="deletePendingOrder.html?id=${pendingOrder.getId()}&idOrder=${pendingOrder.order.getId()}">
         <button type="button" class="btn btn-danger">Удалить</button>
     </a>
+    
+        <c:if test="${not empty sale}">
+        <a href="goSaleOrder.html?id=${pendingOrder.order.getId()}">
+        <button type="button" class="btn btn-success">Оплатить</button>
+        </a>
+        </c:if>
+    
     </div>
 </c:if>
 

@@ -143,6 +143,10 @@ public class OrderService {
         orderDao.delete(id);
     }
     
+    public Long getPO(Long id) {
+        return (long)orderDao.getPO(id);
+    }
+    
     public boolean buttonSale(Long id) {
 
         boolean checkSale = false;

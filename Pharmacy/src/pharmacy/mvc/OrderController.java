@@ -69,6 +69,8 @@ public class OrderController {
     public String order(@RequestParam("id") Long id, Model model) {
         Order order = orderService.getById(id);
         model.addAttribute("order", order);
+        Long idPO = orderService.getPO(id);
+        model.addAttribute("idPO", idPO);
         List<OrderMedicament> meds = orderMedService.findAllByOrder(id).stream().collect(toList());
         model.addAttribute("orderMeds", meds);
         List<OrderCostInfo> medCost = orderMedService.getOrderCostInfo(id).stream().collect(toList());

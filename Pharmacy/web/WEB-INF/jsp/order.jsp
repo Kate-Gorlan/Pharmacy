@@ -9,11 +9,26 @@
     <button type="button" class="btn btn-info" style="width: 100%; height: 50px; font-size: 150%;">
     Назад</button></a>
     
+    <c:if test="${idPO == 0}">
     <h5 style="border: 10px solid white;"> 
     Добавить медикамент </h5>
     <a href="goAddOrderMed.html?id=-1&pendingOrderId=0&orderId=${order.getId()}">
     <button type="button" class="btn btn-outline-info" style="width: 100%; height: 100px; font-size: 300%;">
     +</button></a>
+    <h5 style="border: 10px solid white;"> 
+    Отложить заказ</h5>
+    <a href="goAddPendingOrder.html?id=-1&idOrder=${order.getId()}">
+    <button type="button" class="btn btn-outline-warning" style="width: 100%; height: 100px; font-size: 130%;">
+    Отложить</button></a>
+    </c:if>
+    
+    <c:if test="${idPO != 0}">
+    <h5 style="border: 10px solid white;"> 
+    Данный заказ отложен</h5>
+    <a href="pendingOrder.html?id=${idPO}&idOrder=${order.getId()}">
+    <button type="button" class="btn btn-outline-info" style="width: 100%; height: 100px; font-size: 130%;">
+    Перейти к отложенному заказу</button></a>
+    </c:if>
     
     <h5 style="border: 10px solid white;"> 
     Перейти к рецептам на медикаменты </h5>
@@ -22,7 +37,6 @@
     К рецептам</button></a>
 
 
-    <!-- 90909099090909090909009090 -->
 </div>
 <div style="width: 2%; height: 100vh; overflow:auto; float:left;"></div>
 <div style="width: 83%; overflow:auto;">
@@ -105,13 +119,6 @@
         </a>
         </c:if>
         
-        <!--  
-        <c:if test="${not empty sale}">
-        <a href="goSaleOrder.html?id=${order.getId()}">
-        <button type="button" class="btn btn-success">Изменить</button>
-        </a>
-        </c:if>
-        -->
     </div>
 </c:if>
 
