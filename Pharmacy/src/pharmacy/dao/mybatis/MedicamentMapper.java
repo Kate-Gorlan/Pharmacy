@@ -143,4 +143,9 @@ public class MedicamentMapper extends SqlSessionDaoSupport implements Medicament
     public MedInfoAvailability getMedInfoAvailability(Long idMed) {
         return getSqlSession().selectOne("pharmacy.dao.MedicamentDao.getMedInfoAvailability", idMed);
     }
+
+    @Override
+    public List<Medicament> searchMed(String str) {
+        return getSqlSession().selectList("pharmacy.dao.MedicamentDao.search", str);
+    }
 } 

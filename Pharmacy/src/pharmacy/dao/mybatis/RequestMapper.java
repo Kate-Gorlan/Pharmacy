@@ -34,4 +34,14 @@ public class RequestMapper extends SqlSessionDaoSupport implements RequestDao{
         return getSqlSession().selectList("pharmacy.dao.RequestDao.findAll");
     }
 
+    @Override
+    public List<Request> findAllById(Long id) {
+        return getSqlSession().selectList("pharmacy.dao.RequestDao.findAllById", id);
+    }
+
+    @Override
+    public List<Request> findAllByStatus(String status) {
+        return getSqlSession().selectList("pharmacy.dao.RequestDao.findAllByStatus", status);
+    }
+
 }

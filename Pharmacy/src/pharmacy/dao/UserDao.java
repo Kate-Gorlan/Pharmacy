@@ -8,4 +8,6 @@ public interface UserDao extends CrudDao<Long, User>{
     User findUser(String login);
 
     List<User> findAll();
+
+    List<User> findAllByMask(String mask);
 }

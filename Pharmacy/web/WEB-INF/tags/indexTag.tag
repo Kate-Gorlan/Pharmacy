@@ -20,10 +20,10 @@
                         height="56" width="56"> Pharmacy </a>
                 </div>
                 <div class="col-md" align="center">
-                    <form class="form-inline" action="${href}" method="POST">
-                        <input class="form-control" type="search" name="findName" placeholder="Название медикамента" style="width: 75%">
+                    <form class="form-inline" action="search.html" method="GET">
+                        <input class="form-control" type="search" name="str" placeholder="Название медикамента" style="width: 75%">
                         <button class="btn btn-success my-2 my-sm-0" title="Search" type="submit" style="font-size: 125%;">
-                            Search <img src="resources/mainSite/Srch.png" height="25" width="25">
+                            Поиск <img src="resources/mainSite/Srch.png" height="25" width="25">
                         </button>
                     </form>
                 </div>
@@ -34,7 +34,7 @@
                     <c:choose>
                         <c:when test="${empty username}">
                             <a class="navbar-brand" href="login.html" style="color: white;"> <img src="resources/mainSite/login.png"
-                                height="56" width="56"> Login
+                                height="56" width="56"> Вход
                             </a>
                         </c:when>
                         <c:otherwise>

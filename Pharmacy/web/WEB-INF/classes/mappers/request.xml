@@ -90,4 +90,32 @@
         JOIN medicament m ON r.medicament_id = m.medicament_id 
         JOIN client c ON r.client_id = c.client_id 
     </select>
+    
+    <select id="findAllById" parameterType="java.lang.Long" resultMap = "Request">
+        SELECT 
+            r.request_id,
+            r.quantity,
+            r.status,
+            r.pic_prescription,
+            m.*,
+            c.*
+        FROM request r 
+        JOIN medicament m ON r.medicament_id = m.medicament_id 
+        JOIN client c ON r.client_id = c.client_id 
+        WHERE r.client_id = #{id}
+    </select>
+    
+    <select id="findAllByStatus" parameterType="java.lang.String"  resultMap = "Request">
+        SELECT 
+            r.request_id,
+            r.quantity,
+            r.status,
+            r.pic_prescription,
+            m.*,
+            c.*
+        FROM request r 
+        JOIN medicament m ON r.medicament_id = m.medicament_id 
+        JOIN client c ON r.client_id = c.client_id 
+        WHERE r.status = #{status}
+    </select>
 </mapper>

@@ -20,5 +20,14 @@
         <property name="suffix" value=".jsp" />
     </bean>
 
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- max upload size in bytes -->
+        <property name="maxUploadSize" value="20971520" /> <!-- 20MB -->
+
+        <!-- max size of file in memory (in bytes) -->
+        <property name="maxInMemorySize" value="20971520" /> <!-- 1MB -->
+
+    </bean>
+
 </beans>
 

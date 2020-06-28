@@ -25,8 +25,28 @@
             </div>
 
             <div class="tab-pane fade" id="nav-request" role="tabpanel" aria-labelledby="nav-profile-tab">
-                <div class="container" style="padding-left: 0; background-color: #ebebeb; border-bottom: ridge;">
-                    <p>ЗАКАЗ 1</p>
+                <div class="container" style="/*padding-left: 0; background-color: #ebebeb; border-bottom: ridge;*/">
+                    <c:forEach items="${requests}" var="req">
+                        <div class="row" style="height: 70px; align-items: center; border: 1px solid rgba(190, 197, 205, 0.5);">
+                            <div class="col-md-auto">
+                                <img alt="" src="${req.medicament.picture}" style="width: 50px; height: 50px">
+                            </div>
+                            <div class="col-md-auto">
+                                <p style="margin-bottom: 0px">${req.medicament.name}</p>
+                            </div>
+                            <div class="col-md-auto">
+                                <p style="margin-bottom: 0px">${req.quantity} шт.</p>
+                            </div>
+                            <div class="col-md" style="text-align: end;">
+                                <p style="margin-bottom: 0px">${req.status}</p>
+                            </div>
+                            <c:if test = "${req.status == 'В обработке'}">
+                            <div class="col-md-auto">
+                                <a href="dltreq.html?id=${req.id}"><button class="btn btn-primary" type="button">Отменить</button></a>
+                            </div>
+                            </c:if>
+                        </div>
+                    </c:forEach>
                 </div>
             </div>
         </div>

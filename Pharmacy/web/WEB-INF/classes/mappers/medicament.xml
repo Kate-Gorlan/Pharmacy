@@ -341,4 +341,8 @@
         select * from GetInfoMedicamentById(#{idMed})
     </select>
 
+    <select id="search" parameterType="java.lang.String" resultMap="Medicament">
+        select * from medicament where medicament_name like '%'+#{str}+'%'
+    </select>
+
 </mapper>

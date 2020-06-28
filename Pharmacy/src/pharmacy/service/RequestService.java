@@ -1,10 +1,8 @@
 package pharmacy.service;
 
-import java.util.Collections;
 import java.util.List;
 
 import pharmacy.dao.RequestDao;
-import pharmacy.entity.OrderMedicament;
 import pharmacy.entity.Request;
 
 public class RequestService {
@@ -38,5 +36,13 @@ public class RequestService {
     
     public void deleteById(Long id) {
         requestDao.delete(id);
+    }
+
+    public List<Request> findAllById(Long id){
+        return requestDao.findAllById(id);
+    }
+
+    public List<Request> findAllByStatus(String status){
+        return requestDao.findAllByStatus(status);
     }
 }
