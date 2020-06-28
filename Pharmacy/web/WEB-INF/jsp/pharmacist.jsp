@@ -14,11 +14,11 @@
                     <img src="resources/mainSite/sell.png" class="card-img-top" alt="Продажа">
                     <div class="card-body">
                         <h5 class="card-title text-center ">Продажа</h5>
-                        <p class="card-text">Оформить продажу</p>
+                        <p class="card-text">Оформить\Оплатить продажу</p>
                     </div>
                     <div class="card-footer">
                         <div class="card text-center">
-                            <a href="books.html?view=all&category=to do" class="btn btn-primary">Перейти</a>
+                            <a href="orders.html" class="btn btn-primary">Перейти</a>
                         </div>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                     <img src="resources/mainSite/pendingOrder.png" class="card-img-top" alt="Заказ">
                     <div class="card-body">
                         <h5 class="card-title text-center">Заказ</h5>
-                        <p class="card-text">Оформить отложенный заказ</p>
+                        <p class="card-text">Оформить\Оплатить отложенный заказ</p>
                     </div>
                     <div class="card-footer">
                         <div class="card text-center">
@@ -58,7 +58,7 @@
                         </div>
                         <div class="card-footer">
                             <div class="card text-center">
-                                <a href="authors.html?view=all" class="btn btn-primary">Перейти</a>
+                                <a href="vladik.html" class="btn btn-primary">Перейти</a>
                             </div>
 
                     </div>
@@ -70,7 +70,7 @@
     <div style="background-color: white; border-bottom: 5px solid #bed2f7; text-align: left;">
     <c:if test="${not empty medInfo}">
     <h5>${medInfo.name}</h5>
-    <h6>Количество: ${medInfo.quantity}</h6>
+    <h6>Количество: ${medInfo.quantity} (Отложено: ${medPend})</h6>
     <h6>Цена: ${medInfo.price}</h6>
     <h6>Изготовляемость: 
     <c:if test="${medInfo.manufacturability == 1}">Изготовляется</c:if>

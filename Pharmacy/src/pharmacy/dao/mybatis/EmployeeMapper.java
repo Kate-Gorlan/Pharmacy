@@ -43,4 +43,9 @@ public class EmployeeMapper extends SqlSessionDaoSupport implements EmployeeDao{
     public List<Employee> findByPosition(String title) {
         return getSqlSession().selectList("pharmacy.dao.EmployeeDao.findByPosition", title);
     }
+
+    @Override
+    public Employee getByUser(Long id) {
+        return getSqlSession().selectOne("pharmacy.dao.EmployeeDao.getByUser", id);
+    }
 } 

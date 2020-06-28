@@ -18,12 +18,16 @@ public class SaleService {
         this.saleDao = saleDao;
     }
     
-    public void add(Sale obj) {
+    /*public void add(Sale obj) {
         if (obj.getId() == null) {
             saleDao.create(obj);
         } else {
             saleDao.update(obj);
         }
+    }*/
+    
+    public void add(Long idOrder) {
+        saleDao.addSale(idOrder);
     }
     
     public Sale getById(Long id) {
@@ -38,6 +42,10 @@ public class SaleService {
     
     public void deleteById(Long id) {
         saleDao.delete(id);
+    }
+    
+    public Sale getByOrderId(Long id) {
+        return saleDao.findByOrder(id);
     }
 
 

@@ -39,15 +39,18 @@
     </resultMap>
 
     <insert id="create">
-        INSERT INTO [order] (employee_id, order_date) VALUES (
-            (SELECT employee_id FROM employee WHERE employee_id = #{employee.id}), #{date})
+        INSERT INTO [order] (employee_id) VALUES (
+            (SELECT employee_id FROM employee WHERE employee_id = #{employee.id}))
     </insert>
     
     <insert id="createWithClient">
-        INSERT INTO [order] (employee_id, order_date, client_id) VALUES (
-            (SELECT employee_id FROM employee WHERE employee_id = #{employee.id}), #{date},
+        INSERT INTO [order] (employee_id, client_id) VALUES (
+            (SELECT employee_id FROM employee WHERE employee_id = #{employee.id}), 
             (SELECT client_id FROM client WHERE client_id = #{client.id}))
     </insert>
+    <!-- INSERT INTO [order] (employee_id, order_date, client_id) VALUES (
+            (SELECT employee_id FROM employee WHERE employee_id = #{employee.id}), CONVERT(NVARCHAR(10), #{date}, 120),
+            (SELECT client_id FROM client WHERE client_id = #{client.id})) -->
 
     <select id="read" parameterType="java.lang.Long" resultMap="Order">
         SELECT *
@@ -58,15 +61,13 @@
 
     <update id="update" parameterType="pharmacy.entity.Order">
         UPDATE [order] SET 
-        employee_id = (SELECT employee_id FROM employee WHERE employee_id = #{employee.id}),
-        order_date = #{date}
+        employee_id = (SELECT employee_id FROM employee WHERE employee_id = #{employee.id})
         WHERE order_id = #{id}
     </update>
     
     <update id="updateWithClient" parameterType="pharmacy.entity.Order">
         UPDATE [order] SET 
         employee_id = (SELECT employee_id FROM employee WHERE employee_id = #{employee.id}),
-        order_date = #{date},
         client_id = (SELECT client_id FROM client WHERE client_id = #{client.id})
         WHERE order_id = #{id}
     </update>
@@ -79,6 +80,22 @@
         SELECT *
         FROM [order] o JOIN employee e ON e.employee_id = o.employee_id
         LEFT JOIN client c ON c.client_id = o.client_id
+    </select>
+    
+    <select id="findNotSale" resultMap = "Order" >
+        SELECT *
+        FROM [order] o JOIN employee e ON e.employee_id = o.employee_id
+        LEFT JOIN client c ON c.client_id = o.client_id
+        LEFT JOIN sale s ON s.order_id = o.order_id
+        WHERE s.order_id IS NULL
+    </select>
+    
+    <select id="findSale" resultMap = "Order" >
+        SELECT *
+        FROM [order] o JOIN employee e ON e.employee_id = o.employee_id
+        LEFT JOIN client c ON c.client_id = o.client_id
+        LEFT JOIN sale s ON s.order_id = o.order_id
+        WHERE s.order_id IS NOT NULL
     </select>
     
     <select id="findByDate" parameterType="java.lang.String" resultMap = "Order">
@@ -94,6 +111,10 @@
         LEFT JOIN client c ON c.client_id = o.client_id
         WHERE o.employee_id = #{id}
         order by o.order_id desc
+    </select>
+    
+    <select id="getPO" parameterType="java.lang.Long" resultType = "java.lang.Integer">
+    select [dbo].[GetPO] (#{id})
     </select>
 
 </mapper>

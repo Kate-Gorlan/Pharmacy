@@ -15,4 +15,10 @@ public interface OrderDao extends CrudDao<Long, Order>{
     Order findByEmpl(Long id);
     
     List<Order> findAll();
+    
+    List<Order> findNotSale();
+    
+    List<Order> findSale();
+    
+    Integer getPO(Long id);
 }

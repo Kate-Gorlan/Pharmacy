@@ -30,6 +30,8 @@ public class PharmacistController {
         if (idMed > 0) {
             MedInfoAvailability medInfo = medicamentService.getMedInfoAvailability(idMed);
             model.addAttribute("medInfo", medInfo);
+            Integer medPend = medicamentService.getQuantityMedPending(idMed);
+            model.addAttribute("medPend", medPend);
         }
         List<Medicament> medAll = medicamentService.getAll().stream().collect(toList());
         model.addAttribute("meds", medAll);

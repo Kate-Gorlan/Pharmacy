@@ -38,4 +38,9 @@ public class PrescriptionMapper extends SqlSessionDaoSupport implements Prescrip
     public List<Prescription> findAll() {
         return getSqlSession().selectList("pharmacy.dao.PrescriptionDao.findAll");
     }
+
+    @Override
+    public List<Prescription> findNew() {
+        return getSqlSession().selectList("pharmacy.dao.PrescriptionDao.findNew");
+    }
 } 

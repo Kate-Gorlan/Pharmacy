@@ -9,5 +9,7 @@ public interface PrescriptionDao extends CrudDao<Long, Prescription>{
     Prescription findPrescription(Long id);
     
     List<Prescription> findAll();
+    
+    List<Prescription> findNew();
 
 }

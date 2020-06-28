@@ -33,7 +33,7 @@ public class RecipeController {
    // @Autowired
    // private ProductService productService;
     
-    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @PreAuthorize("hasRole('ROLE_TEHNOLOGIST')")
     @GetMapping("/recipes.html")
     public String recipesMed(Model model) {
         List<RecipeMedicament> allRecipes = recipeMedicamentService.getAll().stream().collect(toList());
@@ -41,14 +41,14 @@ public class RecipeController {
         return "recipes";
     }
     
-    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @PreAuthorize("hasRole('ROLE_TEHNOLOGIST')")
     @GetMapping("/recipe.html")
     public String recipe(@RequestParam("id") Long id, Model model) {
         model.addAttribute("recipe", recipeMedicamentService.getById(id));
         return "recipe";
     }
     
-    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @PreAuthorize("hasRole('ROLE_TEHNOLOGIST')")
     @GetMapping("/rec.html")
     public String rec(@RequestParam("idMed") Long idMed, Model model) {
          RecipeMedicament rec = recipeMedicamentService.getByIdMed(idMed);
@@ -56,7 +56,7 @@ public class RecipeController {
         return "redirect:/recipe.html?id="+id;
     }
     
-    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @PreAuthorize("hasRole('ROLE_TEHNOLOGIST')")
     @GetMapping("/deleteRecipe.html")
     public String delete(@RequestParam("id") Long id) {
         if (id != null) {
@@ -65,7 +65,7 @@ public class RecipeController {
         return "redirect:/recipes.html";
     }
     
-    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @PreAuthorize("hasRole('ROLE_TEHNOLOGIST')")
     @GetMapping("/goAddRecipe.html")
     public String goToAddRecipe(@RequestParam("id") Long id, Model model) {
         if (id != -1) {
@@ -79,7 +79,7 @@ public class RecipeController {
         return "editRecipe";
     }
 
-    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @PreAuthorize("hasRole('ROLE_TEHNOLOGIST')")
     @RequestMapping(value = "/recipeAdd.html", method = {RequestMethod.GET, RequestMethod.POST})
     public String edit(@ModelAttribute RecipeMedicament recipe, Model model) throws UnsupportedEncodingException{
         ArrayList<String> errors = recipeMedicamentService.check(recipe);

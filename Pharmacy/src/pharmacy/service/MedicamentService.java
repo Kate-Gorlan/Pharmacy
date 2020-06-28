@@ -15,18 +15,30 @@ import pharmacy.common.MedicamentIngredients;
 import pharmacy.common.TopMedicament;
 import pharmacy.common.TopOverdueMed;
 import pharmacy.dao.MedicamentDao;
+import pharmacy.dao.PendingOrderDao;
 import pharmacy.entity.Medicament;
+import pharmacy.entity.PendingOrder;
 
 public class MedicamentService {
 
     private MedicamentDao medicamentDao;
+    
+    private PendingOrderDao pendingOrderDao;
 
     public MedicamentDao getMedicamentDao() {
         return medicamentDao;
     }
+    
+    public PendingOrderDao getPendingOrderDao() {
+        return pendingOrderDao;
+    }
 
     public void setMedicamentDao(MedicamentDao medicamentDao) {
         this.medicamentDao = medicamentDao;
+    }
+    
+    public void setPendingOrderDao(PendingOrderDao pendingOrderDao) {
+        this.pendingOrderDao = pendingOrderDao;
     }
 
     public void decoding(Medicament medicament) throws UnsupportedEncodingException {
@@ -180,5 +192,25 @@ public class MedicamentService {
 
     public List<Medicament> search(String str){
         return medicamentDao.searchMed(str);
+    }
+
+    public Integer getQuantityMedPending(Long id) {
+        return medicamentDao.getQuantityMedPending(id);
+    }
+    
+    public List<Medicament> getForOrderMed(Long pendingOrderId) {
+        List<Medicament> meds = null;
+        if (pendingOrderId==0) {
+        meds = medicamentDao.findAll();
+        } else {
+            PendingOrder po = pendingOrderDao.read(pendingOrderId);
+            if(po.getEmployee()==null) {
+                meds = medicamentDao.findByManufacturability("False");
+            } else {
+                meds = medicamentDao.findByManufacturability("True");
+            }
+        }
+        Collections.reverse(meds);
+        return meds;
     }
 }

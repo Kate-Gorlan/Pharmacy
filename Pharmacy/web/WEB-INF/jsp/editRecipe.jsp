@@ -57,7 +57,13 @@
                     <c:otherwise>
                         <c:set var="recipe" value="${recipes}"/>
                     <select class="livesearch" name="medicament.id" style="width: 100%;">
-                    <option selected value="${recipe.medicament.id}">${recipe.medicament.name}</option>
+                    <option selected value="${recipe.medicament.id}">
+                    
+                    <c:forEach items="${meds}" var="med">
+                    <c:if test="${med.id == recipe.medicament.id}">${med.name}</c:if>
+                    </c:forEach>
+                    
+                    </option>
                     <c:forEach items="${meds}" var="med">
                     <option value="${med.id}">${med.name}</option>
                     </c:forEach>

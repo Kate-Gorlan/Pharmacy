@@ -41,6 +41,9 @@
                     <c:choose>
                         <c:when test="${empty pendingOrders}">
                     <select class="livesearch" name="employee.id" style="width: 100%;">
+                    
+                    <option value="0">Без изготовителя</option>
+                    
                     <c:forEach items="${empls}" var="employee">
                     <option value="${employee.id}">${employee.fullName}</option>
                     </c:forEach>
@@ -49,7 +52,23 @@
                     <c:otherwise>
                         <c:set var="pendingOrder" value="${pendingOrders}"/>
                     <select class="livesearch" name="employee.id" style="width: 100%;">
-                    <option selected value="${pendingOrder.employee.id}">${pendingOrder.employee.fullName}</option>
+                    <c:choose>
+                    <c:when test="${empty pendingOrder.employee.id}">
+                    <option selected value="0">Без изготовителя</option>
+                    </c:when>
+                    <c:otherwise>
+                     <option selected value="${pendingOrder.employee.id}">
+                    
+                    <c:forEach items="${empls}" var="employee">
+                    <c:if test="${employee.id == pendingOrder.employee.id}">${employee.fullName}</c:if>
+                    </c:forEach>
+                    
+                    </option>
+                    </c:otherwise>
+                    </c:choose>
+                    
+                    <option value="0">Без изготовителя</option>
+                    
                     <c:forEach items="${empls}" var="employee">
                     <option value="${employee.id}">${employee.fullName}</option>
                     </c:forEach>

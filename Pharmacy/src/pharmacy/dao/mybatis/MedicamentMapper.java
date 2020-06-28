@@ -148,4 +148,8 @@ public class MedicamentMapper extends SqlSessionDaoSupport implements Medicament
     public List<Medicament> searchMed(String str) {
         return getSqlSession().selectList("pharmacy.dao.MedicamentDao.search", str);
     }
+
+    public Integer getQuantityMedPending(Long id) {
+        return getSqlSession().selectOne("pharmacy.dao.MedicamentDao.getQuantityMedPending", id);
+    }
 } 

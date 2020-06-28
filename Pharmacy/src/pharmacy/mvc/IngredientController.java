@@ -34,7 +34,7 @@ public class IngredientController {
     @Autowired
     private ProductService productService;
 
-    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @PreAuthorize("hasRole('ROLE_TEHNOLOGIST')")
     @GetMapping("/deleteIngredient.html")
     public String delete(@RequestParam("id") Long id, @RequestParam("recipeId") Long recipeId) {
         if (id != null) {
@@ -43,7 +43,7 @@ public class IngredientController {
         return "redirect:/recipe.html?id="+recipeId;
     }
     
-    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @PreAuthorize("hasRole('ROLE_TEHNOLOGIST')")
     @GetMapping("/goAddIngredient.html")
     public String goToAddRecipe(@RequestParam("id") Long id, Model model, @RequestParam("recipeId") Long recipeId) {
         if (id != -1) {
@@ -56,7 +56,7 @@ public class IngredientController {
         return "editIngredient";
     }
 
-    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @PreAuthorize("hasRole('ROLE_TEHNOLOGIST')")
     @RequestMapping(value = "/ingredientAdd.html", method = {RequestMethod.GET, RequestMethod.POST})
     public String edit(@ModelAttribute Ingredient ingr, Model model, @RequestParam("recipeId") Long recipeId) throws UnsupportedEncodingException{
         ArrayList<String> errors = ingredientService.check(ingr);

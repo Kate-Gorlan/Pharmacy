@@ -32,11 +32,6 @@ public class PendingOrderMapper extends SqlSessionDaoSupport implements PendingO
     }
 
     @Override
-    public PendingOrder findPendingOrder(Long id) {
-        return getSqlSession().selectOne("pharmacy.dao.PendingOrderDao.findById", id);
-    }
-
-    @Override
     public List<PendingOrder> findAll() {
         return getSqlSession().selectList("pharmacy.dao.PendingOrderDao.findAll");
     }
@@ -54,5 +49,20 @@ public class PendingOrderMapper extends SqlSessionDaoSupport implements PendingO
     @Override
     public List<PendingOrderEmployee> findByEmployee(Long id) {
         return getSqlSession().selectList("pharmacy.dao.PendingOrderDao.findByEmployee", id);
+    }
+
+    @Override
+    public void createNotEmpl(PendingOrder obj) {
+        getSqlSession().insert("pharmacy.dao.PendingOrderDao.createNotEmpl", obj);
+    }
+
+    @Override
+    public void updateNotEmpl(PendingOrder obj) {
+        getSqlSession().update("pharmacy.dao.PendingOrderDao.updateNotEmpl", obj);
+    }
+
+    @Override
+    public PendingOrder getByIdOrder(Long idO) {
+        return getSqlSession().selectOne("pharmacy.dao.PendingOrderDao.getByIdOrder", idO);
     }
 } 

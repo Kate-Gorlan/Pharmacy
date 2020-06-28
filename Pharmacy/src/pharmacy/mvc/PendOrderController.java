@@ -3,6 +3,7 @@ package pharmacy.mvc;
 import static java.util.stream.Collectors.toList;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import pharmacy.common.OrderCostInfo;
 import pharmacy.entity.Employee;
+import pharmacy.entity.Order;
 import pharmacy.entity.OrderMedicament;
 import pharmacy.entity.PendingOrder;
 import pharmacy.service.EmployeeService;
 import pharmacy.service.OrderMedicamentService;
+import pharmacy.service.OrderService;
 import pharmacy.service.PendingOrderService;
 
 @Controller
@@ -34,6 +38,9 @@ public class PendOrderController {
     
     @Autowired
     private OrderMedicamentService orderMedService;
+    
+    @Autowired
+    private OrderService orderService;
     
     @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @GetMapping("/pendingOrders.html")
@@ -49,7 +56,18 @@ public class PendOrderController {
         model.addAttribute("pendingOrder", pendOrderService.getById(id));
         Long idOrder = pendOrderService.getById(id).getOrder().getId();
         List<OrderMedicament> meds = orderMedService.findAllByOrder(idOrder).stream().collect(toList());
+        List<OrderCostInfo> medCost = orderMedService.getOrderCostInfo(idOrder).stream().collect(toList());
+        BigDecimal cost = orderMedService.getCostByInfo(medCost);
+        model.addAttribute("costAll", cost);
         model.addAttribute("orderMeds", meds);
+        model.addAttribute("medCosts", medCost);
+        Order order = orderService.getById(idOrder);
+        String fullName = order.getClient().getFullName(); 
+        model.addAttribute("fullName", fullName);
+        if (orderService.buttonSale(idOrder)) {
+            int sale = 1;
+            model.addAttribute("sale", sale);
+        }
         return "pendingOrder";
     }
     
@@ -83,7 +101,7 @@ public class PendOrderController {
     @PreAuthorize("hasRole('ROLE_PHARMACIST')")
     @RequestMapping(value = "/pendingOrderAdd.html", method = {RequestMethod.GET, RequestMethod.POST})
     public String edit(@ModelAttribute PendingOrder pendingOrder, Model model) throws UnsupportedEncodingException{
-        ArrayList<String> errors = null ;//= pendOrderService.check(pendingOrder);
+        ArrayList<String> errors = pendOrderService.check(pendingOrder);
         List<Employee> empls = employeeService.getByPosition("Провизор-технолог");
         
         
@@ -110,6 +128,17 @@ public class PendOrderController {
                 return "editPendOrder";
             }
         }
-        return "redirect:/pendingOrders.html";
+        
+        Long idO = pendingOrder.getOrder().getId();
+        //return "redirect:/pendingOrders.html";
+        return "redirect:/po.html?idO="+idO;
+    }
+    
+    @PreAuthorize("hasRole('ROLE_PHARMACIST')")
+    @GetMapping("/po.html")
+    public String po(@RequestParam("idO") Long idO, Model model) {
+         PendingOrder po = pendOrderService.getByIdOrder(idO);
+         Long id = po.getId();
+        return "redirect:/pendingOrder.html?id="+id+"&idOrder="+idO;
     }
 }

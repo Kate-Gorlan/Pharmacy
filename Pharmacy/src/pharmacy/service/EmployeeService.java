@@ -30,6 +30,10 @@ public class EmployeeService {
         return employeeDao.read(id);
     }
     
+    public Employee getByUser(Long id) {
+        return employeeDao.getByUser(id);
+    }
+    
     public List<Employee> getAll(){
         List<Employee> reverse = employeeDao.findAll();
         Collections.reverse(reverse);

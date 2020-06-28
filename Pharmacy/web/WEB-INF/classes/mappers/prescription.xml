@@ -55,7 +55,7 @@
             (SELECT medicament_id FROM medicament WHERE medicament_id = #{medicament.id}), 
             (SELECT client_id FROM client WHERE client_id = #{client.id}),
             (SELECT doctor_id FROM doctor WHERE doctor_id = #{doctor.id}),
-        #{amount_of_medicine}, #{diagnosis}, #{signature}, #{seal})
+        #{amountOfMedicine}, #{diagnosis}, #{signature}, #{seal})
     </insert>
 
     <select id="read" parameterType="java.lang.Long" resultMap="Prescription">
@@ -76,7 +76,7 @@
         medicament_id = (SELECT medicament_id FROM medicament WHERE medicament_id = #{medicament.id}), 
         client_id = (SELECT client_id FROM client WHERE client_id = #{client.id}),
         doctor_id = (SELECT doctor_id FROM doctor WHERE doctor_id = #{doctor.id}),
-        amount_of_medicine =  #{amount_of_medicine},
+        amount_of_medicine =  #{amountOfMedicine},
         diagnosis = #{diagnosis},
         signature = #{signature},
         seal = #{seal}
@@ -98,5 +98,19 @@
         JOIN client c ON p.client_id = c.client_id 
         JOIN doctor d ON p.doctor_id = d.doctor_id
     </select>
+    
+    <select id="findNew" resultMap = "Prescription" >
+    SELECT 
+            p.*,
+            m.*,
+            c.*,
+            d.*
+        FROM prescription p 
+        JOIN medicament m ON p.medicament_id = m.medicament_id 
+        JOIN client c ON p.client_id = c.client_id 
+        JOIN doctor d ON p.doctor_id = d.doctor_id
+        left JOIN order_medicament om ON om.prescription_id = p.prescription_id
+        WHERE om.prescription_id IS NULL
+        </select>
 
 </mapper>

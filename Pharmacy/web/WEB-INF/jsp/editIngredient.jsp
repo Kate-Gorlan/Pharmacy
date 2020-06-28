@@ -56,7 +56,15 @@
                     <c:otherwise>
                         <c:set var="ingr" value="${ingrs}"/>
                     <select class="livesearch" name="product.id" style="width: 100%;">
-                    <option selected value="${ingr.product.id}">${ingr.product.name}</option>
+                    
+                    <option selected value="${ingr.product.id}">
+                    
+                    <c:forEach items="${prods}" var="prod">
+                    <c:if test="${prod.id == ingr.product.id}">${prod.name}</c:if>
+                    </c:forEach>
+                    
+                    </option>
+                    
                     <c:forEach items="${prods}" var="prod">
                     <option value="${prod.id}">${prod.name}</option>
                     </c:forEach>
