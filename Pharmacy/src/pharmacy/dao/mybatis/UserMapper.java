@@ -39,4 +39,9 @@ public class UserMapper extends SqlSessionDaoSupport implements UserDao{
         return getSqlSession().selectList("pharmacy.dao.UserDao.findAll");
     }
 
+    @Override
+    public List<User> findAllByMask(String mask) {
+        return getSqlSession().selectList("pharmacy.dao.UserDao.findAllMask", mask);
+    }
+
 }

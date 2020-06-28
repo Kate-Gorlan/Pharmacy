@@ -11,6 +11,9 @@ public class User extends Entity {
 
     private List<Role> roles;
 
+    public User() {
+    }
+
     public List<Role> getRoles() {
         return roles;
     }

@@ -14,4 +14,5 @@ public interface MedicamentStockDao extends CrudDao<Long, MedicamentStock>{
     
     List<MedicamentStock> GetMedicamentThatWillSoonExpire();
 
+    int getQuantityMedInStock(Long id);
 }

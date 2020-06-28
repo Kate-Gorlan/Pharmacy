@@ -96,4 +96,8 @@ public class MedicamentStockService {
         List<MedicamentStock> list = medicamentStockDao.GetMedicamentThatWillSoonExpire();
         return list;
     }
+    
+    public int getQuantityMedInStock(Long id) {
+        return medicamentStockDao.getQuantityMedInStock(id);
+    }
 }

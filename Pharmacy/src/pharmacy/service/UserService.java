@@ -42,12 +42,30 @@ public class UserService {
         }
     }
 
+    public void updateRoles(User user, List<Role> rid) {
+        roleDao.deleteUsersRoles(user.getId());
+
+        if (rid != null) {
+            for (Role id : rid) {
+                if (id.getId() != null) {
+                    roleDao.addUsersRoles(user.getId(), id.getId());
+                }
+            }
+        }
+    }
+
     public User getClientById(Long id) {
         return userDao.read(id);
     }
 
     public List<User> getUsers() {
         List<User> reverseUsers = userDao.findAll();
+        Collections.reverse(reverseUsers);
+        return reverseUsers;
+    }
+
+    public List<User> getUsersByMask(String mask) {
+        List<User> reverseUsers = userDao.findAllByMask(mask);
         Collections.reverse(reverseUsers);
         return reverseUsers;
     }
@@ -59,11 +77,11 @@ public class UserService {
     public User getUserByLogin(String login) {
         return userDao.findUser(login);
     }
-    
+
     public List<Role> getRoles() {
         return roleDao.findAll();
     }
-    
+
     public void saveUser(User user, Long[] rid) {
         add(user);
 

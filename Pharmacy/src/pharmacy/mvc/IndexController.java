@@ -57,4 +57,11 @@ public class IndexController {
         model.addAttribute("positions", listPositions);
         return "indexEmp";
     }
+
+    @GetMapping("/search.html")
+    public String search(@RequestParam("str") String str, Model model) {
+        List<Medicament> list = medSer.search(str);
+        model.addAttribute("result", list);
+        return "search";
+    }
 }

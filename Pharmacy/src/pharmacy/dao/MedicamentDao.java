@@ -57,4 +57,6 @@ public interface MedicamentDao extends CrudDao<Long, Medicament> {
     List<ListMedicamentType> typeList();
 
     List<TopOverdueMed> overdueList();
+
+    List<Medicament> searchMed(String str);
 }

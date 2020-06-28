@@ -177,4 +177,8 @@ public class MedicamentService {
     public List<TopOverdueMed> getOverdueMed() {
         return medicamentDao.overdueList();
     }
+
+    public List<Medicament> search(String str){
+        return medicamentDao.searchMed(str);
+    }
 }

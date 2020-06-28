@@ -13,7 +13,7 @@
         <result column="medicament_critical_norm" property="criticalNorm" />
         <association property="medicament" resultMap="Medicament" />
     </resultMap>
-    
+
     <resultMap id="Medicament" type="pharmacy.entity.Medicament">
         <id column="medicament_id" property="id" />
         <result column="medicament_name" property="name" />
@@ -31,30 +31,31 @@
         <result column="pregnancy_and_breastfeeding" property="pregnancyAndBreastfeeding" />
         <result column="influence_on_transport_management" property="influenceTM" />
         <result column="side_effect" property="sideEffect" />
-        <result column="overdose" property="overdose" />     
+        <result column="overdose" property="overdose" />
     </resultMap>
 
     <insert id="create">
         INSERT INTO medicament_stock (medicament_id, medicament_quantity, medicament_price, medicament_shelf_life,
         medicament_date_of_arrival, medicament_critical_norm) VALUES (
-            (SELECT medicament_id FROM medicament WHERE medicament_id = #{medicament.id}),
-             #{quantity}, #{price}, #{shelfLife}, #{dateOfArrival}, #{criticalNorm})
+        (SELECT medicament_id FROM medicament WHERE medicament_id = #{medicament.id}),
+        #{quantity}, #{price}, #{shelfLife}, #{dateOfArrival}, #{criticalNorm})
     </insert>
 
     <select id="read" parameterType="java.lang.Long" resultMap="MedicamentStock">
-        SELECT 
-            ps.*,
-            p.*
+        SELECT
+        ps.*,
+        p.*
         FROM medicament_stock ps
-        JOIN medicament p ON ps.medicament_id = p.medicament_id 
+        JOIN medicament p ON ps.medicament_id = p.medicament_id
         WHERE ps.medicament_stock_id = #{id}
     </select>
 
     <update id="update" parameterType="pharmacy.entity.MedicamentStock">
-        UPDATE medicament_stock SET 
+        UPDATE medicament_stock SET
         medicament_id = (SELECT medicament_id FROM medicament WHERE medicament_id = #{medicament.id}),
         medicament_quantity = #{quantity},
-        medicament_price = #{price},
+        medicament_price =
+        #{price},
         medicament_shelf_life = #{shelfLife},
         medicament_date_of_arrival = #{dateOfArrival},
         medicament_critical_norm = #{criticalNorm}
@@ -64,21 +65,25 @@
     <delete id="delete" parameterType="java.lang.Long">
         DELETE FROM medicament_stock WHERE medicament_stock_id = #{id}
     </delete>
-    
-    <select id="findAll" resultMap = "MedicamentStock" >
-        SELECT 
-            ps.*,
-            p.*
+
+    <select id="findAll" resultMap="MedicamentStock">
+        SELECT
+        ps.*,
+        p.*
         FROM medicament_stock ps
         JOIN medicament p ON ps.medicament_id = p.medicament_id
     </select>
-    
+
     <select id="GetMedicamentThatHaveExpired" resultMap="MedicamentStock">
         SELECT * from dbo.GetMedicamentThatHaveExpired();
     </select>
-    
+
     <select id="GetMedicamentThatWillSoonExpire" resultMap="MedicamentStock">
         SELECT * from dbo.GetMedicamentThatWillSoonExpire();
+    </select>
+
+    <select id="getQuantityMedInStock" parameterType="java.lang.Long" resultType="java.lang.Integer">
+    select dbo.getQuantityMedicament(#{id})
     </select>
 
 </mapper>
